@@ -6,7 +6,7 @@ function Hero() {
 
   return (
     <div className="h-fit">
-      <header className="sticky top-0  z-50 shadow-lg shadow-green-500 dark:shadow-green-800 cust-text">
+      <header className="sticky top-0  z-50 shadow-lg shadow-green-500 dark:shadow-[#002616] cust-text">
         <nav className="min-w-screen flex items-center justify-between px-6">
           <h1 className="p-2 text-md md:text-xl font-semibold">BiteBuzz</h1>
           <button
@@ -23,7 +23,7 @@ function Hero() {
           alt="image of pizza"
           animate={{ x: [500, 0] }}
           transition={{ duration: 2, type: "spring" }}
-          className="h-auto md:h-full rounded-l-3xl md:border-t-2 md:border-r-2 shadow-lg md:shadow-xl md:shadow-green-950 shadow-green-950 dark:shadow-green-200 dark:border-gray-900 md:rounded-r-3xl md:rounded-l-none md:mr-8 z-30"
+          className="h-auto md:h-full rounded-l-3xl md:border-t-2 md:border-r-2 shadow-lg md:shadow-xl md:shadow-green-950 shadow-green-950 dark:shadow-[#002616] dark:border-gray-900 md:rounded-r-3xl md:rounded-l-none md:mr-8 z-30"
         />
         <motion.div
           className="flex flex-col items-start h-full"

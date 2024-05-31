@@ -25,5 +25,5 @@
 @tailwind utilities;
 
 .cust-text {
-  @apply bg-green-100 dark:bg-green-950 text-green-950 dark:text-green-100;
+  @apply bg-green-100 dark:bg-[#000200] text-[#000100] dark:text-green-100;
 }
