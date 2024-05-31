@@ -1,13 +1,13 @@
 // import bg from "../assets/19742.jpg";
 
-import Header from "../Components/homepage/Header";
 import Hero from "../Components/homepage/Hero";
+import Features from "../Components/homepage/Features";
 function Home() {
   return (
-    <>
-      <Header />
+    <div>
       <Hero />
-    </>
+      <Features />
+    </div>
   );
 }
 
