@@ -11,14 +11,14 @@ function tempHandler() {
 
 function HomeNav() {
   return (
-    <div className="navbar cust-flex w-full text-[1rem] bg-gray-100 rounded-md gap-4 font-bold md:text-[1.3rem] md:items-center py-2 ">
+    <div className="navbar cust-flex w-full text-[1rem] bg-gray-100 rounded-md gap-4 font-bold md:text-[1.3rem] md:items-center py-2 fixed z-50 top-0">
       <div className=" logo p-1 cust-flex md:px-5 self-start md:pt-0">
         <p className="px-2">logo</p>
         <p className="hidden md:block">BiteBuzz</p>
       </div>
 
       <div className="flex h-8 bg-white rounded-md">
-        <IoSearch className="px-2 size-9 md:size-9" />
+        <IoSearch className="px-2 size-8 bg-white rounded-lg " />
         <input
           placeholder="Search Canteen"
           className="w-[8rem] h-7 md:w-[25rem] md:h-7 px-2 py-4 rounded-md self font-normal"
@@ -26,12 +26,12 @@ function HomeNav() {
         />
       </div>
 
-      <div className="cust-flex md:px-7 md:w-[30%]">
-        <MdOutlineShoppingCart className="md:mx-5 size-10" />
-        <p className="w-[50%]">welcome @user</p>
-        <IoSettingsSharp className=" md:mx-2 md:size-7" />
+      <div className="cust-flex gap-2 md:gap-1 md:px-7 md:w-[15%]">
+        <MdOutlineShoppingCart className="size-7 md:size-9" />
+        {/* <p className="w-[50%]">welcome @user</p> */}
+        <IoSettingsSharp className=" size-7 md:size-7" />
         <Link onClick={tempHandler}>
-          <RiLogoutCircleLine className="md:mx-2 size-7" />
+          <RiLogoutCircleLine className=" size-7" />
         </Link>
       </div>
     </div>

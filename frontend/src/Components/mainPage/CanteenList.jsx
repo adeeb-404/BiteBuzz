@@ -15,7 +15,7 @@ function MainPage() {
   ];
 
   return (
-    <div className="w-[20%] h-screen px-5 text-center border-r border-black box-border overflow-scroll">
+    <div className="w-[100%] md:mx-4 md:w-[20%] h-screen px-5 text-center border-r border-black box-border overflow-scroll pb-12">
       <h1 className=" text-3xl">Canteen list</h1>
       {canteenInfo.map((element, ind) => {
         return (
