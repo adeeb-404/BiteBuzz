@@ -1,11 +1,12 @@
-import React from 'react'
-import HomeNav from './Components/HomeNav'
-import { Outlet } from 'react-router-dom'
+import HomeNav from "./Components/homepage/HomeNav";
+import { Outlet } from "react-router-dom";
 function Root() {
   return (
-    <><HomeNav/>
-    <Outlet/></>
-  )
+    <>
+      <HomeNav />
+      <Outlet />
+    </>
+  );
 }
 
-export default Root
+export default Root;

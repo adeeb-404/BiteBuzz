@@ -1,6 +1,7 @@
 import image from "../../assets/pizza-3007395_1280.jpg";
 import { motion } from "framer-motion";
 import { useTheme } from "../../darkmodecontext";
+import { Link } from "react-router-dom";
 function Hero() {
   const { darkMode, toggleDarkMode } = useTheme();
 
@@ -34,22 +35,26 @@ function Hero() {
             Order your cravings with ease
           </h1>
           <div className="flex items-start justify-center w-full h-full md:pt-20 text-black font-semibold">
-            <motion.button
-              className="border-green-600 border-2 m-4 p-3 md:p-4 px-6 md:px-8 rounded-full bg-green-600"
-              initial={{ scale: 1 }}
-              whileHover={{ scale: 1.1, backgroundColor: "#bef264" }}
-              transition={{ type: "spring" }}
-            >
-              Login
-            </motion.button>
-            <motion.button
-              className="border-green-600 border-2 m-4 p-3 md:p-4 px-6 md:px-8 rounded-full bg-green-200"
-              initial={{ scale: 1 }}
-              whileHover={{ scale: 1.1, backgroundColor: "#bef264" }}
-              transition={{ type: "spring" }}
-            >
-              Signup
-            </motion.button>
+            <Link to="/login">
+              <motion.button
+                className="border-green-600 border-2 m-4 p-3 md:p-4 px-6 md:px-8 rounded-full bg-green-600"
+                initial={{ scale: 1 }}
+                whileHover={{ scale: 1.1, backgroundColor: "#bef264" }}
+                transition={{ type: "spring" }}
+              >
+                Login
+              </motion.button>
+            </Link>
+            <Link to="/creator">
+              <motion.button
+                className="border-green-600 border-2 m-4 p-3 md:p-4 px-6 md:px-8 rounded-full bg-green-200"
+                initial={{ scale: 1 }}
+                whileHover={{ scale: 1.1, backgroundColor: "#bef264" }}
+                transition={{ type: "spring" }}
+              >
+                Creator
+              </motion.button>
+            </Link>
           </div>
         </motion.div>
       </div>
