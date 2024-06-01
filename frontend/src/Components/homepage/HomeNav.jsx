@@ -11,7 +11,7 @@ function tempHandler() {
 
 function HomeNav() {
   return (
-    <div className="navbar cust-flex md:mx-3 mt-2 h-[3rem] w-[25rem] text-[1rem] bg-gray-100 rounded-md gap-4 font-bold sticky top-0 md:text-[1.3rem] md:h-[3rem] md:w-full md:items-center">
+    <div className="navbar cust-flex w-full text-[1rem] bg-gray-100 rounded-md gap-4 font-bold md:text-[1.3rem] md:items-center py-2 ">
       <div className=" logo p-1 cust-flex md:px-5 self-start md:pt-0">
         <p className="px-2">logo</p>
         <p className="hidden md:block">BiteBuzz</p>

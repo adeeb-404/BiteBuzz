@@ -6,12 +6,17 @@ function MainPage() {
   const canteenInfo = [
     { name: "Srikantu", img: canteen1 },
     { name: "Red canteen", img: canteen2 },
+    { name: "Srikantu", img: canteen1 },
+    { name: "Red canteen", img: canteen2 },
+    { name: "Srikantu", img: canteen1 },
+    { name: "Green canteen", img: canteen3 },
+    { name: "Srikantu", img: canteen1 },
     { name: "Green canteen", img: canteen3 },
   ];
 
   return (
-    <div className="w-[20%] px-5 text-center border-r border-black box-content">
-      <h1>Canteen list</h1>
+    <div className="w-[20%] h-screen px-5 text-center border-r border-black box-border overflow-scroll">
+      <h1 className=" text-3xl">Canteen list</h1>
       {canteenInfo.map((element, ind) => {
         return (
           <div
