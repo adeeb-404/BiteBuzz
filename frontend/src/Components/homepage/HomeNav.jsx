@@ -29,7 +29,9 @@ function HomeNav() {
       <div className="cust-flex gap-2 md:gap-1 md:px-7 md:w-[15%]">
         <MdOutlineShoppingCart className="size-7 md:size-9" />
         {/* <p className="w-[50%]">welcome @user</p> */}
-        <IoSettingsSharp className=" size-7 md:size-7" />
+        <Link to="/settings">
+          <IoSettingsSharp className=" size-7 md:size-7" />
+        </Link>
         <Link onClick={tempHandler}>
           <RiLogoutCircleLine className=" size-7" />
         </Link>

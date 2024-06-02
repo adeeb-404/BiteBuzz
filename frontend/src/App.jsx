@@ -5,8 +5,8 @@ import { ThemeProvider } from "./darkmodecontext.jsx";
 import MainPage from "./Pages/MainPage.jsx";
 import Root from "./Root.jsx";
 import { isAuthLoader } from "./Loaders.js";
-import { LoginAction, CreatorLoginAction } from "./Actions.js";
-import CreatorLogin from "./Pages/CreatorLogin.jsx";
+import { LoginAction } from "./Actions.js";
+import Settings from "./Pages/Settings.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   },
   { path: "/home", element: <Home /> },
   { path: "/login", element: <Login />, action: LoginAction },
-  { path: "/creator", element: <CreatorLogin />, action: CreatorLoginAction },
+  { path: "/settings", element: <Settings /> },
 ]);
 
 function App() {
