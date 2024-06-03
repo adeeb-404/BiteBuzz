@@ -1,4 +1,6 @@
 import canteenInfo from "../../assets/CanteenInfo";
+import { FaStar } from "react-icons/fa6";
+
 
 function Dashboard({index}) {
   // console.log(index);
@@ -17,16 +19,16 @@ function Dashboard({index}) {
         {/* <h1>{index}</h1> */}
         <div className="flex h-[60%]">
           <div className="w-[70%] h-full">
-            <h1>{canteenInfo[index].name}</h1>
+            <h1 className="font-bold">{canteenInfo[index].name}</h1>
             <img src={canteenInfo[index].img} alt="canteen image" className="h-full w-[90%] p-3 rounded-2xl" />
           </div>
 
           <div className="w-[30%] h-auto flex flex-col gap-5">
             <div>
-              <h1 className="py-3">Discrption : </h1>
+              <h1 className="py-3 font-bold">Discrption : </h1>
               <p>{canteenInfo[index].disc}</p>
             </div>
-            <h1>Rating : {canteenInfo[index].rating} <span className="text-[2rem]">&#x22C6;</span></h1>
+            <h1 className="flex flex-row items-center"><div className="font-bold">Rating : </div> <div className="pl-2">{canteenInfo[index].rating}</div> <FaStar className="size-3 m-1"/></h1>
           </div>
 
         </div>
@@ -36,12 +38,12 @@ function Dashboard({index}) {
           <div className="flex gap-5 justify-center">
           {canteenInfo[index].top5.map((foods,ind) =>{
             return(
-              <div key={ind} className="border bg-gray-300 h-[8rem] w-[8rem] flex flex-col items-center gap-2 rounded-md">
-                 <img className="h-[40%] w-[4rem] rounded-md mt-2 " src={foods.foodImg}></img>
+              <div key={ind} className="border bg-gray-300 h-[8rem] w-[8rem] flex flex-col items-center rounded-md justify-around">
                  <h1 className="font-bold">{foods.name}</h1>
-                 <div>
-                    <p>{foods.rating}</p>
-                    <p></p>
+                 <img className="h-[4rem] w-[4rem] rounded-md my-1" src={foods.foodImg}></img>
+                 <div className="flex w-full justify-around">
+                    <div className="w-fit"><span className="text-[1rem]">&#x20B9;</span>{foods.price}</div>
+                    <div className="w-fit flex flex-row items-center gap-1"><FaStar className="size-3"/><p>{foods.rating}</p></div>
                  </div>
               </div>
             )
