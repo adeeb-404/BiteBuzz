@@ -1,13 +1,15 @@
 import { useState } from "react";
 import Header from "../Components/homepage/Header";
 import { motion } from "framer-motion";
-import { useNavigate, Form } from "react-router-dom";
+import { useNavigate, Form, useNavigation } from "react-router-dom";
 
 function Login() {
-  const [student, setStudent] = useState(true);
+  const [student, setStudent] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const navigator = useNavigate();
+  const isNavigating = useNavigation().state;
 
   function handleClick() {
     navigator("..");
@@ -56,9 +58,9 @@ function Login() {
           </div>
           <Form className="flex flex-col" method="post">
             <input
-              name="username"
+              name="USN"
               type="text"
-              placeholder="Username"
+              placeholder="USN"
               className="mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -75,7 +77,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               aria-label="Password"
               required
-              minLength={10}
+              // minLength={10}
             />
             <input
               type="text"
@@ -87,7 +89,7 @@ function Login() {
               type="submit"
               className="bg-gray-800 text-white py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800"
             >
-              Login
+              {`${isNavigating === "submitting" ? "Validating..." : "Login"}`}
             </button>
           </Form>
         </motion.div>
