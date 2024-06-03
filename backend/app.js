@@ -23,4 +23,4 @@ app.post("/", (req, res) => {
 });
 
 // Route to handle POST requests to /login
-app.use("/login", userRoute);
+app.use("/api/login", userRoute);
