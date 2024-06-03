@@ -12,15 +12,3 @@ export async function LoginAction({ request }) {
   localStorage.setItem("token", "abc");
   return redirect("/");
 }
-
-export async function CreatorLoginAction({ request }) {
-  const data = await request.formData();
-
-  const result = {
-    username: data.get("username"),
-    accessKey: data.get("accessKey"),
-  };
-  console.log(result);
-  localStorage.setItem("token", "abc");
-  return redirect("/");
-}
