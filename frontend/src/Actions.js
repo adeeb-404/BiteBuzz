@@ -2,12 +2,25 @@ import { redirect } from "react-router-dom";
 
 export async function LoginAction({ request }) {
   const data = await request.formData();
-
+  const userType = data.get("userType");
+  console.log(userType);
   const result = {
-    username: data.get("username"),
+    USN: data.get("USN"),
     password: data.get("password"),
-    userType: data.get("userType"),
   };
+  if (userType === "student") {
+    const response = await fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(result),
+    });
+    console.log(response);
+    const data = await response.json();
+    console.log(data);
+  }
+
   console.log(result);
   localStorage.setItem("token", "abc");
   return redirect("/");
