@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from "./routes/usersRoute.js";
+import canteenRoute from "./routes/canteenRoute.js";
 import cors from "cors";
 
 const processDotnet = dotenv.config();
@@ -25,4 +26,4 @@ app.post("/", (req, res) => {
 
 // Route to handle POST requests to /login
 app.use("/api/user/",userRoute);
-// app.use("/api/canteen/");
+app.use("/api/canteen/",canteenRoute);

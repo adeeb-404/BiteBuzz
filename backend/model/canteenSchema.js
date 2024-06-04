@@ -6,23 +6,17 @@ const { Schema } = mongoose;
 const canteenSchema = new Schema({
     Name: { type: String, required: true, unique: true },
     Description: { type: String},
-    // emailID: { type: String,   lowercase: true },
+    emailID: { type: String,   lowercase: true },
     photos: [
         { name: String, url: String }
     ],
-    owner: [{
-        // name: { type: String, required: true, unique: true },
-        DOB: { type: Date, required: true },
-        phoneNo: { type: Number, required: true }
-    }],
+    owner_name:{type: String, required: true},
+    phoneNo: { type: String, required: true },
     password: { type: String},
     rating: Number,
 
     menu: [{
-        photo: {
-            data: Buffer,
-            contentType: String
-        },
+        photo: String,
         dishName: { type: String, required: true },
         price: { type: Number, required: true },
         preparationTime: String,
