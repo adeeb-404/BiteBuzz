@@ -1,15 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../Components/homepage/Header";
 import { motion } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   useNavigate,
   Form,
   useNavigation,
   useActionData,
 } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
 
 function Login() {
   const [student, setStudent] = useState(false);
