@@ -1,42 +1,36 @@
-import mongoose, { Schema } from "mongoose";
-import baseOrderSchema from "./baseOrderSchema";
-const canteenSchema=new Schema({
+import mongoose from "mongoose";
+import baseOrderSchema from "./baseOrderSchema.js";
+
+const { Schema } = mongoose;
+
+const canteenSchema = new Schema({
     Name: { type: String, required: true, unique: true },
-    Desciption: { type: String, required: true, },
-    emailID: { type: String, required: true, unique: true,lowercase:true },
-    photos:[
-        {data: Buffer, contentType: String }],
-    owner:[
-        {type:String, required:true ,unique:true},
-        {DOB: Date,required:true},
-        {phoneNo:Number}
+    Description: { type: String},
+    emailID: { type: String,   lowercase: true },
+    photos: [
+        { name: String, url: String }
     ],
-    password:{ type: String, required: true},
-    rating:Number,
+    owner_name:{type: String, required: true},
+    phoneNo: { type: String, required: true },
+    password: { type: String},
+    rating: Number,
 
-    menu:[{
-        itemID:Number,
-        photo:{
-            data: Buffer, contentType:String
-        },
-        dishName:{type:String, required: true},
-        price:Number,
-        preparationTime:String,
-        rating:{
-            currRating:Number,
-            noOfRating:Number
-        },
-        currOrders:[
-        {
-           baseOrderSchema,
-           expectedTime: { type: String, required: true }
-        }
-        ],
-        history:[
-            baseOrderSchema
-        ]
-    }]
+    menu: [{
+        photo: String,
+        dishName: { type: String, required: true },
+        price: { type: Number, required: true },
+        preparationTime: String,
+        rating: {
+            currRating: Number,
+            noOfRating: Number
+        }}],
+        currOrders: [{
+            baseOrder: baseOrderSchema,
+            expectedTime: { type:String, required: true }
+        }],
+        history: [baseOrderSchema]
+});
 
-})
+const Canteen = mongoose.model('canteen', canteenSchema);
 
-export default canteenSchema;
+export default Canteen;

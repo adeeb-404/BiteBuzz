@@ -1,11 +1,11 @@
-import mongoose, { Schema }  from "mongoose";
+import mongoose, { Schema, isObjectIdOrHexString, isValidObjectId }  from "mongoose";
 
 const OrdersSchema= new Schema({
-    Name: { type: String, required: true },
-    USN: { type: String, required: true },
-    Quantity: { type: Number, required: true },
-    DishName: { type: String, required: true },
+    userID:{type:Schema.Types.ObjectId},
+    canteenID:{type:Schema.Types.ObjectId},
+    quantity: { type: Number, required: true },
     price: { type: Number, required: true },
-},{_id:false});
+
+});
 
 export default OrdersSchema;
