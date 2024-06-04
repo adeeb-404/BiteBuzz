@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useTheme } from "../../darkmodecontext";
 function Header() {
   const { darkMode, toggleDarkMode } = useTheme();

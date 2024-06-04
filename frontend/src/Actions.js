@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { json, redirect } from "react-router-dom";
 
 export async function LoginAction({ request }) {
   const data = await request.formData();
@@ -16,7 +16,14 @@ export async function LoginAction({ request }) {
       },
       body: JSON.stringify(result),
     });
-    console.log(response);
+
+    if (response.status == 400) return response;
+
+    if (!response.ok)
+      throw new json(
+        { message: "invalid username or password" },
+        { status: 400, statusText: "An error occurred" && response.message }
+      );
     const data = await response.json();
     console.log(data);
   }

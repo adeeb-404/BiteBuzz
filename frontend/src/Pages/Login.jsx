@@ -1,12 +1,21 @@
 import { useState } from "react";
 import Header from "../Components/homepage/Header";
 import { motion } from "framer-motion";
-import { useNavigate, Form, useNavigation } from "react-router-dom";
+import {
+  useNavigate,
+  Form,
+  useNavigation,
+  useActionData,
+} from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
 
 function Login() {
   const [student, setStudent] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const actionData = useActionData();
 
   const navigator = useNavigate();
   const isNavigating = useNavigation().state;
@@ -14,10 +23,24 @@ function Login() {
   function handleClick() {
     navigator("..");
   }
+  useEffect(() => {
+    if (actionData)
+      toast.error(actionData.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+  }, [actionData]);
 
   return (
     <>
-      <Header />
+      <Header actionData={actionData} />
+      <ToastContainer limit={5} />
       <div className="h-screen flex items-center justify-center bg-gray-100">
         <motion.div
           className="flex flex-col items-center border-2 border-gray-800 rounded-md bg-white p-8 shadow-lg relative"
@@ -82,12 +105,13 @@ function Login() {
             <input
               type="text"
               name="userType"
-              value={!student ? "student" : "canteen"}
+              defaultValue={!student ? "student" : "canteen"}
               className=" hidden"
             />
             <button
               type="submit"
               className="bg-gray-800 text-white py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800"
+              disabled={isNavigating === "submitting"}
             >
               {`${isNavigating === "submitting" ? "Validating..." : "Login"}`}
             </button>
