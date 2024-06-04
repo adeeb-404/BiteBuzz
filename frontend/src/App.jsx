@@ -7,6 +7,7 @@ import Root from "./Root.jsx";
 import { isAuthLoader } from "./Loaders.js";
 import { LoginAction } from "./Actions.js";
 import Settings from "./Pages/Settings.jsx";
+import Menu from "./Pages/Menu.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
         index: true,
         element: <MainPage />,
       },
+      {
+        path: "/:canteenId",
+        element: <Menu/>
+      }
     ],
   },
   { path: "/home", element: <Home /> },
