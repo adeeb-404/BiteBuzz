@@ -18,7 +18,7 @@ export async function userAuth(req, res){
         delete userDoc.password;
        
         
-        console.log(userDoc);
+        // console.log(userDoc);
         res.json({body:userDoc}); // Send 200 status response
     } catch (error) {
         console.error("Error:", error);
@@ -28,39 +28,44 @@ export async function userAuth(req, res){
 
 export async function submitOrder(req, res){
     const obj = req.body;
-
+    const findCanteen = await Canteen.findById(obj[0].canteenID);
+    for(let i=0;i<obj.length;i++){
     try {
        
-         console.log(obj);
-        const findOut = await Canteen.findById(obj.canteenID);
-        // console.log(findOut);
-        // console.log(expectedTime[0]);
-        // console.log(time);
-        // if (!findOut) {
-        //     return res.status(400).json({ message: "Canteen or dish not found" });
-        // }
+            // console.log(obj[i]);
+        const findCanteen = await Canteen.findById(obj[i].canteenID);
         
+
+        let findItem = await Canteen.findOne(
+            { 
+              "Name": findCanteen.Name, 
+              "menu": { 
+                $elemMatch: { 
+                  "dishName": obj[i].dishName 
+                } 
+              } 
+            },
+            { "menu.$": 1 }
+          );
+        // console.log("findItem");
+        findItem=findItem.toObject();
+        // console.log(findItem);
         const currTime = new Date().getTime();
-        console.log(findOut.menu[0].dishName)
-        const time = findOut.menu[0].preparationTime*(60*1000);
+        const time = findItem.menu[0].preparationTime*(60*1000);
         const finalTime = new Date(currTime+time ).toLocaleTimeString();
-        obj.expectedTime = finalTime;
+        obj[i].expectedTime = finalTime;
+        // console.log(finalTime);
+        
+        
 
-        console.log(findOut.Name);
-        // const updateOrder = await Canteen.updateOne(
-        //     { Name: toCanteen, 'menu.dishName': dis},
-        //     { $push: { 'currOrders': obj } }
-        // );
-
-        // if (!updateOrder || updateOrder.nModified === 0) {
-        //     return res.status(400).json({ message: "Update failed" });
-        // }
-       const findItem =await Canteen.find({ "Name": findOut.Name, "menu.itemID": { $eq: obj.itemID} }, { "menu.$": 1 });
-      console.log(findItem);
-       res.status(200).json({ message: "Order submitted successfully" });
+       res.json(obj);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500);
     }
+}
+const updateCurrorders= await Canteen.findByIdAndUpdate({"_id":findCanteen._id},{"$push":{currOrders:obj}});
+console.log(updateCurrorders);
+// console.log(obj);
 };
 
