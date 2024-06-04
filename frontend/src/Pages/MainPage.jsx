@@ -22,11 +22,13 @@ function MainPage() {
   const [clickedId, setClickedId] = useState(null);
 
   return (
-    <div className="flex w-full h-fit mt-16 fixed">
+    <>
       <ToastContainer />
-      <CanteenList onclick={setClickedId} />
-      <Dashboard index={clickedId} />
-    </div>
+      <div className="flex w-full h-fit mt-16 fixed">
+        <CanteenList onclick={setClickedId} />
+        <Dashboard index={clickedId} />
+      </div>
+    </>
   );
 }
 

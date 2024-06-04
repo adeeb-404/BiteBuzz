@@ -4,6 +4,8 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
 function tempHandler() {
   localStorage.removeItem("token");
   return redirect("/home");
@@ -11,7 +13,10 @@ function tempHandler() {
 
 function HomeNav() {
   return (
-    <div className="navbar cust-flex w-full text-[1rem] bg-gray-100 rounded-md gap-4 font-bold md:text-[1.3rem] md:items-center py-2 fixed z-50 top-0">
+    <motion.div
+      className="navbar cust-flex w-full text-[1rem] bg-gray-100 rounded-md gap-4 font-bold md:text-[1.3rem] md:items-center py-2 fixed z-10 top-0"
+      layout
+    >
       <div className=" logo p-1 cust-flex md:px-5 self-start md:pt-0">
         <p className="px-2">logo</p>
         <p className="hidden md:block">BiteBuzz</p>
@@ -27,16 +32,30 @@ function HomeNav() {
       </div>
 
       <div className="cust-flex gap-2 md:gap-1 md:px-7 md:w-[15%]">
-        <MdOutlineShoppingCart className="size-7 md:size-9" />
+        <motion.div
+          whileHover={{ scale: [1.3, 1] }}
+          transition={{ duration: 1 }}
+        >
+          <MdOutlineShoppingCart className="size-7 md:size-9" />
+        </motion.div>
         {/* <p className="w-[50%]">welcome @user</p> */}
-        <Link to="/settings">
-          <IoSettingsSharp className=" size-7 md:size-7" />
-        </Link>
-        <Link onClick={tempHandler}>
-          <RiLogoutCircleLine className=" size-7" />
-        </Link>
+        <motion.div whileHover={{ rotate: -45 }} transition={{ duration: 0.5 }}>
+          <Link to="/settings">
+            <IoSettingsSharp className=" size-7 md:size-7" />
+          </Link>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ color: "red", border: "2px solid red" }}
+          transition={{ type: "spring", duration: 1 }}
+          style={{ border: "2px solid white" }}
+        >
+          <Link onClick={tempHandler}>
+            <RiLogoutCircleLine className=" size-7" />
+          </Link>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
