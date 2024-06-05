@@ -8,10 +8,11 @@ import { isAuthLoader } from "./Loaders.js";
 import { LoginAction } from "./Actions.js";
 import Settings from "./Pages/Settings.jsx";
 import Menu from "./Pages/Menu.jsx";
+import CanteenPage from "./Pages/CanteenPage.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     loader: isAuthLoader,
     element: <Root />,
     children: [
@@ -20,14 +21,18 @@ const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        path: "/:canteenId",
-        element: <Menu/>
-      }
+        path: "canteen",
+        children: [{ index: true, element: <CanteenPage /> }],
+      },
+      {
+        path: ":canteenId",
+        element: <Menu />,
+      },
     ],
   },
-  { path: "/home", element: <Home /> },
-  { path: "/login", element: <Login />, action: LoginAction },
-  { path: "/settings", element: <Settings /> },
+  { path: "home", element: <Home /> },
+  { path: "login", element: <Login />, action: LoginAction },
+  { path: "settings", element: <Settings /> },
 ]);
 
 function App() {
