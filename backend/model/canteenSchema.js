@@ -19,7 +19,7 @@ const canteenSchema = new Schema({
         photo: String,
         dishName: { type: String, required: true },
         price: { type: Number, required: true },
-        preparationTime: String,
+        preparationTime: Number,
         rating: {
             currRating: Number,
             noOfRating: Number

@@ -1,7 +1,7 @@
 import users from '../model/userSchema.js'
 import OrdersSchema from "../model/baseOrderSchema.js";
 import Canteen from "../model/canteenSchema.js"; 
-
+import {getStudentName,getStudentUSN} from "../utility/util.js";
 export async function userAuth(req, res){
     console.log("In controller");
     const obj = req.body;
@@ -27,7 +27,9 @@ export async function userAuth(req, res){
 };
 
 export async function submitOrder(req, res){
-    const obj = req.body;
+    let obj = req.body;
+    // console.log(obj);
+    const user=await users.findById(obj[0].userID);
     const findCanteen = await Canteen.findById(obj[0].canteenID);
     for(let i=0;i<obj.length;i++){
     try {
@@ -55,17 +57,27 @@ export async function submitOrder(req, res){
         const finalTime = new Date(currTime+time ).toLocaleTimeString();
         obj[i].expectedTime = finalTime;
         // console.log(finalTime);
-        
-        
+          // const student=await getStudentNameAndUSN(obj[i].userID);
+          // obj[i].student=student;
+          
+          
+        } catch (err) {
+          console.error(err);
+          res.status(500);
+        }
+      }
+      const name=await getStudentName(user._id);
+      const usn=await getStudentUSN(user._id);
+      const responseBody = {
+        name,
+        usn,
+        orders: obj
+      };
+      // console.log(obj);
 
-       res.json(obj);
-    } catch (err) {
-        console.error(err);
-        res.status(500);
-    }
-}
-const updateCurrorders= await Canteen.findByIdAndUpdate({"_id":findCanteen._id},{"$push":{currOrders:obj}});
-console.log(updateCurrorders);
+      res.json(responseBody)
+// const updateCurrorders= await Canteen.findByIdAndUpdate({"_id":findCanteen._id},{"$push":{currOrders:obj}});
+// console.log(updateCurrorders);
 // console.log(obj);
 };
 
