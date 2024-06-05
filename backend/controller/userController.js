@@ -69,3 +69,21 @@ console.log(updateCurrorders);
 // console.log(obj);
 };
 
+export async function dashboard(req,res){
+  try {
+    const canteenDetails = await Canteen.find(
+      {}, // Empty filter to select all documents
+      { Name: 1, photos: 1, Description: 1, rating: 1 } // Projection
+    );
+
+    if (canteenDetails.length === 0) {
+      console.log('No canteens found');
+      return res.json(200);
+    }
+
+    console.log('Canteen details:', canteenDetails);
+    return res.json(canteenDetails);
+  } catch (err) {
+    console.error('Error fetching canteen details:', err);
+  }
+}
