@@ -9,7 +9,7 @@ export async function LoginAction({ request }) {
     password: data.get("password"),
   };
   if (userType === "student") {
-    const response = await fetch("http://localhost:5000/api/login", {
+    const response = await fetch("http://localhost:5000/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,14 +21,10 @@ export async function LoginAction({ request }) {
 
     if (!response.ok)
       throw new json(
-        { message: "invalid username or password" },
-        { status: 400, statusText: "An error occurred" && response.message }
+        { message: "Server error" },
+        { status: 500, statusText: "An error occurred" && response.message }
       );
-    const data = await response.json();
-    console.log(data);
   }
-
-  console.log(result);
   localStorage.setItem("token", "abc");
   return redirect("/");
 }

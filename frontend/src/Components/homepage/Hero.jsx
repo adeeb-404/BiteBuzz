@@ -42,7 +42,7 @@ function Hero() {
                 whileHover={{ scale: 1.1, backgroundColor: "#bef264" }}
                 transition={{ type: "spring" }}
               >
-                Login
+                Student Login
               </motion.button>
             </Link>
             <Link to="/creator">
@@ -52,7 +52,7 @@ function Hero() {
                 whileHover={{ scale: 1.1, backgroundColor: "#bef264" }}
                 transition={{ type: "spring" }}
               >
-                Creator
+                Canteen Login
               </motion.button>
             </Link>
           </div>
