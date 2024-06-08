@@ -45,7 +45,7 @@ function Hero() {
                 Student Login
               </motion.button>
             </Link>
-            <Link to="/creator">
+            <Link to="/login">
               <motion.button
                 className="border-green-600 border-2 m-4 p-3 md:p-4 px-6 md:px-8 rounded-full bg-green-200"
                 initial={{ scale: 1 }}
