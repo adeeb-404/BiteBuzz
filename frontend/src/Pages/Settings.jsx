@@ -1,9 +1,16 @@
+/* eslint-disable react/prop-types */
 // Settings.js
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
-function Settings() {
-  const [email, setEmail] = useState("user@example.com");
-  const [phone, setPhone] = useState("123-456-7890");
+function Settings({ isCanteen }) {
+  const usn = useSelector((state) => state.user.USN);
+  const name = useSelector((state) => state.user.name);
+  const curEmail = useSelector((state) => state.canteen.emailID);
+  const curphoneNo = useSelector((state) => state.user.phoneNo);
+
+  const [email, setEmail] = useState(curEmail);
+  const [phone, setPhone] = useState(curphoneNo);
   const [profilePic, setProfilePic] = useState(
     "https://via.placeholder.com/150"
   ); // Placeholder image
@@ -47,10 +54,12 @@ function Settings() {
               />
             </div>
             <div>
-              <label className="block text-gray-700">Username (USN)</label>
+              <label className="block text-gray-700">
+                {isCanteen ? "Canteen Name" : "Username (USN)"}
+              </label>
               <input
                 type="text"
-                value="USN123456"
+                value={usn}
                 readOnly
                 className="w-full p-2 border rounded-lg bg-gray-200 cursor-not-allowed"
               />
@@ -59,7 +68,7 @@ function Settings() {
               <label className="block text-gray-700">Name</label>
               <input
                 type="text"
-                value="John Doe"
+                value={name}
                 readOnly
                 className="w-full p-2 border rounded-lg bg-gray-200 cursor-not-allowed"
               />

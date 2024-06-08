@@ -2,16 +2,20 @@ import { IoSearch } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
 import { RiLogoutCircleLine } from "react-icons/ri";
-import { redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-
-function tempHandler() {
-  localStorage.removeItem("token");
-  return redirect("/home");
-}
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../store/Studentuser";
 
 function HomeNav() {
+  const navigator = useNavigate();
+  const dispatch = useDispatch();
+  function tempHandler() {
+    dispatch(userActions.resetUser());
+    localStorage.removeItem("user");
+    return navigator("/home");
+  }
   return (
     <motion.div
       className="navbar cust-flex w-full text-[1rem] bg-gray-100 rounded-md gap-4 font-bold md:text-[1.3rem] md:items-center py-2 fixed z-10 top-0"
