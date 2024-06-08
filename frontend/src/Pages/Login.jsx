@@ -2,15 +2,17 @@ import { useState, useEffect } from "react";
 import Header from "../Components/homepage/Header";
 import { motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { json, useNavigate } from "react-router-dom";
+import { Link, json, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userActions } from "../store/Studentuser";
 import { userActions as canteenActions } from "../store/CanteenUser";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const dispatch = useDispatch();
-  const [student, setStudent] = useState(true);
+  const [params] = useSearchParams();
+  const isStudent = params.get("mode") === "student";
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -40,7 +42,7 @@ function Login() {
   async function LoginAction(e) {
     e.preventDefault();
     setLoading(() => true);
-    if (student) {
+    if (isStudent) {
       const result = {
         USN: username,
         password: password,
@@ -132,34 +134,34 @@ function Login() {
             X
           </motion.button>
           <div className="flex mb-4">
-            <button
+            <Link
               className={`px-8 py-2 mr-2 rounded-l-md ${
-                student
+                isStudent
                   ? "bg-gray-800 text-white"
                   : "bg-white text-gray-800 border-gray-800"
               }`}
-              onClick={() => setStudent(true)}
-              disabled={student}
+              to="?mode=student"
+              disabled={isStudent}
             >
               Student
-            </button>
-            <button
-              onClick={() => setStudent(false)}
-              disabled={!student}
+            </Link>
+            <Link
+              to="?mode=canteen"
+              disabled={!isStudent}
               className={`px-8 py-2 ml-2 rounded-r-md ${
-                !student
+                !isStudent
                   ? "bg-gray-800 text-white"
                   : "bg-white text-gray-800 border-gray-800"
               }`}
             >
               Canteen
-            </button>
+            </Link>
           </div>
           <form className="flex flex-col" method="post" onSubmit={LoginAction}>
             <input
               name="USN"
               type="text"
-              placeholder="USN"
+              placeholder={`${isStudent ? "USN" : "PhoneNo"}`}
               className="mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -181,7 +183,7 @@ function Login() {
             <input
               type="text"
               name="userType"
-              defaultValue={student ? "student" : "canteen"}
+              defaultValue={isStudent ? "student" : "canteen"}
               className=" hidden"
             />
             <button

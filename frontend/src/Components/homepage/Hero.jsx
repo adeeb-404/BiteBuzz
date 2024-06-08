@@ -35,7 +35,7 @@ function Hero() {
             Order your cravings with ease
           </h1>
           <div className="flex items-start justify-center w-full h-full md:pt-20 text-black font-semibold">
-            <Link to="/login">
+            <Link to="/login?mode=student">
               <motion.button
                 className="border-green-600 border-2 m-4 p-3 md:p-4 px-6 md:px-8 rounded-full bg-green-600"
                 initial={{ scale: 1 }}
@@ -45,7 +45,7 @@ function Hero() {
                 Student Login
               </motion.button>
             </Link>
-            <Link to="/login">
+            <Link to="/login?mode=canteen">
               <motion.button
                 className="border-green-600 border-2 m-4 p-3 md:p-4 px-6 md:px-8 rounded-full bg-green-200"
                 initial={{ scale: 1 }}

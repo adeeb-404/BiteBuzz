@@ -1,11 +1,8 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 
-function CanteenDashboard() {
-  return (
-    <div className='w-[80%] bg-black'>
-        CanteenDashboard
-    </div>
-  )
+function CanteenDashboard({ index }) {
+  if (index === null) return <h1>No canteen</h1>;
+  return <div className="w-[80%]">{index}</div>;
 }
 
-export default CanteenDashboard
+export default CanteenDashboard;
