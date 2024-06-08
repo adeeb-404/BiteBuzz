@@ -1,5 +1,5 @@
 const orderItems= [{
-    name:"Adeeb",
+    name:"Mohammed Adeeb",
     usn:"4NI21IS055",
     arrivalTime:"11:30AM",
     orderFood:[{
@@ -18,7 +18,7 @@ const orderItems= [{
     },]
 },
 {
-    name:"Manoj",
+    name:"Manoj Hebbar",
     usn:"4NI21IS054",
     arrivalTime:"11:30AM",
     orderFood:[{
@@ -30,7 +30,7 @@ const orderItems= [{
     }]
 },
 {
-    name:"Akshay",
+    name:"Akshay Raj",
     usn:"4NI21IS007",
     arrivalTime:"11:30AM",
     orderFood:[{
