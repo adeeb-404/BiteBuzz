@@ -29,7 +29,7 @@ function HomeNav() {
       <div className="flex h-8 bg-white rounded-md">
         <IoSearch className="px-2 size-8 bg-white rounded-lg " />
         <input
-          placeholder="Search Canteen"
+          placeholder="Search Food"
           className="w-[8rem] h-7 md:w-[25rem] md:h-7 px-2 py-4 rounded-md self font-normal"
           type="text"
         />
