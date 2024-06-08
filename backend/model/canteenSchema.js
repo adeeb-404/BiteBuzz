@@ -4,14 +4,12 @@ import baseOrderSchema from "./baseOrderSchema.js";
 const { Schema } = mongoose;
 
 const canteenSchema = new Schema({
-    Name: { type: String, required: true, unique: true },
-    Description: { type: String},
-    emailID: { type: String,   lowercase: true },
-    photos: [
-        { name: String, url: String }
-    ],
+    name: { type: String, required: true, unique: true },
+    description: { type: String},
+    email: { type: String,   lowercase: true },
+    photo: { type: String},
     owner_name:{type: String, required: true},
-    phoneNo: { type: String, required: true },
+    phone: { type: String, required: true },
     password: { type: String},
     rating: Number,
 

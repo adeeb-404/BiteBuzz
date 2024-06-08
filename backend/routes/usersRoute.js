@@ -6,7 +6,7 @@ const router = Router();
 router
 .post("/login", userAuth)
 .post("/orders",submitOrder)
-.post("/dashboard",dashboard)
+.get("/dashboard",dashboard)
 
 
 export default router;

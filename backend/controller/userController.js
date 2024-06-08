@@ -84,7 +84,7 @@ export async function dashboard(req, res) {
   try {
     const canteenDetails = await Canteen.find(
       {}, // Empty filter to select all documents
-      { Name: 1, photos: 1, Description: 1, rating: 1 } // Projection
+      { Name: 1, photo: 1, Description: 1, rating: 1 } // Projection
     );
 
     if (canteenDetails.length === 0) {
