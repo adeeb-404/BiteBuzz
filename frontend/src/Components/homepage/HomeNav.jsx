@@ -20,7 +20,7 @@ function HomeNav() {
 
   return (
     <motion.div
-      className="navbar flex items-center w-full text-lg bg-gradient-to-r from-green-400 via-green-500 to-green-600 p-4 shadow-lg relative top-0 z-10"
+      className="navbar flex items-center w-full text-lg bg-gradient-to-br from-green-800 via-green-600 to-green-400 p-4 shadow-lg relative top-0 z-10"
       layout
     >
       <div className="logo flex items-center space-x-2 text-white">
@@ -45,7 +45,7 @@ function HomeNav() {
           transition={{ duration: 0.3 }}
           className="cursor-pointer"
         >
-          <MdOutlineShoppingCart className="text-2xl" />
+          <MdOutlineShoppingCart className="text-3xl" />
         </motion.div>
 
         <motion.div
@@ -54,12 +54,16 @@ function HomeNav() {
           className="cursor-pointer"
         >
           <Link to="/settings">
-            <IoSettingsSharp className="text-2xl" />
+            <IoSettingsSharp className="text-3xl" />
           </Link>
         </motion.div>
 
         <motion.div
-          whileHover={{ color: "red", borderColor: "red" }}
+          whileHover={{
+            color: "red",
+            borderColor: "red",
+            transform: "rotate(90deg)",
+          }}
           transition={{ type: "spring", duration: 0.5 }}
           className="cursor-pointer border-2 border-white rounded-full p-1"
         >
