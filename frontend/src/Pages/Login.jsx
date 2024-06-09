@@ -119,26 +119,26 @@ function Login() {
     <>
       <Header />
       <ToastContainer limit={5} />
-      <div className="h-screen flex items-center justify-center bg-gray-100">
+      <div className="h-screen flex items-center justify-center bg-green-100 dark:bg-[#000300]">
         <motion.div
-          className="flex flex-col items-center border-2 border-gray-800 rounded-md bg-white p-8 shadow-lg relative"
+          className="flex flex-col items-center border-2 border-gray-800 dark:border-green-100 rounded-md bg-white dark:bg-black p-8 shadow-lg relative"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
         >
           <motion.button
-            className="absolute right-0 top-0 p-2  border-l-2 border-b-2 border-stone-900 rounded-sm"
+            className="absolute right-0 top-0 p-2  border-l-2 border-b-2 border-stone-900 dark:border-green-100 rounded-sm dark:text-green-100"
             whileHover={{ backgroundColor: "lightgreen" }}
             transition={{ type: "spring", duration: 1 }}
             onClick={handleClick}
           >
             X
           </motion.button>
-          <div className="flex mb-4">
+          <div className="flex mb-4  rounded-lg gap-0 dark:border-2 border-green-50  ">
             <Link
-              className={`px-8 py-2 mr-2 rounded-l-md ${
+              className={`px-8 py-2  rounded-l-md ${
                 isStudent
-                  ? "bg-gray-800 text-white"
-                  : "bg-white text-gray-800 border-gray-800"
+                  ? "bg-gray-800 text-white dark:bg-green-200 dark:text-black font-bold"
+                  : "bg-white text-gray-800 border-gray-800 dark:bg-black dark:text-white font-bold"
               }`}
               to="?mode=student"
               disabled={isStudent}
@@ -148,10 +148,10 @@ function Login() {
             <Link
               to="?mode=canteen"
               disabled={!isStudent}
-              className={`px-8 py-2 ml-2 rounded-r-md ${
+              className={`px-8 py-2  rounded-r-md ${
                 !isStudent
-                  ? "bg-gray-800 text-white"
-                  : "bg-white text-gray-800 border-gray-800"
+                  ? "bg-gray-800 text-white dark:bg-green-200 dark:text-black font-bold"
+                  : "bg-white text-gray-800 border-gray-800 dark:bg-black dark:text-white font-bold"
               }`}
             >
               Canteen
@@ -162,7 +162,7 @@ function Login() {
               name="USN"
               type="text"
               placeholder={`${isStudent ? "USN" : "PhoneNo"}`}
-              className="mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"
+              className="mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800 dark:bg-green-200 placeholder:text-gray-800"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               aria-label="Username"
@@ -173,7 +173,7 @@ function Login() {
               name="password"
               type="password"
               placeholder="Password"
-              className="mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800"
+              className="mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800 dark:bg-green-200 placeholder:text-gray-800"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               aria-label="Password"
