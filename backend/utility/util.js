@@ -10,10 +10,10 @@ export async function sendOrderDetailstoCanteen(object){
 
 export async function getStudentName(obj){
     const user= await users.findById(obj);
-    return user.Name;
+    return user.name;
 }
 
 export async function getStudentUSN(obj){
     const user= await users.findById(obj);
-    return user.USN;
+    return user.usn;
 }

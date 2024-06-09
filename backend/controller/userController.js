@@ -1,6 +1,5 @@
 import User from "../model/userSchema.js";
 import OrdersSchema from "../model/baseOrderSchema.js";
-
 import Canteen from "../model/canteenSchema.js";
 import { getStudentName, getStudentUSN } from "../utility/util.js";
 export async function userAuth(req, res) {
@@ -63,8 +62,8 @@ export async function submitOrder(req, res) {
       }
     }
 
-    const name = await getStudentName(user._id);
-    const usn = await getStudentUSN(user._id);
+    // const name = await getStudentName(user._id);
+    // const usn = await getStudentUSN(user._id);
 
     const ordersArray = obj.map((order) => ({
       userID: order.userID,
@@ -76,9 +75,10 @@ export async function submitOrder(req, res) {
     }));
 
     const responseBody = {
-      name,
-      usn,
-      orders: ordersArray, // This will be pushed as an array of orders
+
+      name:user.name,
+      usn:user.usn,
+      orders: ordersArray 
     };
 
     res.json(responseBody);
@@ -86,12 +86,12 @@ export async function submitOrder(req, res) {
     try {
       await Canteen.findByIdAndUpdate(
         { _id: findCanteen._id },
-        { $push: { currOrders: ordersArray } } // Push as an array of arrays of objects
+        { $push: { currOrders: responseBody } }  // Push responseBody to currOrders
       );
 
       await User.findByIdAndUpdate(
         { _id: obj[0].userID },
-        { $push: { orders: ordersArray } } // Push as an array of arrays of objects
+        { $push: { currOrders: ordersArray } } // Push ordersArray to orders
       );
     } catch (updateErr) {
       console.error(updateErr);
@@ -99,12 +99,14 @@ export async function submitOrder(req, res) {
       return;
     }
 
+    console.log(user);
     console.log(responseBody);
   } catch (err) {
     console.error(err);
     res.status(500).send("Error processing order");
   }
 }
+
 
 export async function dashboard(req, res) {
   try {
