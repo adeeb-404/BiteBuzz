@@ -44,7 +44,7 @@ function Login() {
     setLoading(() => true);
     if (isStudent) {
       const result = {
-        USN: username,
+        usn: username,
         password: password,
       };
 
@@ -80,7 +80,7 @@ function Login() {
     }
 
     const result = {
-      phoneNo: username,
+      phone: username,
       password: password,
     };
 
@@ -107,10 +107,8 @@ function Login() {
     }
 
     const userData = await response.json();
-    console.log(userData);
-    dispatch(canteenActions.setUser(userData.user));
-    console.log(userData.user._id);
-    localStorage.setItem("user", userData.user._id);
+    dispatch(canteenActions.setUser(userData.body));
+    localStorage.setItem("user", userData.body._id);
     setLoading(() => false);
     return navigator("/canteen");
   }

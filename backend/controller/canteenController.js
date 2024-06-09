@@ -1,14 +1,14 @@
 import Canteen from "../model/canteenSchema.js";
 
 export async function canteenAuth(req, res) {
-  const { phoneNo, password } = req.body;
+  const { phone, password } = req.body;
 
-  console.log("Received phoneNo:", phoneNo);
+  console.log("Received phoneNo:", phone);
   console.log("Received password:", password);
 
   try {
     // Find the canteen by phone number
-    let user = await Canteen.findOne({ phoneNo: phoneNo, password: password });
+    let user = await Canteen.findOne({ phone: phone, password: password });
     console.log("User found:", user);
 
     if (!user) {
@@ -18,7 +18,7 @@ export async function canteenAuth(req, res) {
     // Compare the provided password with the stored password
     console.log("Stored password:", user.password);
     if (password === user.password) {
-      body = user.toObject();
+      const body = user.toObject();
       delete body.password;
       console.log(body);
       return res
