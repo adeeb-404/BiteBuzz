@@ -8,7 +8,7 @@ const canteenSchema = new Schema({
     description: { type: String },
     email: { type: String, lowercase: true },
     photo: { type: String },
-    owner_name: { type: String, required: true },
+    CanteenName: { type: String, required: true },
     phone: { type: String, required: true },
     password: { type: String },
     rating: Number,
@@ -26,17 +26,20 @@ const canteenSchema = new Schema({
       }
     ],
     currOrders: [
-      [
-        {
-          userID: { type: Schema.Types.ObjectId },
-          canteenID: { type: Schema.Types.ObjectId },
-          itemName: { type: String },
-          arrivalTime: { type: String },
-          quantity: { type: Number, required: true },
-          price: { type: Number, required: true },
-          expectedTime: { type: String, required: true },
-        }
-      ]
+      {
+        name:{ type: String },
+        usn:{ type: String },
+        orders: [
+          {
+            userID: { type: Schema.Types.ObjectId },
+            canteenID: { type: Schema.Types.ObjectId },
+            itemName: { type: String },
+            quantity: { type: Number, required: true },
+            price: { type: Number, required: true },
+            expectedTime: { type: String, required: true }
+          }
+        ]
+      }
     ],
     history: [baseOrderSchema]
   });
