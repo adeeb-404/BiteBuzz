@@ -14,7 +14,7 @@ function Dashboard({ index }) {
   }
 
   return (
-    <div className="hidden md:block md:w-full h-full m-3 overflow-scroll">
+    <div className="hidden md:block md:w-full h-full m-3 overflow-hidden">
       <div className="mx-4 border-4 border-green-600 md:h-[38rem] rounded-3xl bg-green-100 flex p-3 flex-col gap-10">
         <div className="flex h-[60%]">
           <div className="w-[70%] h-full">
