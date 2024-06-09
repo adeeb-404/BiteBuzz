@@ -17,6 +17,7 @@ const canteenSchema = new Schema({
         photo: String,
         dishName: { type: String, required: true },
         price: { type: Number, required: true },
+        quantity: { type: Number, required: true },
         preparationTime: Number,
         rating: {
           currRating: Number,
@@ -30,6 +31,7 @@ const canteenSchema = new Schema({
           userID: { type: Schema.Types.ObjectId },
           canteenID: { type: Schema.Types.ObjectId },
           itemName: { type: String },
+          arrivalTime: { type: String },
           quantity: { type: Number, required: true },
           price: { type: Number, required: true },
           expectedTime: { type: String, required: true },

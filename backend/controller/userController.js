@@ -10,7 +10,7 @@ export async function userAuth(req, res) {
 
   // Implement your authentication logic here
   try {
-    const user = await users.findOne(obj);
+    const user = await User.findOne(obj);
     console.log(user);
     if (!user) {
       return res
@@ -31,7 +31,7 @@ export async function userAuth(req, res) {
 
 export async function submitOrder(req, res) {
   let obj = req.body;
-
+  console.log(obj);
   try {
     const user = await User.findById(obj[0].userID);
     const findCanteen = await Canteen.findById(obj[0].canteenID);
@@ -79,26 +79,27 @@ export async function submitOrder(req, res) {
     const responseBody = {
       name,
       usn,
-      orders: ordersArray // This will be pushed as an array of orders
+      orders: ordersArray,
+      arrivalTime:obj[0].arrivalTime
     };
 
     res.json(responseBody);
 
-    try {
-      await Canteen.findByIdAndUpdate(
-        { _id: findCanteen._id },
-        { $push: { currOrders: ordersArray } } // Push as an array of arrays of objects
-      );
+  //   try {
+  //     await Canteen.findByIdAndUpdate(
+  //       { _id: findCanteen._id },
+  //       { $push: { currOrders: ordersArray } } // Push as an array of arrays of objects
+  //     );
 
-      await User.findByIdAndUpdate(
-        { _id: obj[0].userID },
-        { $push: { orders: ordersArray } } // Push as an array of arrays of objects
-      );
-    } catch (updateErr) {
-      console.error(updateErr);
-      res.status(500).send("Error updating orders");
-      return;
-    }
+  //     await User.findByIdAndUpdate(
+  //       { _id: obj[0].userID },
+  //       { $push: { orders: ordersArray } } // Push as an array of arrays of objects
+  //     );
+  //   } catch (updateErr) {
+  //     console.error(updateErr);
+  //     res.status(500).send("Error updating orders");
+  //     return;
+  //   }
 
     console.log(responseBody);
   } catch (err) {
