@@ -24,7 +24,7 @@ function MainPage() {
   return (
     <>
       {/* <ToastContainer /> */}
-      <div className="flex w-full h-full mt-16 fixed">
+      <div className="flex max-h-fit w-full">
         <CanteenList onclick={setClickedId} />
         <Dashboard index={clickedId} />
       </div>

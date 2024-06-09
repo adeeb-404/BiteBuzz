@@ -7,7 +7,7 @@ function Dashboard({ index }) {
   // console.log(canteenInfo[index]);
   if (index == null) {
     return (
-      <div className="hidden md:block md:w-full h-full overflow-hidden sticky ">
+      <div className="hidden md:block md:w-full m-5 h-full overflow-hidden ">
         <div className="mx-4 border-4 border-black md:h-[38rem] rounded-3xl bg-gray-100 flex p-3 flex-col gap-10">
           No canteen selected
         </div>
@@ -16,9 +16,8 @@ function Dashboard({ index }) {
   }
 
   return (
-    <div className="hidden md:block md:w-full h-full overflow-scroll ">
+    <div className="hidden md:block md:w-full h-full m-5 overflow-scroll ">
       <div className="mx-4 border-4 border-black md:h-[38rem] rounded-3xl bg-gray-100 flex p-3 flex-col gap-10">
-        {/* <h1>{index}</h1> */}
         <div className="flex h-[60%]">
           <div className="w-[70%] h-full">
             <h1 className="font-bold">{canteenInfo[index].name}</h1>

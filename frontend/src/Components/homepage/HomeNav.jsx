@@ -9,53 +9,62 @@ import { useDispatch } from "react-redux";
 import { userActions } from "../../store/Studentuser";
 
 function HomeNav() {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  function tempHandler() {
+
+  const tempHandler = () => {
     dispatch(userActions.resetUser());
     localStorage.removeItem("user");
-    return navigator("/home");
-  }
+    navigate("/home");
+  };
+
   return (
     <motion.div
-      className="navbar cust-flex w-full text-[1rem] bg-gray-100 rounded-md gap-4 font-bold md:text-[1.3rem] md:items-center py-2 fixed z-10 top-0"
+      className="navbar flex items-center w-full text-lg bg-gradient-to-r from-green-400 via-green-500 to-green-600 p-4 shadow-lg relative top-0 z-10"
       layout
     >
-      <div className=" logo p-1 cust-flex md:px-5 self-start md:pt-0">
-        <p className="px-2">logo</p>
-        <p className="hidden md:block">BiteBuzz</p>
+      <div className="logo flex items-center space-x-2 text-white">
+        <div className="text-2xl font-bold">B</div>
+        <div className="hidden md:block text-xl font-semibold">BiteBuzz</div>
       </div>
 
-      <div className="flex h-8 bg-white rounded-md">
-        <IoSearch className="px-2 size-8 bg-white rounded-lg " />
-        <input
-          placeholder="Search Food"
-          className="w-[8rem] h-7 md:w-[25rem] md:h-7 px-2 py-4 rounded-md self font-normal"
-          type="text"
-        />
+      <div className="flex flex-grow mx-4">
+        <div className="relative w-full max-w-md">
+          <IoSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search Food"
+            className="w-full pl-10 pr-4 py-2 rounded-full bg-white shadow-inner focus:outline-none"
+          />
+        </div>
       </div>
 
-      <div className="cust-flex gap-2 md:gap-1 md:px-7 md:w-[15%]">
+      <div className="flex space-x-6 text-white">
         <motion.div
-          whileHover={{ scale: [1.3, 1] }}
-          transition={{ duration: 1 }}
+          whileHover={{ scale: 1.2 }}
+          transition={{ duration: 0.3 }}
+          className="cursor-pointer"
         >
-          <MdOutlineShoppingCart className="size-7 md:size-9" />
+          <MdOutlineShoppingCart className="text-2xl" />
         </motion.div>
-        {/* <p className="w-[50%]">welcome @user</p> */}
-        <motion.div whileHover={{ rotate: -45 }} transition={{ duration: 0.5 }}>
+
+        <motion.div
+          whileHover={{ rotate: -45 }}
+          transition={{ duration: 0.5 }}
+          className="cursor-pointer"
+        >
           <Link to="/settings">
-            <IoSettingsSharp className=" size-7 md:size-7" />
+            <IoSettingsSharp className="text-2xl" />
           </Link>
         </motion.div>
 
         <motion.div
-          whileHover={{ color: "red", border: "2px solid red" }}
-          transition={{ type: "spring", duration: 1 }}
-          style={{ border: "2px solid white" }}
+          whileHover={{ color: "red", borderColor: "red" }}
+          transition={{ type: "spring", duration: 0.5 }}
+          className="cursor-pointer border-2 border-white rounded-full p-1"
         >
           <Link onClick={tempHandler}>
-            <RiLogoutCircleLine className=" size-7" />
+            <RiLogoutCircleLine className="text-2xl" />
           </Link>
         </motion.div>
       </div>

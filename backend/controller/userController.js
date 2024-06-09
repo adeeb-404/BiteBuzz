@@ -6,11 +6,10 @@ import { getStudentName, getStudentUSN } from "../utility/util.js";
 export async function userAuth(req, res) {
   console.log("In controller");
   const obj = req.body;
-  
 
   // Implement your authentication logic here
   try {
-    const user = await users.findOne(obj);
+    const user = await User.findOne(obj);
     console.log(user);
     if (!user) {
       return res
@@ -67,19 +66,19 @@ export async function submitOrder(req, res) {
     const name = await getStudentName(user._id);
     const usn = await getStudentUSN(user._id);
 
-    const ordersArray = obj.map(order => ({
+    const ordersArray = obj.map((order) => ({
       userID: order.userID,
       canteenID: order.canteenID,
       itemName: order.dishName, // Assuming dishName corresponds to itemName
       quantity: order.quantity,
       price: order.price,
-      expectedTime: order.expectedTime
+      expectedTime: order.expectedTime,
     }));
 
     const responseBody = {
       name,
       usn,
-      orders: ordersArray // This will be pushed as an array of orders
+      orders: ordersArray, // This will be pushed as an array of orders
     };
 
     res.json(responseBody);
