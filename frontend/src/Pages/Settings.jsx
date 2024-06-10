@@ -4,10 +4,14 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 function Settings({ isCanteen }) {
-  const usn = useSelector((state) => state.user.USN);
-  const name = useSelector((state) => state.user.name);
-  const curEmail = useSelector((state) => state.canteen.emailID);
-  const curphoneNo = useSelector((state) => state.user.phoneNo);
+  let usn = useSelector((state) => state.user.usn);
+  let name = useSelector((state) => state.user.usn);
+  let curEmail = useSelector((state) => state.user.usn);
+  let curphoneNo = useSelector((state) => state.user.usn);
+  let usnc = useSelector((state) => state.canteen.usn);
+  let namec = useSelector((state) => state.canteen.usn);
+  let curEmailc = useSelector((state) => state.canteen.usn);
+  let curphoneNoc = useSelector((state) => state.canteen.usn);
 
   const [email, setEmail] = useState(curEmail);
   const [phone, setPhone] = useState(curphoneNo);

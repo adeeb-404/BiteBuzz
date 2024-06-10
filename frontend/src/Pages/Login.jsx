@@ -107,6 +107,7 @@ function Login() {
     }
 
     const userData = await response.json();
+    console.log(userData);
     dispatch(canteenActions.setUser(userData.body));
     localStorage.setItem("user", userData.body._id);
     setLoading(() => false);

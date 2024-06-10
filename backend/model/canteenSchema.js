@@ -8,7 +8,7 @@ const canteenSchema = new Schema({
   description: { type: String },
   email: { type: String, lowercase: true },
   photo: { type: String },
-  CanteenName: { type: String, required: true },
+  canteenName: { type: String, required: true },
   phone: { type: String, required: true },
   password: { type: String },
   rating: Number,

@@ -6,14 +6,16 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { userActions } from "../../store/Studentuser";
+import { userActions as studentActions } from "../../store/Studentuser";
+import { userActions as canteenActions } from "../../store/CanteenUser";
 
 function HomeNav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const tempHandler = () => {
-    dispatch(userActions.resetUser());
+    dispatch(studentActions.resetUser());
+    dispatch(canteenActions.resetUser());
     localStorage.removeItem("user");
     navigate("/home");
   };

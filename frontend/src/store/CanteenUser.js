@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const canteenInitialState = {
-  Description: "",
-  Name: "",
+  description: "",
+  name: "",
   currOrders: [],
-  emailID: "",
+  email: "",
   history: [],
   menu: [],
-  owner_name: "",
-  phoneNo: "",
+  canteenName: "",
+  phone: "",
   photos: [],
   rating: 0,
   _id: "",
@@ -19,27 +19,27 @@ const canteenSlice = createSlice({
   initialState: canteenInitialState,
   reducers: {
     setUser(state, action) {
-      state.Description = action.payload.Description;
-      state.Name = action.payload.Name;
+      state.description = action.payload.description;
+      state.name = action.payload.name;
       state.currOrders = action.payload.currOrders;
-      state.emailID = action.payload.emailID;
+      state.email = action.payload.email;
       state.history = action.payload.history;
       state.menu = action.payload.menu;
-      state.owner_name = action.payload.owner_name;
-      state.phoneNo = action.payload.phoneNo;
+      state.canteenName = action.payload.canteenName;
+      state.phone = action.payload.phone;
       state.photos = action.payload.photos;
       state.rating = action.payload.rating;
       state._id = action.payload.id;
     },
     resetUser(state) {
-      state.Description = "";
-      state.Name = "";
+      state.description = "";
+      state.name = "";
       state.currOrders = [];
-      state.emailID = "";
+      state.email = "";
       state.history = [];
       state.menu = [];
-      state.owner_name = "";
-      state.phoneNo = "";
+      state.canteenName = "";
+      state.phone = "";
       state.photos = [];
       state.rating = 0;
       state._id = "";
