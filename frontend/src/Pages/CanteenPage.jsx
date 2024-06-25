@@ -1,4 +1,3 @@
-// import orderItems from "../assets/orderItems";
 import OrderList from "../Components/canteen/OrderList";
 import CanteenDashboard from "../Components/canteen/CanteenDashboard";
 import { useState } from "react";
@@ -6,7 +5,7 @@ import { useState } from "react";
 function CanteenPage() {
   const [index, setIndex] = useState(null);
   return (
-    <div className="text-3xl flex h-screen pt-14 fixed w-full">
+    <div className="flex h-screen fixed w-screen bg-green-50">
       <OrderList setIndex={setIndex} />
       <CanteenDashboard index={index} />
     </div>

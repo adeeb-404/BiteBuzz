@@ -91,7 +91,7 @@ function Login() {
       },
       body: JSON.stringify(result),
     });
-    if (response.status == 400) {
+    if (response.status == 404) {
       const data = await response.json();
       setError({ message: data.message });
       setLoading(() => false);

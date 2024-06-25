@@ -3,22 +3,29 @@ import orderItems from "../../assets/orderItems";
 import OrderBox from "./orderBox";
 
 function CanteenDashboard({ index }) {
-  console.log(index);
-  if (index === null) return <h1 className="py-5 px-8">No order selected</h1>;
+  if (index === null)
+    return (
+      <h1 className="py-5 text-green-900 text-center w-[80%] h-full flex items-center justify-center text-[4rem]">
+        No order selected
+      </h1>
+    );
+
   return (
-  <div className="w-[80%] m-4 ml-10">
-    <div className="py-3">
-      <h1 className="font-semibold px-2">{orderItems[index].usn}</h1>
-      <h1 className="font-weight-600">({orderItems[index].name})</h1>
+    <div className="w-[80%] p-8">
+      <div className="py-3">
+        <h1 className="font-semibold px-2 text-green-900 text-2xl">
+          {orderItems[index].usn}
+        </h1>
+        <h1 className="font-weight-600 text-green-900">
+          ({orderItems[index].name})
+        </h1>
+      </div>
+      <div className="grid grid-cols-5 gap-4">
+        {orderItems[index].orderFood.map((foods, ind) => {
+          return <OrderBox key={ind} foods={foods} />;
+        })}
+      </div>
     </div>
-    <div className="grid grid-cols-5 ">
-    {orderItems[index].orderFood.map((foods, ind) => {
-      return(
-        <OrderBox key={ind} foods ={foods}/>
-      )
-    })}
-    </div>
-  </div>
   );
 }
 
