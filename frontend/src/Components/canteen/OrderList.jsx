@@ -3,8 +3,8 @@ import orderItems from "../../assets/orderItems";
 
 function OrderList({ setIndex }) {
   return (
-    <div className="w-[20%] h-screen overflow-scroll border-2 border-green-950">
-      <div className="bg-green-100 h-fit flex gap-4 flex-col justify-center items-center">
+    <div className="w-[20%] h-screen overflow-scroll border-2 border-green-950 bg-green-100">
+      <div className=" h-fit flex gap-4 flex-col justify-center items-center pb-32">
         <h1 className="text-green-900 font-bold text-2xl mt-4">Order List</h1>
         {orderItems.map((element, index) => {
           return (
