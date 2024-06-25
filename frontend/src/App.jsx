@@ -9,6 +9,7 @@ import { LoginAction } from "./Actions.js";
 import Settings from "./Pages/Settings.jsx";
 import Menu from "./Pages/Menu.jsx";
 import CanteenPage from "./Pages/CanteenPage.jsx";
+import Cart from "./Pages/Cart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: ":canteenId",
         element: <Menu />,
       },
+      {
+        path: "cart",
+        element: <Cart />,
+      }
     ],
   },
   { path: "home", element: <Home /> },
