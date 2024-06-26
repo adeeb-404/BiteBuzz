@@ -140,7 +140,7 @@ export async function dashboard(req, res) {
       },
       {
         $project: {
-          
+          _id: 1, 
           name: 1,
           description: 1,
           rating: 1,
@@ -153,6 +153,7 @@ export async function dashboard(req, res) {
           _id: null,
           canteens: {
             $push: {
+              _id: '$_id',
               name: '$name',
               description: '$description',
               rating: '$rating',
