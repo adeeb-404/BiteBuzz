@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaClock } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const currentOrders = [
   {
@@ -43,8 +44,20 @@ function UserHistory() {
   const [current] = useState(currentOrders);
   const [history] = useState(pastOrders);
 
+  const navigator = useNavigate();
+
+  function handleClick() {
+    navigator("..");
+  }
+
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
+      <button
+        className="mb-5 py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
+        onClick={handleClick}
+      >
+        Back
+      </button>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
         <div>
           <h2 className="text-3xl font-semibold text-green-900 mb-4">

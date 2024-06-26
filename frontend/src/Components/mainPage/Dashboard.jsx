@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-
 import canteenInfo from "../../assets/CanteenInfo";
 import { FaStar } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 function Dashboard({ index }) {
   if (index == null) {
@@ -43,12 +43,18 @@ function Dashboard({ index }) {
             </h1>
             {/* Buttons */}
             <div className="flex justify-center gap-4 mt-4">
-              <button className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300">
+              <Link
+                className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
+                to="/srikantu"
+              >
                 Menu
-              </button>
-              <button className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300">
+              </Link>
+              <Link
+                className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
+                to="/srikantu/history"
+              >
                 History
-              </button>
+              </Link>
             </div>
           </div>
         </div>
