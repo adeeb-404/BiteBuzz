@@ -1,5 +1,5 @@
 import { FaStar } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const menuItems = [
   {
@@ -46,14 +46,23 @@ function MenuPage() {
   function handleClick() {
     navigator("..");
   }
+
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
-      <button
-        className="mb-5 py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
-        onClick={handleClick}
-      >
-        Back
-      </button>
+      <div className="flex justify-between mb-5">
+        <button
+          className="py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
+          onClick={handleClick}
+        >
+          Back
+        </button>
+        <Link
+          className="py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
+          to="history"
+        >
+          History
+        </Link>
+      </div>
       <h1 className="text-4xl font-bold text-green-900 mb-10 text-center">
         Menu
       </h1>
