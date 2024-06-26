@@ -41,7 +41,7 @@ const canteenInfo = [{
 {
     name:"Red canteen",
     img:canteen2,
-    disc : "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution",
+    desc : "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution",
     rating:4.1,
     top5:[{
         foodImg:'https://www.vegrecipesofindia.com/wp-content/uploads/2021/06/idli-recipe-4-500x500.jpg',
