@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
+
 import canteenInfo from "../../assets/CanteenInfo";
 import { FaStar } from "react-icons/fa6";
 
 function Dashboard({ index }) {
   if (index == null) {
     return (
-      <div className="hidden md:block md:w-full m-3 h-full overflow-hidden">
-        <div className="mx-4 border-4 border-green-600 md:h-[38rem] rounded-3xl bg-green-100 flex p-3 flex-col gap-10">
-          No canteen selected
+      <div className="md:block md:w-full m-3 h-full overflow-hidden">
+        <div className="mx-4 border-4 border-green-600 md:h-[38rem] rounded-3xl bg-green-100 flex p-3 flex-col gap-10 text-4xl">
+          <h1 className="flex items-center justify-center h-[80%]">
+            No canteen selected
+          </h1>
         </div>
       </div>
     );
@@ -38,6 +41,15 @@ function Dashboard({ index }) {
               <div className="pl-2">{canteenInfo[index].rating}</div>
               <FaStar className="text-green-500 m-1" />
             </h1>
+            {/* Buttons */}
+            <div className="flex justify-center gap-4 mt-4">
+              <button className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300">
+                Menu
+              </button>
+              <button className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300">
+                History
+              </button>
+            </div>
           </div>
         </div>
 

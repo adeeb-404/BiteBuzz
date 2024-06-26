@@ -42,13 +42,15 @@ function HomeNav() {
       </div>
 
       <div className="flex space-x-6 text-white">
-        <motion.div
-          whileHover={{ scale: 1.2 }}
-          transition={{ duration: 0.3 }}
-          className="cursor-pointer"
-        >
-          <MdOutlineShoppingCart className="text-3xl" />
-        </motion.div>
+        <Link to="/cart">
+          <motion.div
+            whileHover={{ scale: 1.2 }}
+            transition={{ duration: 0.3 }}
+            className="cursor-pointer"
+          >
+            <MdOutlineShoppingCart className="text-3xl" />
+          </motion.div>
+        </Link>
 
         <motion.div
           whileHover={{ rotate: -45 }}

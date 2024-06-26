@@ -10,6 +10,7 @@ import Settings from "./Pages/Settings.jsx";
 import Menu from "./Pages/Menu.jsx";
 import CanteenPage from "./Pages/CanteenPage.jsx";
 import Cart from "./Pages/Cart.jsx";
+import UserHistory from "./Pages/UserHistory.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,12 +28,21 @@ const router = createBrowserRouter([
       },
       {
         path: ":canteenId",
-        element: <Menu />,
+        children: [
+          {
+            index: true,
+            element: <Menu />,
+          },
+          {
+            path: "history",
+            element: <UserHistory />,
+          },
+        ],
       },
       {
         path: "cart",
         element: <Cart />,
-      }
+      },
     ],
   },
   { path: "home", element: <Home /> },

@@ -1,111 +1,148 @@
-/* eslint-disable react/prop-types */
-// Settings.js
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { FaUser, FaBell, FaLock } from "react-icons/fa6";
 
-function Settings({ isCanteen }) {
-  let usn = useSelector((state) => state.user.usn);
-  let name = useSelector((state) => state.user.usn);
-  let curEmail = useSelector((state) => state.user.usn);
-  let curphoneNo = useSelector((state) => state.user.usn);
-  let usnc = useSelector((state) => state.canteen.usn);
-  let namec = useSelector((state) => state.canteen.usn);
-  let curEmailc = useSelector((state) => state.canteen.usn);
-  let curphoneNoc = useSelector((state) => state.canteen.usn);
-
-  const [email, setEmail] = useState(curEmail);
-  const [phone, setPhone] = useState(curphoneNo);
-  const [profilePic, setProfilePic] = useState(
-    "https://via.placeholder.com/150"
-  ); // Placeholder image
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
-  };
-
-  const handleProfilePicChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setProfilePic(e.target.result);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-
+function SettingsPage() {
   return (
-    <div className="p-4 bg-gray-100 min-h-screen">
-      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-semibold mb-4">Settings</h1>
-
-        <section className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">User Profile</h2>
-          <div className="space-y-2">
-            <div className="flex items-center space-x-4">
-              <img
-                src={profilePic}
-                alt="Profile"
-                className="w-20 h-20 rounded-full"
-              />
-              <input
-                type="file"
-                onChange={handleProfilePicChange}
-                className="text-sm text-gray-600"
-              />
+    <div className="min-h-screen bg-green-50 py-10 px-4">
+      <h1 className="text-4xl font-bold text-green-900 mb-10 text-center">
+        Settings
+      </h1>
+      <div className="max-w-4xl mx-auto space-y-10">
+        {/* Profile Settings */}
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="flex items-center mb-4">
+            <FaUser className="text-green-700 text-2xl mr-2" />
+            <h2 className="text-2xl font-semibold text-green-900">
+              Profile Settings
+            </h2>
+          </div>
+          <form className="space-y-4">
+            <div>
+              <label
+                className="block text-green-700 font-medium mb-1"
+                htmlFor="username"
+              >
+                Name
+              </label>
+              <div
+                type="text"
+                id="username"
+                className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
+              >
+                Mohammed Adeeb
+              </div>
             </div>
             <div>
-              <label className="block text-gray-700">
-                {isCanteen ? "Canteen Name" : "Username (USN)"}
+              <label
+                className="block text-green-700 font-medium mb-1"
+                htmlFor="email"
+              >
+                Email
+              </label>
+              <div
+                type="email"
+                id="email"
+                className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
+              >
+                2021is_mohammedadeeb_a@nie.ac.in
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {/* Notification Settings */}
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="flex items-center mb-4">
+            <FaBell className="text-green-700 text-2xl mr-2" />
+            <h2 className="text-2xl font-semibold text-green-900">
+              Notification Settings
+            </h2>
+          </div>
+          <form className="space-y-4">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="emailNotifications"
+                className="h-5 w-5 text-green-600 focus:ring-green-500 border-green-300 rounded"
+              />
+              <label
+                htmlFor="emailNotifications"
+                className="ml-2 text-green-700"
+              >
+                Email Notifications
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="smsNotifications"
+                className="h-5 w-5 text-green-600 focus:ring-green-500 border-green-300 rounded"
+              />
+              <label htmlFor="smsNotifications" className="ml-2 text-green-700">
+                SMS Notifications
+              </label>
+            </div>
+            <button className="w-full py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300">
+              Save Changes
+            </button>
+          </form>
+        </div>
+
+        {/* Account Security */}
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="flex items-center mb-4">
+            <FaLock className="text-green-700 text-2xl mr-2" />
+            <h2 className="text-2xl font-semibold text-green-900">
+              Account Security
+            </h2>
+          </div>
+          <form className="space-y-4">
+            <div>
+              <label
+                className="block text-green-700 font-medium mb-1"
+                htmlFor="currentPassword"
+              >
+                Current Password
               </label>
               <input
-                type="text"
-                value={usn}
-                readOnly
-                className="w-full p-2 border rounded-lg bg-gray-200 cursor-not-allowed"
+                type="password"
+                id="currentPassword"
+                className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
             </div>
             <div>
-              <label className="block text-gray-700">Name</label>
+              <label
+                className="block text-green-700 font-medium mb-1"
+                htmlFor="newPassword"
+              >
+                New Password
+              </label>
               <input
-                type="text"
-                value={name}
-                readOnly
-                className="w-full p-2 border rounded-lg bg-gray-200 cursor-not-allowed"
-              />
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Contact Information</h2>
-          <div className="space-y-2">
-            <div>
-              <label className="block text-gray-700">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={handleEmailChange}
-                className="w-full p-2 border rounded-lg"
+                type="password"
+                id="newPassword"
+                className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
             </div>
             <div>
-              <label className="block text-gray-700">Phone Number</label>
+              <label
+                className="block text-green-700 font-medium mb-1"
+                htmlFor="confirmPassword"
+              >
+                Confirm New Password
+              </label>
               <input
-                type="tel"
-                value={phone}
-                onChange={handlePhoneChange}
-                className="w-full p-2 border rounded-lg"
+                type="password"
+                id="confirmPassword"
+                className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
             </div>
-          </div>
-        </section>
+            <button className="w-full py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300">
+              Save Changes
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
 }
 
-export default Settings;
+export default SettingsPage;
