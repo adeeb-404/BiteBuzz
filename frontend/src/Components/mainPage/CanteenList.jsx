@@ -7,7 +7,7 @@ function MainPage({ onclick }) {
   }
 
   return (
-    <div className="w-full md:mx-4 md:w-1/5 max-h-[89vh] p-5 text-center border-r border-green-600 box-border overflow-scroll pb-12 ">
+    <div className="w-full md:mx-4 md:w-1/5 max-h-[89vh] p-5 text-center border-r border-green-600 box-border overflow-scroll pb-12 overflow-x-hidden">
       <h1 className="text-3xl font-bold text-green-900">Canteen List</h1>
       {canteenInfo.map((element, ind) => {
         return (
