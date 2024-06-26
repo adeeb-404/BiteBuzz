@@ -11,6 +11,7 @@ import Menu from "./Pages/Menu.jsx";
 import CanteenPage from "./Pages/CanteenPage.jsx";
 import Cart from "./Pages/Cart.jsx";
 import UserHistory from "./Pages/UserHistory.jsx";
+import FoodConfiguration from "./Pages/FoodConfiguration.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
           {
             path: "history",
             element: <UserHistory />,
+          },
+          {
+            path:"Food",
+            element: <FoodConfiguration />
           },
         ],
       },
