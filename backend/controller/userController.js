@@ -142,67 +142,36 @@ export async function submitOrder(req, res) {
 
 export async function dashboard(req, res) {
   try {
-    const canteenDetails = await Canteen.find(
-      {}, // Empty filter to select all documents
-      { name: 1, photo: 1, Description: 1, rating: 1 } // Projection
-    );
-
-    if (canteenDetails.length === 0) {
-      console.log("No canteens found");
-      return res.json(200);
-    }
-
-    // console.log("Canteen details:", canteenDetails);
-    // return res.json(canteenDetails);
-    // const listCanteens= await Canteen.find({},{name:true,photo:true,description:true,rating:true});
-    
-    const topRatedDishesPerCanteen = await Canteen.aggregate([
-      { $unwind: '$menu' },
-      { $sort: { 'menu.rating.currRating': -1 } },
+    const canteenDetails=await Canteen.aggregate([
       {
-        $group: {
-          _id: '$_id',
-          name: { $first: '$name' },
-          description: { $first: '$description' },
-          rating: { $first: '$rating' },
-          photo: { $first: '$photo' },
-          topDishes: { $push: '$menu' }
-        }
+        $unwind: "$menu"
       },
       {
-        $project: {
-          _id: 1, 
-          name: 1,
-          description: 1,
-          rating: 1,
-          photo: 1,
-          topDishes: { $slice: ['$topDishes', 5] }
-        }
+        $sort: { "menu.rating": -1 }
       },
       {
         $group: {
-          _id: null,
-          canteens: {
-            $push: {
-              _id: '$_id',
-              name: '$name',
-              description: '$description',
-              rating: '$rating',
-              photo: '$photo',
-              topDishes: '$topDishes'
-            }
-          }
+          _id: "$_id",
+          name: { $first: "$name" },
+          img: { $first: "$img" },
+          disc: { $first: { $substrCP: ["$description", 0, 200] } },
+          rating: { $first: "$rating" },
+          top5: { $push: "$menu" }
         }
       },
       {
         $project: {
           _id: 0,
-          canteens: 1
+          name: 1,
+          img: 1,
+          disc: 1,
+          rating: 1,
+          top5: { $slice: ["$top5", 5] } // Limit to top 5 dishes per canteen
         }
       }
     ]);
 
-    return res.json({canteenDetails,topRatedDishesPerCanteen});
+    return res.json(canteenDetails);
 
   } catch (err) {
     console.error("Error fetching canteen details:", err);

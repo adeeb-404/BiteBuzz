@@ -9,7 +9,7 @@ router
 .post("/orders",submitOrder)
 .get("/dashboard",dashboard)
 .post("/settings",changePassword)
-.post("/:id",canteenMenu)
+.get("/:id",canteenMenu)
 .post("/:id/history",displayHistroy)
 
 
