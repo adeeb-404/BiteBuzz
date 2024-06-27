@@ -1,13 +1,12 @@
 import image from "../../assets/pizza-3007395_1280.jpg";
 import { motion } from "framer-motion";
-import { useTheme } from "../../darkmodecontext";
 import { Link } from "react-router-dom";
+import Header from "./Header";
 function Hero() {
-  const { darkMode, toggleDarkMode } = useTheme();
-
   return (
     <div className="h-fit">
-      <header className="sticky top-0  z-50 shadow-lg shadow-green-500 dark:shadow-[#002616] cust-text">
+      <Header />
+      {/* <header className="sticky top-0  z-50 shadow-lg shadow-green-500 dark:shadow-[#002616] cust-text">
         <nav className="min-w-screen flex items-center justify-between px-6">
           <h1 className="p-2 text-md md:text-xl font-semibold">BiteBuzz</h1>
           <button
@@ -17,8 +16,8 @@ function Hero() {
             Toggle to {darkMode ? "Light" : "Dark"} Mode
           </button>
         </nav>
-      </header>
-      <div className="flex items-center justify-around h-screen pl-4 md:p-4 md:pl-0 cust-text dark:border-white border-black flex-col md:flex-row">
+      </header> */}
+      <div className="  flex items-center justify-around h-screen pl-4 md:p-4 md:pl-0 cust-text dark:border-white border-black flex-col md:flex-row">
         <motion.img
           src={image}
           alt="image of pizza"

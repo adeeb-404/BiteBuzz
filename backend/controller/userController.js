@@ -64,6 +64,7 @@ export async function submitOrder(req, res) {
 
   try {
     const user = await User.findById(obj[0].userID);
+    const arrivalTime=obj[0].arrivalTime;
     const findCanteen = await Canteen.findById(obj[0].canteenID);
 
     for (let i = 0; i < obj.length; i++) {
@@ -86,6 +87,8 @@ export async function submitOrder(req, res) {
           const time = findItem.menu[0].preparationTime * (60 * 1000);
           const finalTime = new Date(currTime + time).toLocaleTimeString();
           obj[i].expectedTime = finalTime;
+          obj[i].photo = findItem.menu[0].photo; // Add photo from the menu item
+          obj[i].rating = findItem.menu[0].rating;
         }
       } catch (err) {
         console.error(err);
@@ -100,6 +103,8 @@ export async function submitOrder(req, res) {
     const ordersArray = obj.map((order) => ({
       userID: order.userID,
       canteenID: order.canteenID,
+      photo:order.photo,
+      ratings:order.rating,
       itemName: order.dishName, // Assuming dishName corresponds to itemName
       quantity: order.quantity,
       price: order.price,
@@ -110,6 +115,7 @@ export async function submitOrder(req, res) {
 
       name:user.name,
       usn:user.usn,
+      "arrivalTime":arrivalTime,
       orders: ordersArray 
     };
 
@@ -131,7 +137,7 @@ export async function submitOrder(req, res) {
       return;
     }
 
-    console.log(user);
+    // console.log(user );
     console.log(responseBody);
   } catch (err) {
     console.error(err);

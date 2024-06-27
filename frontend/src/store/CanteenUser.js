@@ -46,5 +46,5 @@ const canteenSlice = createSlice({
     },
   },
 });
-export default canteenSlice;
+export default canteenSlice.reducer;
 export const userActions = canteenSlice.actions;
