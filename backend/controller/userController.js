@@ -177,3 +177,45 @@ export async function dashboard(req, res) {
     console.error("Error fetching canteen details:", err);
   }
 }
+
+
+export async function canteenMenu(req,res){
+
+  try{
+    let id=req.params.id;
+    // id=id.toString();
+    console.log(typeof(id));
+    const menuOfCanteen=await Canteen.findById(id,{menu:true,_id:false});
+
+    return res.json(menuOfCanteen);
+
+
+  }catch(err){
+
+  }
+
+}
+
+export async function displayHistroy(req,res){
+  const canteenId= req.params.id;
+  const obj=req.body;  
+  const userId=obj.userId;
+  const user=await User.findById(userId).lean();
+  const filterOrders = (ordersArray) => {
+    return ordersArray.map(orderGroup => 
+      orderGroup.filter(order => order.canteenID == canteenId)
+    ).filter(orderGroup => orderGroup.length > 0);
+  };
+
+
+    const currentOrders = filterOrders(user.currOrders || []);
+    const orderHistory = filterOrders(user.history|| []);
+
+
+   return res.json({
+      currentOrders,
+      orderHistory
+    });
+
+ 
+}
