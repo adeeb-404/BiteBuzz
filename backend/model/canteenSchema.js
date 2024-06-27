@@ -26,6 +26,20 @@ const canteenSchema = new Schema({
       },
     },
   ],
+  storage: [
+    {
+      photo: String,
+      dishName: { type: String, required: true },
+      description: { type: String, required: true },
+      price: { type: Number, required: true },
+      quantity:{type:Number,required:true},
+      preparationTime: Number,
+      rating: {
+        currRating: Number,
+        noOfRating: Number,
+      },
+    },
+  ],
   currOrders: [
     {
       name: { type: String },

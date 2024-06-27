@@ -34,3 +34,18 @@ export async function canteenAuth(req, res) {
       .json({ message: "An error occurred during authentication" });
   }
 }
+
+export async function displayStorage(req,res){
+  try{
+    const obj=req.body;
+    const canteenId=obj.canteenId;
+    console.log(canteenId);
+    const storageArray=await Canteen.findById(canteenId,{storage:true,_id:false});
+    console.log(storageArray);
+    return res.json(storageArray);
+  }
+  catch(err){
+    console.log(err);
+    return res.json(500)
+  }
+}
