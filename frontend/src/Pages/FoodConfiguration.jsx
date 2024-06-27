@@ -7,6 +7,7 @@ function FoodConfiguration() {
   const [addedFoods, setAddedFoods] = useState([]);
   const [allFoods, setAllFoods] = useState(menuItems);
   const [clickedId, setClickedId] = useState(null);
+  const [tobeRemovedIndex, setTobeRemovedIndex] = useState(null);
 
   useEffect(() => {
     if (clickedId !== null) {
@@ -19,6 +20,17 @@ function FoodConfiguration() {
     }
   }, [clickedId, allFoods]);
 
+  useEffect(() => {
+    if (tobeRemovedIndex !== null) {
+      const removedFood = addedFoods.find((_, id) => id === tobeRemovedIndex);
+      const newMenuList = addedFoods.filter((_, id) => id !== tobeRemovedIndex);
+
+      setAddedFoods(newMenuList);
+      setAllFoods((prevAllFoods) => [...prevAllFoods, removedFood]);
+      setTobeRemovedIndex(null);
+    }
+  }, [tobeRemovedIndex, addedFoods]);
+
   return (
     <div>
       <div className='flex flex-col'>
@@ -26,7 +38,7 @@ function FoodConfiguration() {
           {addedFoods.length ? (
             <div className='flex gap-10 m-4 flex-nowrap overflow-x-scroll custom-scrollbar '>
               {addedFoods.map((food, index) => (
-                <FoodConfigBox foods={food} key={index} index={index}/>
+                <FoodConfigBox foods={food} key={index} index={index} removeFood={setTobeRemovedIndex} />
               ))}
             </div>
           ) : (

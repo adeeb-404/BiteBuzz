@@ -1,8 +1,9 @@
-import React from 'react'
+import React,{useState} from 'react'
 import menuItems from '../../assets/menuItems'
 
 function AddFood({foods,index,addFood}) {
     // console.log(foods);
+    // const [quant, setQuant] = useState(foods.quantity);
 
     function handleFoodClick(index){
         // console.log(index);
