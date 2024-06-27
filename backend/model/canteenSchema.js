@@ -56,7 +56,7 @@ const canteenSchema = new Schema({
           rating: {
             currRating: Number,
             noOfRating: Number,
-          },
+          },  
           expectedTime: { type: String, required: true },
         },
       ],
