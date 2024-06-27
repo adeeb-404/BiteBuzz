@@ -111,15 +111,15 @@ export async function submitOrder(req, res) {
 
 export async function dashboard(req, res) {
   try {
-    // const canteenDetails = await Canteen.find(
-    //   {}, // Empty filter to select all documents
-    //   { Name: 1, photo: 1, Description: 1, rating: 1 } // Projection
-    // );
+    const canteenDetails = await Canteen.find(
+      {}, // Empty filter to select all documents
+      { name: 1, photo: 1, Description: 1, rating: 1 } // Projection
+    );
 
-    // if (canteenDetails.length === 0) {
-    //   console.log("No canteens found");
-    //   return res.json(200);
-    // }
+    if (canteenDetails.length === 0) {
+      console.log("No canteens found");
+      return res.json(200);
+    }
 
     // console.log("Canteen details:", canteenDetails);
     // return res.json(canteenDetails);
@@ -171,7 +171,7 @@ export async function dashboard(req, res) {
       }
     ]);
 
-    return res.json(topRatedDishesPerCanteen);
+    return res.json({canteenDetails,topRatedDishesPerCanteen});
 
   } catch (err) {
     console.error("Error fetching canteen details:", err);
