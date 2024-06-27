@@ -153,7 +153,7 @@ export async function dashboard(req, res) {
         $group: {
           _id: "$_id",
           name: { $first: "$name" },
-          photo: { $first: "$img" },
+          photo: { $first: "$photo" },
           description: { $first: { $substrCP: ["$description", 0, 200] } },
           rating: { $first: "$rating" },
           top5: { $push: "$menu" }
