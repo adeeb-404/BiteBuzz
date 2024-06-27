@@ -210,7 +210,7 @@ export async function displayHistroy(req,res){
   const filterOrders = (ordersArray) => {
     return ordersArray.map(orderGroup => 
       orderGroup.filter(order => order.canteenID == canteenId)
-    ).filter(orderGroup => orderGroup.length > 0);
+    ).filter(orderGroup => orderGroup.length > 0).flat();
   };
 
 
