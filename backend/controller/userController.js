@@ -153,8 +153,8 @@ export async function dashboard(req, res) {
         $group: {
           _id: "$_id",
           name: { $first: "$name" },
-          img: { $first: "$img" },
-          desc: { $first: { $substrCP: ["$description", 0, 200] } },
+          photo: { $first: "$img" },
+          description: { $first: { $substrCP: ["$description", 0, 200] } },
           rating: { $first: "$rating" },
           top5: { $push: "$menu" }
         }
@@ -163,8 +163,8 @@ export async function dashboard(req, res) {
         $project: {
           _id: 0,
           name: 1,
-          img: 1,
-          disc: 1,
+          photo: 1,
+          description: 1,
           rating: 1,
           top5: { $slice: ["$top5", 5] } // Limit to top 5 dishes per canteen
         }
