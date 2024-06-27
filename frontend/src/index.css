@@ -50,7 +50,7 @@
 /* hiding scroll bar  */
 /* For WebKit browsers */
 .custom-scrollbar::-webkit-scrollbar {
-  height: 6px; 
+  height: 2px; 
 }
 
 /* .custom-scrollbar::-webkit-scrollbar-track {
