@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-import { useState, useEffect } from 'react';
-import menuItems from '../assets/menuItems';
-import FoodConfigBox from '../Components/foodConfig/FoodConfigBox';
-import AddFood from '../Components/foodConfig/AddFood';
-=======
 import { useState, useEffect } from "react";
 import menuItems from "../assets/menuItems";
 import FoodConfigBox from "../Components/foodConfig/FoodConfigBox";
 import AddFood from "../Components/foodConfig/AddFood";
->>>>>>> 3484c603073c046a628358061647a7a9f89e0f15
 
 function FoodConfiguration() {
   const [addedFoods, setAddedFoods] = useState([]);
