@@ -124,15 +124,21 @@ function Login() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
         >
-          <motion.button
-            className="absolute right-0 top-0 p-2  border-l-2 border-b-2 border-stone-900 dark:border-green-100 rounded-sm dark:text-green-100"
-            whileHover={{ backgroundColor: "lightgreen" }}
-            transition={{ type: "spring", duration: 1 }}
+          <button
+            className=" border-2 border-black group hover:border-green-500 w-9 h-9 duration-500 overflow-hidden absolute top-0 right-0"
+            type="button"
             onClick={handleClick}
           >
-            X
-          </motion.button>
-          <div className="flex mb-4  rounded-lg gap-0 dark:border-2 border-green-50  ">
+            <p className="font-Manrope text-3xl h-full w-full flex items-center justify-center text-black dark:text-green-200 duration-500 relative z-10 group-hover:scale-0">
+              ×
+            </p>
+            <span className="absolute w-full h-full bg-green-500 rotate-45 group-hover:top-6 duration-500 top-12 left-0"></span>
+            <span className="absolute w-full h-full bg-green-500 rotate-45 top-0 group-hover:left-6 duration-500 left-12"></span>
+            <span className="absolute w-full h-full bg-green-500 rotate-45 top-0 group-hover:right-6 duration-500 right-12"></span>
+            <span className="absolute w-full h-full bg-green-500 rotate-45 group-hover:bottom-6 duration-500 bottom-12 right-0"></span>
+          </button>
+
+          <div className="flex my-4  rounded-lg gap-0 dark:border-2 border-green-50 ">
             <Link
               className={`px-8 py-2  rounded-l-md ${
                 isStudent

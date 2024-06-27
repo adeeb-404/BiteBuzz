@@ -1,14 +1,33 @@
 import CanteenList from "../Components/mainPage/CanteenList";
 import Dashboard from "../Components/mainPage/Dashboard";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { setCanteens } from "../store/Canteen.js";
+import { useDispatch } from "react-redux";
 
+let isinitial = false;
 function MainPage() {
+  const dispatch = useDispatch();
+
   const [clickedId, setClickedId] = useState(null);
+  let url;
+
+  useEffect(() => {
+    if (isinitial) return;
+    async function f() {
+      const response = await fetch("http://localhost:5000/api/user/dashboard/");
+      const data = await response.json();
+      console.log(data);
+      dispatch(setCanteens(data));
+    }
+    f();
+    isinitial = true;
+  }, [dispatch]);
 
   return (
     <>
       <div className="flex max-h-fit w-full">
+        <img src={url} />
         <CanteenList onclick={setClickedId} />
         <Dashboard index={clickedId} />
       </div>

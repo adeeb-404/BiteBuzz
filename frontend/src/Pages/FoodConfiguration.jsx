@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import menuItems from '../assets/menuItems';
-import FoodConfigBox from '../Components/foodConfig/FoodConfigBox';
-import AddFood from '../Components/foodConfig/AddFood';
+import { useState, useEffect } from "react";
+import menuItems from "../assets/menuItems";
+import FoodConfigBox from "../Components/foodConfig/FoodConfigBox";
+import AddFood from "../Components/foodConfig/AddFood";
 
 function FoodConfiguration() {
   const [addedFoods, setAddedFoods] = useState([]);
@@ -33,21 +33,31 @@ function FoodConfiguration() {
 
   return (
     <div>
-      <div className='flex flex-col'>
-        <div className='min-h-[20rem] border-b-black'>
+      <div className="flex flex-col">
+        <div className="min-h-[20rem] border-b-black">
           {addedFoods.length ? (
-            <div className='flex gap-10 m-4 flex-nowrap overflow-x-scroll custom-scrollbar '>
+            <div className="flex gap-10 m-4 flex-nowrap overflow-x-scroll custom-scrollbar ">
               {addedFoods.map((food, index) => (
-                <FoodConfigBox foods={food} key={index} index={index} removeFood={setTobeRemovedIndex} />
+                <FoodConfigBox
+                  foods={food}
+                  key={index}
+                  index={index}
+                  removeFood={setTobeRemovedIndex}
+                />
               ))}
             </div>
           ) : (
-            <h1 className='text-2xl text-center'>No Food Added</h1>
+            <h1 className="text-2xl text-center">No Food Added</h1>
           )}
         </div>
-        <div className='flex gap-10 flex-nowrap overflow-x-scroll min-h-[20rem]'>
+        <div className="flex gap-10 flex-nowrap overflow-x-scroll min-h-[20rem]">
           {allFoods.map((food, index) => (
-            <AddFood foods={food} key={index} index={index} addFood={setClickedId} />
+            <AddFood
+              foods={food}
+              key={index}
+              index={index}
+              addFood={setClickedId}
+            />
           ))}
         </div>
       </div>
