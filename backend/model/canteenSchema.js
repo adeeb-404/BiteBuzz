@@ -44,13 +44,19 @@ const canteenSchema = new Schema({
     {
       name: { type: String },
       usn: { type: String },
+      arrivalTime:{type: String},
       orders: [
         {
           userID: { type: Schema.Types.ObjectId },
           canteenID: { type: Schema.Types.ObjectId },
+          photo:String,
           itemName: { type: String },
           quantity: { type: Number, required: true },
           price: { type: Number, required: true },
+          rating: {
+            currRating: Number,
+            noOfRating: Number,
+          },
           expectedTime: { type: String, required: true },
         },
       ],

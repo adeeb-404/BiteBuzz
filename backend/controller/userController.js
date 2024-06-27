@@ -64,7 +64,7 @@ export async function submitOrder(req, res) {
 
   try {
     const user = await User.findById(obj[0].userID);
-    const arrivalTime=obj.arrivalTime;
+    const arrivalTime=obj[0].arrivalTime;
     const findCanteen = await Canteen.findById(obj[0].canteenID);
 
     for (let i = 0; i < obj.length; i++) {
@@ -104,7 +104,7 @@ export async function submitOrder(req, res) {
       userID: order.userID,
       canteenID: order.canteenID,
       photo:order.photo,
-      ratings:order.ratings,
+      ratings:order.rating,
       itemName: order.dishName, // Assuming dishName corresponds to itemName
       quantity: order.quantity,
       price: order.price,
@@ -115,7 +115,7 @@ export async function submitOrder(req, res) {
 
       name:user.name,
       usn:user.usn,
-      arrivalTime:arrivalTime,
+      "arrivalTime":arrivalTime,
       orders: ordersArray 
     };
 
@@ -137,7 +137,7 @@ export async function submitOrder(req, res) {
       return;
     }
 
-    console.log(user);
+    // console.log(user );
     console.log(responseBody);
   } catch (err) {
     console.error(err);
