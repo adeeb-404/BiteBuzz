@@ -1,6 +1,7 @@
 import { FaTrashAlt } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../Customs/BackButton";
 
 const cartItems = [
   {
@@ -44,12 +45,12 @@ function Cart() {
 
   return (
     <div className="bg-green-50">
-      <button
+      <BackButton
         className="mb-5 py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300 mt-4 ml-4"
         onClick={handleClick}
       >
         Back
-      </button>
+      </BackButton>
       <div className="flex flex-col items-center bg-green-50 min-h-screen pb-10">
         <h1 className="text-4xl font-bold text-green-900 mb-10">Your Cart</h1>
         <h3 className="text-xl font-bold text-green-900 mb-4">Canteen Name</h3>

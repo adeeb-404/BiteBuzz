@@ -1,9 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import studentReducer from "./Studentuser.js";
-import canteenReducer from "./CanteenUser.js";
+import canteenUserReducer from "./CanteenUser.js";
+import canteenInfoReducer from "./Canteen.js";
 
 const store = configureStore({
-  reducer: { user: studentReducer.reducer, canteen: canteenReducer.reducer },
+  reducer: {
+    user: studentReducer,
+    canteen: canteenUserReducer,
+    canteenInfo: canteenInfoReducer,
+  },
 });
 
 export default store;

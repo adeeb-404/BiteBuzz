@@ -56,7 +56,7 @@ function UserHistory() {
         className="mb-5 py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
         onClick={handleClick}
       >
-        Back
+        Menu
       </button>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
         <div>

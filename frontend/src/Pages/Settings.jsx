@@ -1,5 +1,6 @@
 import { FaUser, FaBell, FaLock } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../Customs/BackButton";
 function SettingsPage() {
   const navigator = useNavigate();
   function handleClick() {
@@ -8,12 +9,12 @@ function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
-      <button
+      <BackButton
         className="mb-5 py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
         onClick={handleClick}
       >
         Back
-      </button>
+      </BackButton>
       <h1 className="text-4xl font-bold text-green-900 mb-10 text-center">
         Settings
       </h1>
