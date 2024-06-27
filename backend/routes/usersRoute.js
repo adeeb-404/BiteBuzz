@@ -16,6 +16,6 @@ router
   .get("/dashboard", dashboard)
   .post("/settings", changePassword)
   .get("/:id", canteenMenu)
-  .get("/:id/history", displayHistroy);
+  .post("/:id/history", displayHistroy);
 
 export default router;
