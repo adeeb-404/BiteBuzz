@@ -2,6 +2,8 @@ import User from "../model/userSchema.js";
 import OrdersSchema from "../model/baseOrderSchema.js";
 import Canteen from "../model/canteenSchema.js";
 import { getStudentName, getStudentUSN } from "../utility/util.js";
+
+
 export async function userAuth(req, res) {
   console.log("In controller");
   const obj = req.body;
@@ -28,6 +30,35 @@ export async function userAuth(req, res) {
   }
 }
 
+export async function changePassword(req, res) {
+  try {
+    const { userId, currentPassword, newPassword } = req.body;
+
+    // Find user by userId
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Compare currentPassword with user's current password
+    if (currentPassword !== user.password.toString()) {
+      return res.status(400).json({ error: 'Current password is incorrect' });
+    }
+
+    // Update user's password to newPassword
+    const updatedUser = await User.findByIdAndUpdate(userId, { $set: { password: newPassword } }, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error('Error updating password:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+}
 export async function submitOrder(req, res) {
   let obj = req.body;
 
@@ -184,7 +215,7 @@ export async function canteenMenu(req,res){
   try{
     let id=req.params.id;
     // id=id.toString();
-    console.log(typeof(id));
+    // console.log(typeof(id));
     const menuOfCanteen=await Canteen.findById(id,{menu:true,_id:false});
 
     return res.json(menuOfCanteen);
