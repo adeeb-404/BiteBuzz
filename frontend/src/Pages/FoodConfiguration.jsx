@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import menuItems from '../assets/menuItems';
 import FoodConfigBox from '../Components/foodConfig/FoodConfigBox';
 import AddFood from '../Components/foodConfig/AddFood';

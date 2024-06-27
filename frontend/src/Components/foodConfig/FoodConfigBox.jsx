@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import menuItems from '../../assets/menuItems';
 
 function FoodConfigBox({ foods, index,removeFood }) {
   const [quant, setQuant] = useState(1);
@@ -18,7 +17,7 @@ function FoodConfigBox({ foods, index,removeFood }) {
   }
 
   function handleRemove(){
-    removeFood(index);
+    removeFood(index)
   }
 
   return (

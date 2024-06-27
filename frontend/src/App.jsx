@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             element: <UserHistory />,
           },
           {
-            path:"Food",
+            path:"food",
             element: <FoodConfiguration />
           },
         ],

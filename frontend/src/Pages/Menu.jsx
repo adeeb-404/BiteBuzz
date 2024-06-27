@@ -1,7 +1,11 @@
-import { FaStar } from "react-icons/fa6";
+import { useState } from "react";
+import { FaStar } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
+import { FaMinus } from "react-icons/fa";
 
-const menuItems = [
+
+const initialMenuItems = [
   {
     id: 1,
     name: "Grilled Chicken Sandwich",
@@ -10,6 +14,7 @@ const menuItems = [
     img: "https://via.placeholder.com/150",
     description:
       "Juicy grilled chicken sandwich with fresh vegetables and a tangy sauce.",
+    isAdded: false,
   },
   {
     id: 2,
@@ -19,6 +24,7 @@ const menuItems = [
     img: "https://via.placeholder.com/150",
     description:
       "Classic Caesar salad with crisp romaine lettuce, parmesan cheese, and croutons.",
+    isAdded: false,
   },
   {
     id: 3,
@@ -28,6 +34,7 @@ const menuItems = [
     img: "https://via.placeholder.com/150",
     description:
       "Delicious veggie burger with a hearty patty and fresh toppings.",
+    isAdded: false,
   },
   {
     id: 4,
@@ -37,14 +44,24 @@ const menuItems = [
     img: "https://via.placeholder.com/150",
     description:
       "Refreshing fruit smoothie made with a blend of seasonal fruits.",
+    isAdded: false,
   },
 ];
 
 function MenuPage() {
-  const navigator = useNavigate();
+  const [menuItems, setMenuItems] = useState(initialMenuItems);
+  const navigate = useNavigate();
 
   function handleClick() {
-    navigator("..");
+    navigate("..");
+  }
+
+  function handleAdd(itemId) {
+    setMenuItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, isAdded: true } : item
+      )
+    );
   }
 
   return (
@@ -88,9 +105,20 @@ function MenuPage() {
             </div>
             <p className="text-lg text-green-700 mb-4">₹{item.price}</p>
             <p className="text-green-600">{item.description}</p>
-            <button className="mt-4 w-full py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300">
-              Add to Cart
-            </button>
+            {!item.isAdded ? (
+              <button
+                className="mt-4 w-full py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
+                onClick={() => handleAdd(item.id)}
+              >
+                Add to Cart
+              </button>
+            ) : (
+              <div className="flex flex-row justify-center gap-8 m-5">
+                <button className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300"> <FaPlus className="size-3 text-white "/> </button>
+                <p> 0 </p>
+                <button className="bg-green-700 hover:bg-green-800 h-8 w-10  flex justify-center items-center rounded-sm transition duration-300"> <FaMinus className="size-3 text-white group:hover:text-black"/> </button>
+              </div>
+            )}
           </div>
         ))}
       </div>
