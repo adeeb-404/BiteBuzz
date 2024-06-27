@@ -16,6 +16,7 @@ const canteenSchema = new Schema({
     {
       photo: String,
       dishName: { type: String, required: true },
+      description: { type: String, required: true },
       price: { type: Number, required: true },
       quantity: { type: Number, required: true },
       preparationTime: Number,
@@ -47,3 +48,4 @@ const canteenSchema = new Schema({
 const Canteen = mongoose.model("canteen", canteenSchema);
 
 export default Canteen;
+

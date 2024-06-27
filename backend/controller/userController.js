@@ -154,7 +154,7 @@ export async function dashboard(req, res) {
           _id: "$_id",
           name: { $first: "$name" },
           img: { $first: "$img" },
-          disc: { $first: { $substrCP: ["$description", 0, 200] } },
+          desc: { $first: { $substrCP: ["$description", 0, 200] } },
           rating: { $first: "$rating" },
           top5: { $push: "$menu" }
         }
