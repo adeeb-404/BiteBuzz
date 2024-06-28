@@ -202,26 +202,35 @@ export async function canteenMenu(req,res){
 
 }
 
-export async function displayHistroy(req,res){
-  const canteenId= req.params.id;
-  const obj=req.body;  
-  const userId=obj.userId;
-  const user=await User.findById(userId).lean();
-  const filterOrders = (ordersArray) => {
-    return ordersArray.map(orderGroup => 
-      orderGroup.filter(order => order.canteenID == canteenId)
-    ).filter(orderGroup => orderGroup.length > 0).flat();
-  };
+export async function displayHistroy(req, res) {
+  const canteenId = req.params.id;
+  const obj = req.body;
+  const userId = obj.userId;
 
+  try {
+    const user = await User.findById(userId).lean();
+
+    const filterOrders = (ordersArray) => {
+      const uniqueOrders = new Map();
+      ordersArray.forEach(orderGroup => {
+        orderGroup.forEach(order => {
+          if (order.canteenID == canteenId && !uniqueOrders.has(order._id)) {
+            uniqueOrders.set(order._id, order);
+          }
+        });
+      });
+      return Array.from(uniqueOrders.values());
+    };
 
     const currentOrders = filterOrders(user.currOrders || []);
-    const orderHistory = filterOrders(user.history|| []);
+    const orderHistory = filterOrders(user.history || []);
 
-
-   return res.json({
+    return res.json({
       currentOrders,
       orderHistory
     });
-
- 
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error processing request");
+  }
 }
