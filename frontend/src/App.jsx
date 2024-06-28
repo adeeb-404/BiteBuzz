@@ -40,13 +40,8 @@ const router = createBrowserRouter([
             element: <UserHistory />,
           },
           {
-<<<<<<< HEAD
             path:"food",
             element: <FoodConfiguration />
-=======
-            path: "food",
-            element: <FoodConfiguration />,
->>>>>>> 3484c603073c046a628358061647a7a9f89e0f15
           },
         ],
       },

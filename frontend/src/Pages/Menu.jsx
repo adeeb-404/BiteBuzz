@@ -5,21 +5,21 @@ import { FaMinus } from "react-icons/fa";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 function MenuPage() {
-  const [menuItems, setMenuItems] = useState(initialMenuItems);
   const navigate = useNavigate();
-
+  
   function handleClick() {
     navigate("..");
   }
-
+  
   function handleAdd(itemId) {
     setMenuItems((prevItems) =>
       prevItems.map((item) =>
         item.id === itemId ? { ...item, isAdded: true } : item
-      )
-    );
-  }
-  const menuItems = useLoaderData().menu;
+  )
+);
+}
+const initialMenuItems = useLoaderData().menu;
+const [menuItems, setMenuItems] = useState(initialMenuItems);
 
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
