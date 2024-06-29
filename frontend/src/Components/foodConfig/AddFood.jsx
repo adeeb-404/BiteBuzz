@@ -1,25 +1,23 @@
-import React,{useState} from 'react'
-import menuItems from '../../assets/menuItems'
+import React from 'react';
 
-function AddFood({foods,index,addFood}) {
-    // console.log(foods);
-    // const [quant, setQuant] = useState(foods.quantity);
-
-    function handleFoodClick(index){
-        // console.log(index);
-        addFood(index);
-    }
+function AddFood({ foods, index, addFood }) {
+  function handleFoodClick(index) {
+    addFood(index);
+  }
 
   return (
-    <div>
-        <div className='bg-slate-400 flex justify-center items-center h-[11rem] w-[11rem] flex-col rounded-lg'>
-            <h1>{foods.foodName}</h1>
-            <img src={foods.foodImg} className='h-[6rem] w-[6rem] rounded-md'></img>
-            <p>{foods.price}</p>
-            <button onClick={() => handleFoodClick(index)}>Add food</button>
-        </div>
+    <div className="bg-green-100 p-4 min-h-[13rem] h-fit min-w-[13rem] w-fit m-3 flex justify-center items-center flex-col rounded-lg shadow-lg">
+      <h1 className="text-xl font-semibold text-green-900">{foods.foodName}</h1>
+      <img src={foods.foodImg} alt="Food image" className="h-[5rem] w-[5rem] rounded-md my-2 border-green-300 border-2" />
+      <p className="text-green-700">{foods.price}</p>
+      <button
+        className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 transition duration-300 mt-2"
+        onClick={() => handleFoodClick(index)}
+      >
+        Add Food
+      </button>
     </div>
-  )
+  );
 }
 
-export default AddFood
+export default AddFood;

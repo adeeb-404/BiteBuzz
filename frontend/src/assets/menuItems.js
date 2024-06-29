@@ -18,6 +18,63 @@ const menuItems =[{
     rating:4.1,
     foodImg:"https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg",
     quantity:0
-}]
+},
+{
+    foodName:"Vada",
+    price:30,
+    rating:4.1,
+    foodImg:"https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg",
+    quantity:0
+},
+{
+    foodName:"Vada",
+    price:30,
+    rating:4.1,
+    foodImg:"https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg",
+    quantity:0
+},
+{
+    foodName:"Vada",
+    price:30,
+    rating:4.1,
+    foodImg:"https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg",
+    quantity:0
+},
+{
+    foodName:"Vada",
+    price:30,
+    rating:4.1,
+    foodImg:"https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg",
+    quantity:0
+},
+{
+    foodName:"Vada",
+    price:30,
+    rating:4.1,
+    foodImg:"https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg",
+    quantity:0
+},
+{
+    foodName:"Vada",
+    price:30,
+    rating:4.1,
+    foodImg:"https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg",
+    quantity:0
+},
+{
+    foodName:"Vada",
+    price:30,
+    rating:4.1,
+    foodImg:"https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg",
+    quantity:0
+},
+{
+    foodName:"Vada",
+    price:30,
+    rating:4.1,
+    foodImg:"https://c.ndtvimg.com/2023-09/u113o4r_medu-vada_625x300_06_September_23.jpg",
+    quantity:0
+},
+]
 
 export default menuItems;
