@@ -4,7 +4,7 @@ import {
   submitOrder,
   dashboard,
   canteenMenu,
-  displayHistroy,
+  displayHistory,
   changePassword,
 } from "../controller/userController.js";
 
@@ -16,6 +16,6 @@ router
   .get("/dashboard", dashboard)
   .post("/settings", changePassword)
   .get("/:id", canteenMenu)
-  .post("/:id/history", displayHistroy);
+  .post("/:id/history", displayHistory);
 
 export default router;
