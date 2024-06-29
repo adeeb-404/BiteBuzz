@@ -57,7 +57,7 @@ function HomeNav() {
           transition={{ duration: 0.5 }}
           className="cursor-pointer"
         >
-          <Link to="/settings">
+          <Link to="settings">
             <IoSettingsSharp className="text-3xl" />
           </Link>
         </motion.div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const orderedDetail = [{
     studentName:"Adeeb",
@@ -71,6 +71,7 @@ function CanteenHistory() {
         </div>
     </div>
   )
+
 }
 
-export default CanteenHistory
+export default CanteenHistory;

@@ -2,12 +2,12 @@ import { json, redirect } from "react-router-dom";
 
 export function isUserAuthLoader() {
   if (localStorage.getItem("canteen")) return redirect("/canteen");
-  if (!localStorage.getItem("student")) return redirect("/home");
+  if (!localStorage.getItem("student")) return redirect("/");
   else return null;
 }
 
 export function isCanteenAuthLoader() {
-  if (localStorage.getItem("student")) return redirect("/");
+  if (localStorage.getItem("student")) return redirect("/user");
   if (!localStorage.getItem("canteen")) return redirect("/home");
   else return null;
 }
