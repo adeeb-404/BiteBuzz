@@ -1,25 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaClock } from "react-icons/fa6";
 import { useLoaderData, useNavigate } from "react-router-dom";
-
-const currentOrders = [
-  {
-    id: 1,
-    name: "Grilled Chicken Sandwich",
-    price: 150,
-    quantity: 2,
-    img: "https://via.placeholder.com/150",
-    status: "Preparing",
-  },
-  {
-    id: 2,
-    name: "Caesar Salad",
-    price: 120,
-    quantity: 1,
-    img: "https://via.placeholder.com/150",
-    status: "On the way",
-  },
-];
 
 const pastOrders = [
   {

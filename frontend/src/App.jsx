@@ -12,6 +12,7 @@ import CanteenPage from "./Pages/CanteenPage.jsx";
 import Cart from "./Pages/Cart.jsx";
 import UserHistory from "./Pages/UserHistory.jsx";
 import FoodConfiguration from "./Pages/FoodConfiguration.jsx";
+import CanteenHistory from "./Pages/CanteenHistory.jsx";
 
 const router = createBrowserRouter([
   {
@@ -45,9 +46,9 @@ const router = createBrowserRouter([
             element: <FoodConfiguration />,
           },
           {
-            path:"history",
+            path: "history",
             element: <CanteenHistory />,
-          }
+          },
         ],
       },
       {
