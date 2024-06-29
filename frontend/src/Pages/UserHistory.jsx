@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaClock } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const currentOrders = [
   {
@@ -41,7 +41,8 @@ const pastOrders = [
 ];
 
 function UserHistory() {
-  const [current] = useState(currentOrders);
+  const data = useLoaderData();
+  const [current] = useState(data.currentOrders);
   const [history] = useState(pastOrders);
 
   const navigator = useNavigate();
@@ -67,21 +68,23 @@ function UserHistory() {
             {current.length > 0 ? (
               current.map((order) => (
                 <div
-                  key={order.id}
+                  key={order._id}
                   className="flex items-center border-b border-green-200 py-4"
                 >
                   <img
-                    src={order.img}
-                    alt={order.name}
+                    src={order.photo}
+                    alt={order.itemName}
                     className="w-20 h-20 rounded-lg"
                   />
                   <div className="ml-4 flex-grow">
-                    <h3 className="text-2xl text-green-900">{order.name}</h3>
+                    <h3 className="text-2xl text-green-900">
+                      {order.itemName}
+                    </h3>
                     <p className="text-lg text-green-700">
                       ₹{order.price} x {order.quantity}
                     </p>
                     <p className="text-sm text-green-600">
-                      Status: {order.status}
+                      Status: TO BE FIXED
                     </p>
                   </div>
                   <div className="flex items-center">
@@ -108,11 +111,13 @@ function UserHistory() {
                 >
                   <img
                     src={order.img}
-                    alt={order.name}
+                    alt={order.itemName}
                     className="w-20 h-20 rounded-lg"
                   />
                   <div className="ml-4 flex-grow">
-                    <h3 className="text-2xl text-green-900">{order.name}</h3>
+                    <h3 className="text-2xl text-green-900">
+                      {order.itemName}
+                    </h3>
                     <p className="text-lg text-green-700">
                       ₹{order.price} x {order.quantity}
                     </p>
