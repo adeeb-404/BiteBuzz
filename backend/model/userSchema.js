@@ -15,7 +15,6 @@ const userSchema = new Schema({
     },
     password: { type: String, required: true },
     currOrders: [
-      [
         {
           userID: { type: Schema.Types.ObjectId },
           canteenID: { type: Schema.Types.ObjectId },
@@ -29,7 +28,6 @@ const userSchema = new Schema({
           },  
           expectedTime: { type: String, required: true },
         },
-      ],
     ],
     history: [],
   });

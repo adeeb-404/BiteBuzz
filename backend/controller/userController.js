@@ -202,35 +202,41 @@ export async function canteenMenu(req,res){
 
 }
 
-export async function displayHistroy(req, res) {
-  const canteenId = req.params.id;
-  const obj = req.body;
-  const userId = obj.userId;
-
+export async function displayHistory(req, res) {
+  const canteenId = req.params.id; // Canteen ID from the request parameters
+  const userId = req.body.userId; // User ID from the request body
+  console.log(canteenId)  
   try {
-    const user = await User.findById(userId).lean();
+    const user = await User.findById(userId); // Retrieve the user document
 
-    const filterOrders = (ordersArray) => {
-      const uniqueOrders = new Map();
-      ordersArray.forEach(orderGroup => {
-        orderGroup.forEach(order => {
-          if (order.canteenID == canteenId && !uniqueOrders.has(order._id)) {
-            uniqueOrders.set(order._id, order);
-          }
-        });
-      });
-      return Array.from(uniqueOrders.values());
-    };
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-    const currentOrders = filterOrders(user.currOrders || []);
-    const orderHistory = filterOrders(user.history || []);
+    console.log("User Data:", user); // Debug: Log the user data
+
+    // Initialize arrays to hold current orders and order history
+    let currentOrders = [];
+    let orderHistory = [];
+
+   
+
+    
+    // console.log("Current Orders Before Filtering:", user.currOrders); 
+    currentOrders=user.currOrders.filter(order=>order.canteenID == canteenId)
+    console.log("Current Orders After Filtering:", currentOrders); // Debug: Log current orders after filtering
+
+    // Filter the order history for the specific canteen
+    console.log("Order History Before Filtering:", user.history); // Debug: Log order history before filtering
+    orderHistory=user.history.filter(history=>history.canteenID == canteenId)
 
     return res.json({
       currentOrders,
       orderHistory
     });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Error processing request");
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error retrieving order history" });
   }
 }
