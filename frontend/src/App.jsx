@@ -43,6 +43,10 @@ const router = createBrowserRouter([
             path: "food",
             element: <FoodConfiguration />,
           },
+          {
+            path:"history",
+            element: <CanteenHistory />,
+          }
         ],
       },
       {
