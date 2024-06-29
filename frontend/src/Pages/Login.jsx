@@ -74,7 +74,7 @@ function Login() {
       console.log(userData);
       dispatch(userActions.setUser(userData.body));
       console.log(userData.body._id);
-      localStorage.setItem("user", userData.body._id);
+      localStorage.setItem("student", userData.body._id);
       setLoading(() => false);
       return navigator("/");
     }
@@ -109,7 +109,7 @@ function Login() {
     const userData = await response.json();
     console.log(userData);
     dispatch(canteenActions.setUser(userData.body));
-    localStorage.setItem("user", userData.body._id);
+    localStorage.setItem("canteen", userData.body._id);
     setLoading(() => false);
     return navigator("/canteen");
   }

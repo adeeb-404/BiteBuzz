@@ -1,13 +1,12 @@
 import { IoSearch } from "react-icons/io5";
-import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { userActions as studentActions } from "../../store/Studentuser";
-import { userActions as canteenActions } from "../../store/CanteenUser";
+import { userActions as studentActions } from "../../../store/Studentuser";
+import { userActions as canteenActions } from "../../../store/CanteenUser";
 
 function HomeNav() {
   const navigate = useNavigate();
@@ -16,7 +15,7 @@ function HomeNav() {
   const tempHandler = () => {
     dispatch(studentActions.resetUser());
     dispatch(canteenActions.resetUser());
-    localStorage.removeItem("student");
+    localStorage.removeItem("canteen");
     navigate("/home");
   };
 
@@ -42,16 +41,6 @@ function HomeNav() {
       </div>
 
       <div className="flex space-x-6 text-white">
-        <Link to="/cart">
-          <motion.div
-            whileHover={{ scale: 1.2 }}
-            transition={{ duration: 0.3 }}
-            className="cursor-pointer"
-          >
-            <MdOutlineShoppingCart className="text-3xl" />
-          </motion.div>
-        </Link>
-
         <motion.div
           whileHover={{ rotate: -45 }}
           transition={{ duration: 0.5 }}

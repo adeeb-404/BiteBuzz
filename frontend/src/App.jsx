@@ -4,12 +4,14 @@ import Login from "./Pages/Login.jsx";
 import { ThemeProvider } from "./darkmodecontext.jsx";
 import MainPage from "./Pages/MainPage.jsx";
 import Root from "./Root.jsx";
+import CanteenRoot from "./CanteenRoot.jsx";
 import {
   isUserAuthLoader,
+  isCanteenAuthLoader,
   canteenMenuLoader,
   historyLoader,
 } from "./Loaders.js";
-import { LoginAction, changePasswordAction } from "./Actions.js";
+import { changePasswordAction } from "./Actions.js";
 import Settings from "./Pages/Settings.jsx";
 import Menu from "./Pages/Menu.jsx";
 import CanteenPage from "./Pages/CanteenPage.jsx";
@@ -28,10 +30,7 @@ const router = createBrowserRouter([
         index: true,
         element: <MainPage />,
       },
-      {
-        path: "canteen",
-        element: <CanteenPage />,
-      },
+      { path: "settings", element: <Settings />, action: changePasswordAction },
       {
         path: ":canteenId",
         children: [
@@ -57,13 +56,24 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: "home", element: <Home /> },
-  { path: "login", element: <Login />, action: LoginAction },
-  { path: "settings", element: <Settings />, action: changePasswordAction },
   {
-    path: "history",
-    element: <CanteenHistory />,
+    path: "canteen",
+    element: <CanteenRoot />,
+    loader: isCanteenAuthLoader,
+    children: [
+      {
+        path: "canteen",
+        element: <CanteenPage />,
+      },
+      { path: "settings", element: <Settings />, action: changePasswordAction },
+      {
+        path: "history",
+        element: <CanteenHistory />,
+      },
+    ],
   },
+  { path: "home", element: <Home /> },
+  { path: "login", element: <Login /> },
 ]);
 
 function App() {

@@ -1,7 +1,14 @@
 import { json, redirect } from "react-router-dom";
 
 export function isUserAuthLoader() {
-  if (!localStorage.getItem("user")) return redirect("/home");
+  if (localStorage.getItem("canteen")) return redirect("/canteen");
+  if (!localStorage.getItem("student")) return redirect("/home");
+  else return null;
+}
+
+export function isCanteenAuthLoader() {
+  if (localStorage.getItem("student")) return redirect("/");
+  if (!localStorage.getItem("canteen")) return redirect("/home");
   else return null;
 }
 
@@ -17,7 +24,7 @@ export async function canteenMenuLoader({ params }) {
 export async function historyLoader({ params }) {
   const id = params.canteenId;
   const result = {
-    userId: localStorage.getItem("user"),
+    userId: localStorage.getItem("student"),
   };
   const response = await fetch(`http://localhost:5000/api/user/${id}/history`, {
     method: "POST",
