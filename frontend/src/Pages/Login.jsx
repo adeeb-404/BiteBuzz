@@ -76,7 +76,7 @@ function Login() {
       console.log(userData.body._id);
       localStorage.setItem("student", userData.body._id);
       setLoading(() => false);
-      return navigator("/");
+      return navigator("/user");
     }
 
     const result = {

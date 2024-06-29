@@ -21,8 +21,10 @@ import FoodConfiguration from "./Pages/FoodConfiguration.jsx";
 import CanteenHistory from "./Pages/CanteenHistory.jsx";
 
 const router = createBrowserRouter([
+  { path: "/", element: <Home /> },
+  { path: "login", element: <Login /> },
   {
-    path: "",
+    path: "user",
     loader: isUserAuthLoader,
     element: <Root />,
     children: [
@@ -62,7 +64,7 @@ const router = createBrowserRouter([
     loader: isCanteenAuthLoader,
     children: [
       {
-        path: "canteen",
+        index: true,
         element: <CanteenPage />,
       },
       { path: "settings", element: <Settings />, action: changePasswordAction },
@@ -72,8 +74,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: "home", element: <Home /> },
-  { path: "login", element: <Login /> },
 ]);
 
 function App() {
