@@ -32,11 +32,16 @@ function FoodConfiguration() {
   }, [tobeRemovedIndex, addedFoods]);
 
   return (
-    <div>
-      <div className="flex flex-col">
-        <div className="min-h-[20rem] border-b-black">
+    <div className="min-h-screen bg-green-50 py-10 px-4">
+      <h1 className="text-4xl font-bold text-green-900 mb-10 text-center">
+        Food Configuration
+      </h1>
+      <div className="max-w-4xl mx-auto space-y-10">
+        {/* Added Foods */}
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold text-green-900 mb-4">Added Foods</h2>
           {addedFoods.length ? (
-            <div className="flex gap-10 m-4 flex-nowrap overflow-x-scroll custom-scrollbar ">
+            <div className="flex gap-10 overflow-x-scroll h-fit custom-scrollbar">
               {addedFoods.map((food, index) => (
                 <FoodConfigBox
                   foods={food}
@@ -50,15 +55,20 @@ function FoodConfiguration() {
             <h1 className="text-2xl text-center">No Food Added</h1>
           )}
         </div>
-        <div className="flex gap-10 flex-nowrap overflow-x-scroll min-h-[20rem]">
-          {allFoods.map((food, index) => (
-            <AddFood
-              foods={food}
-              key={index}
-              index={index}
-              addFood={setClickedId}
-            />
-          ))}
+
+        {/* Available Foods */}
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold text-green-900 mb-4">Available Foods</h2>
+          <div className="flex gap-10 overflow-x-scroll custom-scrollbar">
+            {allFoods.map((food, index) => (
+              <AddFood
+                foods={food}
+                key={index}
+                index={index}
+                addFood={setClickedId}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
