@@ -1,11 +1,16 @@
 import { FaUser, FaBell, FaLock } from "react-icons/fa6";
 import { useNavigate, Form } from "react-router-dom";
 import BackButton from "../Customs/BackButton";
+import { useSelector } from "react-redux";
+
 function SettingsPage() {
   const navigator = useNavigate();
   function handleClick() {
     navigator("..");
   }
+
+  const name = useSelector((state) => state.user.name);
+  const email = useSelector((state) => state.user.email);
 
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
@@ -40,7 +45,7 @@ function SettingsPage() {
                 id="username"
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               >
-                Mohammed Adeeb
+                {name}
               </div>
             </div>
             <div>
@@ -55,7 +60,7 @@ function SettingsPage() {
                 id="email"
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               >
-                2021is_mohammedadeeb_a@nie.ac.in
+                {email}
               </div>
             </div>
           </form>
