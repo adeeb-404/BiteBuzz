@@ -1,6 +1,6 @@
 import { json, redirect } from "react-router-dom";
 
-export function isAuthLoader() {
+export function isUserAuthLoader() {
   if (!localStorage.getItem("user")) return redirect("/home");
   else return null;
 }

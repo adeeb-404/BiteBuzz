@@ -4,7 +4,11 @@ import Login from "./Pages/Login.jsx";
 import { ThemeProvider } from "./darkmodecontext.jsx";
 import MainPage from "./Pages/MainPage.jsx";
 import Root from "./Root.jsx";
-import { isAuthLoader, canteenMenuLoader, historyLoader } from "./Loaders.js";
+import {
+  isUserAuthLoader,
+  canteenMenuLoader,
+  historyLoader,
+} from "./Loaders.js";
 import { LoginAction, changePasswordAction } from "./Actions.js";
 import Settings from "./Pages/Settings.jsx";
 import Menu from "./Pages/Menu.jsx";
@@ -17,7 +21,7 @@ import CanteenHistory from "./Pages/CanteenHistory.jsx";
 const router = createBrowserRouter([
   {
     path: "",
-    loader: isAuthLoader,
+    loader: isUserAuthLoader,
     element: <Root />,
     children: [
       {
@@ -26,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "canteen",
-        children: [{ index: true, element: <CanteenPage /> }],
+        element: <CanteenPage />,
       },
       {
         path: ":canteenId",
@@ -45,10 +49,6 @@ const router = createBrowserRouter([
             path: "food",
             element: <FoodConfiguration />,
           },
-          {
-            path: "history",
-            element: <CanteenHistory />,
-          },
         ],
       },
       {
@@ -60,6 +60,10 @@ const router = createBrowserRouter([
   { path: "home", element: <Home /> },
   { path: "login", element: <Login />, action: LoginAction },
   { path: "settings", element: <Settings />, action: changePasswordAction },
+  {
+    path: "history",
+    element: <CanteenHistory />,
+  },
 ]);
 
 function App() {
