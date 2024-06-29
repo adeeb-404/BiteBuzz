@@ -1,6 +1,7 @@
 import { IoSearch } from "react-icons/io5";
 import { IoSettingsSharp } from "react-icons/io5";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import { FaHistory } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +17,7 @@ function HomeNav() {
     dispatch(studentActions.resetUser());
     dispatch(canteenActions.resetUser());
     localStorage.removeItem("canteen");
-    navigate("/home");
+    navigate("/");
   };
 
   return (
@@ -41,6 +42,16 @@ function HomeNav() {
       </div>
 
       <div className="flex space-x-6 text-white">
+        <motion.div
+          whileHover={{ rotate: -360 }}
+          transition={{ duration: 0.5 }}
+          className="cursor-pointer"
+        >
+          <Link to="history">
+            <FaHistory className="text-3xl" />
+          </Link>
+        </motion.div>
+
         <motion.div
           whileHover={{ rotate: -45 }}
           transition={{ duration: 0.5 }}

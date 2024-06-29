@@ -17,7 +17,7 @@ function HomeNav() {
     dispatch(studentActions.resetUser());
     dispatch(canteenActions.resetUser());
     localStorage.removeItem("student");
-    navigate("/home");
+    navigate("/");
   };
 
   return (

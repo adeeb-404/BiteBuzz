@@ -1,5 +1,5 @@
-import React from "react";
-
+import BackButton from "../Customs/BackButton";
+import { useNavigate } from "react-router-dom";
 const orderedDetail = [
   {
     studentName: "Adeeb",
@@ -59,8 +59,18 @@ const orderedDetail = [
 ];
 
 function CanteenHistory() {
+  const navigator = useNavigate();
+  function handleClick() {
+    navigator("..");
+  }
   return (
     <div className="bg-green-50 min-h-screen py-10">
+      <BackButton
+        className="mb-5 py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
+        onClick={handleClick}
+      >
+        Back
+      </BackButton>
       <h1 className="text-4xl font-bold text-green-900 mb-10 text-center">
         History
       </h1>
@@ -86,7 +96,9 @@ function CanteenHistory() {
                       className="w-20 h-20 rounded-lg"
                     />
                     <div className="ml-4">
-                      <h3 className="text-xl text-green-900">{foods.foodName}</h3>
+                      <h3 className="text-xl text-green-900">
+                        {foods.foodName}
+                      </h3>
                       <p className="text-lg text-green-700">
                         Price: ₹{foods.price}
                       </p>
