@@ -1,5 +1,5 @@
 import { FaUser, FaBell, FaLock } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Form } from "react-router-dom";
 import BackButton from "../Customs/BackButton";
 function SettingsPage() {
   const navigator = useNavigate();
@@ -107,7 +107,7 @@ function SettingsPage() {
               Account Security
             </h2>
           </div>
-          <form className="space-y-4">
+          <Form className="space-y-4" method="POST">
             <div>
               <label
                 className="block text-green-700 font-medium mb-1"
@@ -118,6 +118,7 @@ function SettingsPage() {
               <input
                 type="password"
                 id="currentPassword"
+                name="currPassword"
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
             </div>
@@ -131,6 +132,7 @@ function SettingsPage() {
               <input
                 type="password"
                 id="newPassword"
+                name="newPassword"
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
             </div>
@@ -150,7 +152,7 @@ function SettingsPage() {
             <button className="w-full py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300">
               Save Changes
             </button>
-          </form>
+          </Form>
         </div>
       </div>
     </div>

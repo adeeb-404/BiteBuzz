@@ -34,3 +34,28 @@ export async function LoginAction({ request }) {
   localStorage.setItem("token", "abc");
   return redirect("/canteen");
 }
+
+export async function changePasswordAction({ request }) {
+  const data = await request.formData();
+
+  const result = {
+    userId: localStorage.getItem("user"),
+    currentPassword: data.get("currPassword"),
+    newPassword: data.get("newPassword"),
+  };
+  const response = await fetch("http://localhost:5000/api/user/settings", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(result),
+  });
+  if (response.status == 400) return response;
+
+  if (!response.ok)
+    throw new json(
+      { message: "Server error" },
+      { status: 500, statusText: "An error occurred" && response.message }
+    );
+  return redirect("/home");
+}

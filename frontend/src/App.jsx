@@ -5,7 +5,7 @@ import { ThemeProvider } from "./darkmodecontext.jsx";
 import MainPage from "./Pages/MainPage.jsx";
 import Root from "./Root.jsx";
 import { isAuthLoader, canteenMenuLoader } from "./Loaders.js";
-import { LoginAction } from "./Actions.js";
+import { LoginAction, changePasswordAction } from "./Actions.js";
 import Settings from "./Pages/Settings.jsx";
 import Menu from "./Pages/Menu.jsx";
 import CanteenPage from "./Pages/CanteenPage.jsx";
@@ -40,8 +40,8 @@ const router = createBrowserRouter([
             element: <UserHistory />,
           },
           {
-            path:"food",
-            element: <FoodConfiguration />
+            path: "food",
+            element: <FoodConfiguration />,
           },
         ],
       },
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
   },
   { path: "home", element: <Home /> },
   { path: "login", element: <Login />, action: LoginAction },
-  { path: "settings", element: <Settings /> },
+  { path: "settings", element: <Settings />, action: changePasswordAction },
 ]);
 
 function App() {
