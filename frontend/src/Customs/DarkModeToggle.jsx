@@ -9,6 +9,7 @@ function DarkModeToggle() {
         type="checkbox"
         onClick={toggleDarkMode}
         checked={darkMode}
+        readOnly
       />
       <span className="absolute inset-y-0 start-0 m-1 size-6 rounded-full bg-gray-300 ring-[6px] ring-inset ring-white transition-all peer-checked:start-8 peer-checked:w-2 peer-checked:bg-white peer-checked:ring-transparent"></span>
     </label>

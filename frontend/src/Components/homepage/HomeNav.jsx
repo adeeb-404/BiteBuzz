@@ -17,7 +17,7 @@ function HomeNav() {
     dispatch(studentActions.resetUser());
     dispatch(canteenActions.resetUser());
     localStorage.removeItem("student");
-    navigate("/home");
+    navigate("/");
   };
 
   return (
@@ -42,7 +42,7 @@ function HomeNav() {
       </div>
 
       <div className="flex space-x-6 text-white">
-        <Link to="/cart">
+        <Link to="cart">
           <motion.div
             whileHover={{ scale: 1.2 }}
             transition={{ duration: 0.3 }}
