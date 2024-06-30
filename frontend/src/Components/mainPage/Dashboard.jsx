@@ -45,13 +45,13 @@ function Dashboard({ index }) {
             <div className="flex justify-center gap-4 mt-4">
               <Link
                 className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
-                to={`/${canteen._id}`}
+                to={`${canteen._id}`}
               >
                 Menu
               </Link>
               <Link
                 className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
-                to={`/${canteen._id}/history`}
+                to={`${canteen._id}/history`}
               >
                 History
               </Link>
