@@ -35,6 +35,36 @@ export async function canteenAuth(req, res) {
   }
 }
 
+export async function changePassword(req, res) {
+  try {
+    const { canteenId, currentPassword, newPassword } = req.body;
+
+    // Find user by userId
+    const canteen = await Canteen.findById(userId);
+
+    if (!canteen) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Compare currentPassword with user's current password
+    if (currentPassword !== canteen.password.toString()) {
+      return res.status(400).json({ error: 'Current password is incorrect' });
+    }
+
+    // Update user's password to newPassword
+    const updatedPassword = await Canteen.findByIdAndUpdate(canteenId, { $set: { password: newPassword } }, { new: true });
+
+    if (!updatedPassword) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error('Error updating password:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+}
+
 export async function displayStorage(req,res){
   try{
     const obj=req.body;
@@ -48,4 +78,8 @@ export async function displayStorage(req,res){
     console.log(err);
     return res.json(500)
   }
+}
+
+export async function orderComplete(req,res){
+    
 }
