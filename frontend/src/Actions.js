@@ -39,23 +39,44 @@ export async function changePasswordAction({ request }) {
   const data = await request.formData();
 
   const result = {
-    userId: localStorage.getItem("user"),
+    userId: localStorage.getItem("student"),
+    canteenId: localStorage.getItem("canteen"),
     currentPassword: data.get("currPassword"),
     newPassword: data.get("newPassword"),
   };
-  const response = await fetch("http://localhost:5000/api/user/settings", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(result),
-  });
-  if (response.status == 400) return response;
 
-  if (!response.ok)
-    throw new json(
-      { message: "Server error" },
-      { status: 500, statusText: "An error occurred" && response.message }
-    );
+  if (result.userId) {
+    const response = await fetch("http://localhost:5000/api/user/settings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(result),
+    });
+    if (response.status == 400) return response;
+    if (!response.ok)
+      throw new json(
+        { message: "Server error" },
+        { status: 500, statusText: "An error occurred" && response.message }
+      );
+    localStorage.removeItem("student");
+  }
+  if (result.canteenId) {
+    const response = await fetch("http://localhost:5000/api/canteen/settings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(result),
+    });
+    if (response.status == 400) return response;
+
+    if (!response.ok)
+      throw new json(
+        { message: "Server error" },
+        { status: 500, statusText: "An error occurred" && response.message }
+      );
+    localStorage.removeItem("canteen");
+  }
   return redirect("/");
 }

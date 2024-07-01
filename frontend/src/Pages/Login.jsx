@@ -183,7 +183,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               aria-label="Password"
               required
-              // minLength={10}
+              minLength={6}
             />
             <input
               type="text"

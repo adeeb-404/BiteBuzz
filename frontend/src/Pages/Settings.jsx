@@ -1,13 +1,40 @@
 import { FaUser, FaBell, FaLock } from "react-icons/fa6";
-import { useNavigate, Form } from "react-router-dom";
+import { useNavigate, useSubmit } from "react-router-dom";
 import BackButton from "../Customs/BackButton";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 function SettingsPage() {
   const navigator = useNavigate();
-  function handleClick() {
+  const submit = useSubmit();
+
+  const [data, setData] = useState({
+    currPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+    emailNotifications: false,
+    smsNotifications: false,
+  });
+
+  const handleClick = () => {
     navigator("..");
-  }
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const proceed = window.confirm(
+      "Are you sure? You will need to login again"
+    );
+    if (proceed) submit(data, { method: "post" });
+  };
 
   const userName = useSelector((state) => state.user.name);
   const canteenUserName = useSelector((state) => state.canteen.name);
@@ -84,6 +111,9 @@ function SettingsPage() {
               <input
                 type="checkbox"
                 id="emailNotifications"
+                name="emailNotifications"
+                checked={data.emailNotifications}
+                onChange={handleChange}
                 className="h-5 w-5 text-green-600 focus:ring-green-500 border-green-300 rounded"
               />
               <label
@@ -97,6 +127,9 @@ function SettingsPage() {
               <input
                 type="checkbox"
                 id="smsNotifications"
+                name="smsNotifications"
+                checked={data.smsNotifications}
+                onChange={handleChange}
                 className="h-5 w-5 text-green-600 focus:ring-green-500 border-green-300 rounded"
               />
               <label htmlFor="smsNotifications" className="ml-2 text-green-700">
@@ -117,7 +150,7 @@ function SettingsPage() {
               Account Security
             </h2>
           </div>
-          <Form className="space-y-4" method="POST">
+          <form className="space-y-4" method="POST" onSubmit={handleSubmit}>
             <div>
               <label
                 className="block text-green-700 font-medium mb-1"
@@ -129,6 +162,10 @@ function SettingsPage() {
                 type="password"
                 id="currentPassword"
                 name="currPassword"
+                value={data.currPassword}
+                onChange={handleChange}
+                minLength={6}
+                required
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
             </div>
@@ -143,7 +180,10 @@ function SettingsPage() {
                 type="password"
                 id="newPassword"
                 name="newPassword"
-                minLength="6"
+                value={data.newPassword}
+                onChange={handleChange}
+                minLength={6}
+                required
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
             </div>
@@ -157,14 +197,18 @@ function SettingsPage() {
               <input
                 type="password"
                 id="confirmPassword"
-                className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
+                name="confirmPassword"
+                value={data.confirmPassword}
+                onChange={handleChange}
                 minLength={6}
+                required
+                className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
             </div>
             <button className="w-full py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300">
               Save Changes
             </button>
-          </Form>
+          </form>
         </div>
       </div>
     </div>
