@@ -44,13 +44,13 @@ function Dashboard({ index }) {
             {/* Buttons */}
             <div className="flex justify-center gap-4 mt-4">
               <Link
-                className="bg-green-600 text-white dark:bg-green-200 dark:text-black py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
+                className="bg-green-600 text-white dark:bg-green-200 dark:text-black py-2 px-4 rounded-lg hover:bg-green-700 dark:hover:bg-green-300 transition duration-300"
                 to={`${canteen._id}`}
               >
                 Menu
               </Link>
               <Link
-                className="bg-green-600 text-white dark:bg-green-200 dark:text-black py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
+                className="bg-green-600 text-white dark:bg-green-200 dark:text-black py-2 px-4 rounded-lg hover:bg-green-700 dark:hover:bg-green-300 transition duration-300"
                 to={`${canteen._id}/history`}
               >
                 History
