@@ -143,6 +143,7 @@ function SettingsPage() {
                 type="password"
                 id="newPassword"
                 name="newPassword"
+                minLength="6"
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
             </div>
@@ -157,6 +158,7 @@ function SettingsPage() {
                 type="password"
                 id="confirmPassword"
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
+                minLength={6}
               />
             </div>
             <button className="w-full py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300">
