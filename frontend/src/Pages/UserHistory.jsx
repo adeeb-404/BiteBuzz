@@ -23,6 +23,7 @@ const pastOrders = [
 
 function UserHistory() {
   const data = useLoaderData();
+  console.log(data);
   const [current] = useState(data.currentOrders);
   const [history] = useState(pastOrders);
 
