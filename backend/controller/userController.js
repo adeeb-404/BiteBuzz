@@ -62,21 +62,21 @@ export async function changePassword(req, res) {
 
 export async function submitOrder(req, res) {
   let obj = req.body;
-
+  const user = await User.findById(obj.userID);
+  const findCanteen = await Canteen.findById(obj.canteenID);
+  const canteenName = findCanteen.name;
   try {
-    const user = await User.findById(obj[0].userID);
-    const arrivalTime=obj[0].arrivalTime;
-    const findCanteen = await Canteen.findById(obj[0].canteenID);
+    const arrivalTime = obj.arrivalTime;
 
-    for (let i = 0; i < obj.length; i++) {
+    for (let i = 0; i < obj.orders.length; i++) {
       try {
-        const quantity=obj[i].quantity;
+        const quantity = obj.orders[i].quantity;
         let findItem = await Canteen.findOne(
           {
             name: findCanteen.name,
             menu: {
               $elemMatch: {
-                dishName: obj[i].dishName,
+                dishName: obj.orders[i].dishName,
               },
             },
           },
@@ -88,24 +88,25 @@ export async function submitOrder(req, res) {
           const currTime = new Date().getTime();
           const time = findItem.menu[0].preparationTime * (60 * 1000);
           const finalTime = new Date(currTime + time).toLocaleTimeString();
-          const currentQuantity=findItem.menu[0].quantity;
-          if(currentQuantity-quantity<0){
-            res.status(400).send("Not enough stock for item: " + obj[i].dishName);
+          const currentQuantity = findItem.menu[0].quantity;
+          if (currentQuantity - quantity < 0) {
+            res.status(400).send("Not enough stock for item: " + obj.orders[i].dishName);
             return;
           }
-          obj[i].expectedTime = finalTime;
-          obj[i].photo = findItem.menu[0].photo; // Add photo from the menu item
-          obj[i].rating = findItem.menu[0].rating;
+          obj.orders[i].expectedTime = finalTime;
+          obj.orders[i].photo = findItem.menu[0].photo; // Add photo from the menu item
+          obj.orders[i].rating = findItem.menu[0].rating;
 
-          await Canteen.updateOne({
-            _id:findCanteen._id,
-            "menu.dishName":obj[i].dishName,
-          },
-          {
-            "$set":{
-              "menu.$.quantity":currentQuantity-quantity
+          await Canteen.updateOne(
+            {
+              _id: findCanteen._id,
+              "menu.dishName": obj.orders[i].dishName,
             },
-          }
+            {
+              "$set": {
+                "menu.$.quantity": currentQuantity - quantity
+              },
+            }
           );
         }
       } catch (err) {
@@ -115,40 +116,36 @@ export async function submitOrder(req, res) {
       }
     }
 
-    // const name = await getStudentName(user._id);
-    // const usn = await getStudentUSN(user._id);
-    const id=new mongoose.Types.ObjectId();
-    const ordersArray = obj.map((order) => ({
-      _id:id,
-      userID: order.userID,
-      canteenID: order.canteenID,
-      photo:order.photo,
-      ratings:order.rating,
+    const ordersArray = obj.orders.map((order) => ({
+      _id: new mongoose.Types.ObjectId(),
+      
+      photo: order.photo,
       itemName: order.dishName, // Assuming dishName corresponds to itemName
       quantity: order.quantity,
-      price: order.price,
+      rating: order.rating,
       expectedTime: order.expectedTime,
     }));
 
     const responseBody = {
-
-      name:user.name,
-      usn:user.usn,
-      "arrivalTime":arrivalTime,
-      orders: ordersArray 
+      price: obj.price,
+      canteenName: canteenName,
+      name: user.name,
+      usn: user.usn,
+      arrivalTime: arrivalTime,
+      orders: ordersArray
     };
 
     res.json(responseBody);
 
     try {
       await Canteen.findByIdAndUpdate(
-        { _id: findCanteen._id },
+        findCanteen._id,
         { $push: { currOrders: responseBody } }  // Push responseBody to currOrders
       );
 
       await User.findByIdAndUpdate(
-        { _id: obj[0].userID },
-        { $push: { currOrders: ordersArray } } // Push ordersArray to orders
+        obj.userID,
+        { $push: { currOrders: responseBody } } // Push ordersArray to orders
       );
     } catch (updateErr) {
       console.error(updateErr);
@@ -156,13 +153,13 @@ export async function submitOrder(req, res) {
       return;
     }
 
-    // console.log(user );
     console.log(responseBody);
   } catch (err) {
     console.error(err);
     res.status(500).send("Error processing order");
   }
 }
+
 
 
 export async function dashboard(req, res) {

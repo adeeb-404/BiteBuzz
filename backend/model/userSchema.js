@@ -17,12 +17,12 @@ const userSchema = new Schema({
     currOrders: [
       
         {
-          userID: { type: Schema.Types.ObjectId },
-          canteenID: { type: Schema.Types.ObjectId },
-          totalPrice: { type: Number, required: true },
+          // userID: { type: Schema.Types.ObjectId },
+          // canteenID: { type: Schema.Types.ObjectId },
+          price: { type: Number, required: true },
+          canteenName:{type:String},
           orders:[
             {
-            canteenName:{type:String},
             photo:String,
           itemName: { type: String },
           quantity: { type: Number, required: true },

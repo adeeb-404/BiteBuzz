@@ -40,7 +40,7 @@ export async function changePassword(req, res) {
     const { canteenId, currentPassword, newPassword } = req.body;
 
     // Find user by userId
-    const canteen = await Canteen.findById(userId);
+    const canteen = await Canteen.findById(canteenId);
 
     if (!canteen) {
       return res.status(404).json({ error: 'User not found' });
