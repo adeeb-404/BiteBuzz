@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 import { FaUser, FaBell, FaLock } from "react-icons/fa6";
 import { useNavigate, useSubmit } from "react-router-dom";
+=======
+import { FaUser, FaBell, FaLock, FaRegEyeSlash } from "react-icons/fa";
+import { IoEyeOutline } from "react-icons/io5";
+import { useNavigate, Form } from "react-router-dom";
+>>>>>>> 172618f1addae60412c696613c208eb7589922f1
 import BackButton from "../Customs/BackButton";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
 function SettingsPage() {
+<<<<<<< HEAD
   const navigator = useNavigate();
   const submit = useSubmit();
 
@@ -36,13 +43,32 @@ function SettingsPage() {
     if (proceed) submit(data, { method: "post" });
   };
 
+=======
+  const navigate = useNavigate();
+>>>>>>> 172618f1addae60412c696613c208eb7589922f1
   const userName = useSelector((state) => state.user.name);
   const canteenUserName = useSelector((state) => state.canteen.name);
   const userEmail = useSelector((state) => state.user.email);
   const canteenUserEmail = useSelector((state) => state.canteen.email);
+  const [passwordVisible, setPasswordVisible] = useState({
+    curr: false,
+    newPass: false,
+    confirmPass: false,
+  });
 
   const name = userName || canteenUserName;
   const email = userEmail || canteenUserEmail;
+
+  function handleClick() {
+    navigate("..");
+  }
+
+  function makePasswordVisible(e) {
+    setPasswordVisible((prev) => ({
+      ...prev,
+      [e]: !prev[e],
+    }));
+  }
 
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
@@ -158,6 +184,7 @@ function SettingsPage() {
               >
                 Current Password
               </label>
+<<<<<<< HEAD
               <input
                 type="password"
                 id="currentPassword"
@@ -168,6 +195,26 @@ function SettingsPage() {
                 required
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
+=======
+              <div className="flex flex-row border border-green-300 rounded-lg pr-2 focus-within:border-black">
+                <input
+                  type={!passwordVisible.curr ? "password" : "text"}
+                  id="currentPassword"
+                  name="currPassword"
+                  className="w-full p-2 focus:ring-0 focus:outline-none"
+                />
+                <div
+                  className="flex items-center justify-center cursor-pointer"
+                  onClick={() => makePasswordVisible("curr")}
+                >
+                  {!passwordVisible.curr ? (
+                    <FaRegEyeSlash className="text-green-700 text-xl" />
+                  ) : (
+                    <IoEyeOutline className="text-green-700 text-xl" />
+                  )}
+                </div>
+              </div>
+>>>>>>> 172618f1addae60412c696613c208eb7589922f1
             </div>
             <div>
               <label
@@ -176,6 +223,7 @@ function SettingsPage() {
               >
                 New Password
               </label>
+<<<<<<< HEAD
               <input
                 type="password"
                 id="newPassword"
@@ -186,6 +234,27 @@ function SettingsPage() {
                 required
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
+=======
+              <div className="flex border border-green-300 rounded-lg pr-2 focus-within:border-black">
+                <input
+                  type={!passwordVisible.newPass ? "password" : "text"}
+                  id="newPassword"
+                  name="newPassword"
+                  minLength="6"
+                  className="w-full p-2 focus:ring-0 focus:outline-none"
+                />
+                <div
+                  className="flex items-center justify-center cursor-pointer"
+                  onClick={() => makePasswordVisible("newPass")}
+                >
+                  {!passwordVisible.newPass ? (
+                    <FaRegEyeSlash className="text-green-700 text-xl" />
+                  ) : (
+                    <IoEyeOutline className="text-green-700 text-xl" />
+                  )}
+                </div>
+              </div>
+>>>>>>> 172618f1addae60412c696613c208eb7589922f1
             </div>
             <div>
               <label
@@ -194,6 +263,7 @@ function SettingsPage() {
               >
                 Confirm New Password
               </label>
+<<<<<<< HEAD
               <input
                 type="password"
                 id="confirmPassword"
@@ -204,6 +274,26 @@ function SettingsPage() {
                 required
                 className="w-full p-2 border border-green-300 rounded-lg focus:outline-none focus:border-green-500"
               />
+=======
+              <div className="flex border border-green-300 rounded-lg pr-2 focus-within:border-black">
+                <input
+                  type={!passwordVisible.confirmPass ? "password" : "text"}
+                  id="confirmPassword"
+                  className="w-full p-2 focus:ring-0 focus:outline-none"
+                  minLength={6}
+                />
+                <div
+                  className="flex items-center justify-center cursor-pointer"
+                  onClick={() => makePasswordVisible("confirmPass")}
+                >
+                  {!passwordVisible.confirmPass ? (
+                    <FaRegEyeSlash className="text-green-700 text-xl" />
+                  ) : (
+                    <IoEyeOutline className="text-green-700 text-xl" />
+                  )}
+                </div>
+              </div>
+>>>>>>> 172618f1addae60412c696613c208eb7589922f1
             </div>
             <button className="w-full py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300">
               Save Changes
