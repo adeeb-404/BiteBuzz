@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { FaClock } from "react-icons/fa6";
 
 function OrderBox({ foods }) {
   return (
@@ -8,7 +7,7 @@ function OrderBox({ foods }) {
         {foods.foodName}
       </h1>
       <img
-        src={foods.foodImg}
+        src={foods.photo}
         alt={foods.foodName}
         className="h-[5rem] w-[5rem] rounded-md"
       />
@@ -17,10 +16,6 @@ function OrderBox({ foods }) {
       </div>
       <div className="flex items-center justify-around w-full text-green-900">
         <div className="text-[1.2rem]">₹ {foods.price}</div>
-        <div className="text-[1.2rem] flex items-center">
-          <FaClock className="mr-1 text-green-500" />
-          <div>{foods.preparationTime}</div>
-        </div>
       </div>
     </div>
   );

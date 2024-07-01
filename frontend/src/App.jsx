@@ -10,6 +10,7 @@ import {
   isCanteenAuthLoader,
   canteenMenuLoader,
   historyLoader,
+  isAuthLoader,
 } from "./Loaders.js";
 import { changePasswordAction } from "./Actions.js";
 import Settings from "./Pages/Settings.jsx";
@@ -21,8 +22,8 @@ import FoodConfiguration from "./Pages/FoodConfiguration.jsx";
 import CanteenHistory from "./Pages/CanteenHistory.jsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "login", element: <Login /> },
+  { path: "/", element: <Home />, loader: isAuthLoader },
+  { path: "login", element: <Login />, loader: isAuthLoader },
   {
     path: "user",
     loader: isUserAuthLoader,

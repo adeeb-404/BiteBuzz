@@ -14,11 +14,11 @@ function OrderList({ setIndex }) {
               onClick={() => setIndex(index)}
               className="h-fit w-[80%] flex flex-col justify-center items-center bg-green-200 rounded-lg cursor-pointer transition duration-500 ease-in-out hover:bg-green-300 hover:text-green-900 hover:shadow-2xl group border-2 border-green-900"
             >
-              {/* <img
-                src={element.orderFood[0].foodImg}
+              <img
+                src={element.orders[0].photo}
                 alt={`${element.name.split(" ")[0]}'s order`}
                 className="h-[5rem] w-[5rem] m-1 mt-3 rounded-md group-hover:shadow-glow"
-              /> */}
+              />
               <div className="flex flex-col justify-center mt-2">
                 <div className="flex mx-3 w-fit h-fit justify-evenly">
                   <p className="text-[1.1rem] font-bold mx-5 text-green-900">

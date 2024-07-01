@@ -5,25 +5,37 @@ import BackButton from "../Customs/BackButton";
 
 const cartItems = [
   {
-    id: 1,
-    name: "Grilled Chicken Sandwich",
-    price: 150,
-    quantity: 2,
-    img: "https://via.placeholder.com/150",
+    name: "red canteen",
+    _id: "1e2j89wd783940",
+    items: [
+      {
+        id: 1,
+        name: "Grilled Chicken Sandwich",
+        price: 150,
+        quantity: 2,
+        img: "https://via.placeholder.com/150",
+      },
+    ],
   },
   {
-    id: 2,
-    name: "Caesar Salad",
-    price: 120,
-    quantity: 1,
-    img: "https://via.placeholder.com/150",
-  },
-  {
-    id: 3,
-    name: "Fruit Smoothie",
-    price: 80,
-    quantity: 3,
-    img: "https://via.placeholder.com/150",
+    name: "green canteen",
+    _id: "1e2j23wd783940",
+    items: [
+      {
+        id: 1,
+        name: "Caesar Salad",
+        price: 120,
+        quantity: 1,
+        img: "https://via.placeholder.com/150",
+      },
+      {
+        id: 2,
+        name: "Fruit Smoothie",
+        price: 80,
+        quantity: 3,
+        img: "https://via.placeholder.com/150",
+      },
+    ],
   },
 ];
 

@@ -6,20 +6,20 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 function MenuPage() {
   const navigate = useNavigate();
-  
+
   function handleClick() {
     navigate("..");
   }
-  
+
   function handleAdd(itemId) {
     setMenuItems((prevItems) =>
       prevItems.map((item) =>
         item.id === itemId ? { ...item, isAdded: true } : item
-  )
-);
-}
-const initialMenuItems = useLoaderData().menu;
-const [menuItems, setMenuItems] = useState(initialMenuItems);
+      )
+    );
+  }
+  const initialMenuItems = useLoaderData().menu;
+  const [menuItems, setMenuItems] = useState(initialMenuItems);
 
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
@@ -75,9 +75,15 @@ const [menuItems, setMenuItems] = useState(initialMenuItems);
               </button>
             ) : (
               <div className="flex flex-row justify-center gap-8 m-5">
-                <button className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300"> <FaPlus className="size-3 text-white "/> </button>
+                <button className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300">
+                  {" "}
+                  <FaPlus className="size-3 text-white " />{" "}
+                </button>
                 <p> 0 </p>
-                <button className="bg-green-700 hover:bg-green-800 h-8 w-10  flex justify-center items-center rounded-sm transition duration-300"> <FaMinus className="size-3 text-white group:hover:text-black"/> </button>
+                <button className="bg-green-700 hover:bg-green-800 h-8 w-10  flex justify-center items-center rounded-sm transition duration-300">
+                  {" "}
+                  <FaMinus className="size-3 text-white group:hover:text-black" />{" "}
+                </button>
               </div>
             )}
           </div>

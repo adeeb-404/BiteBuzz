@@ -9,8 +9,13 @@ function SettingsPage() {
     navigator("..");
   }
 
-  const name = useSelector((state) => state.user.name);
-  const email = useSelector((state) => state.user.email);
+  const userName = useSelector((state) => state.user.name);
+  const canteenUserName = useSelector((state) => state.canteen.name);
+  const userEmail = useSelector((state) => state.user.email);
+  const canteenUserEmail = useSelector((state) => state.canteen.email);
+
+  const name = userName || canteenUserName;
+  const email = userEmail || canteenUserEmail;
 
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
