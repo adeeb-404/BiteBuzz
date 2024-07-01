@@ -84,42 +84,52 @@ export async function displayStorage(req,res){
 export async function orderComplete(req, res) {
   try {
     const obj = req.body;
+    const userId = await User.findOne({ usn: obj.usn }, '_id');
     const canteen = await Canteen.findById(obj.canteenId);
-    const canteenName = canteen.name; // Get the canteen name directly from the `canteen` object
-    let userOrders = [];
 
     if (!canteen) {
       return res.status(404).json({ message: "Canteen not found" });
     }
 
-    userOrders = canteen.currOrders.filter(orderGroup => orderGroup.usn === obj.usn);
+    // Get the user's orders from the canteen's current orders
+    let userOrders = canteen.currOrders.filter(orderGroup => orderGroup.usn === obj.usn);
 
     if (userOrders.length === 0) {
       return res.status(404).json({ message: "No orders found for this user" });
     }
 
-    // Convert userOrders to plain objects
-    await Canteen.findById(canteen._id,{"$push":{"history":userOrders}});
-    
-    userOrders = userOrders.map(orderGroup => orderGroup.toObject());
-
-    // Add canteen name and remove unnecessary fields
-    userOrders.forEach(orderGroup => {
+    // Convert userOrders to plain objects and remove unnecessary fields
+    userOrders = userOrders.map(orderGroup => {
+      orderGroup = orderGroup.toObject();
       delete orderGroup.name;
       delete orderGroup.usn;
-      orderGroup.orders.forEach(order => {
-        order.canteenName = canteenName; // Add canteen name
-        delete order.canteenID;
-      });
+      orderGroup.canteenName = canteen.name;
+      return orderGroup;
     });
 
-    // Push the updated userOrders to the history
+    // Push the updated userOrders to the history in the canteen document
     await Canteen.findByIdAndUpdate(
-      obj.canteenId,
+      canteen._id,
       { $push: { history: { $each: userOrders } } }
     );
 
-    console.log(userOrders);
+    // Remove the user's orders from the current orders in the canteen document
+    await Canteen.findByIdAndUpdate(
+      canteen._id,
+      { $pull: { currOrders: { usn: obj.usn } } }
+    );
+
+    // Push the updated userOrders to the history in the user document
+    await User.findByIdAndUpdate(
+      userId._id,
+      { $push: { history: { $each: userOrders } } }
+    );
+
+    // Remove the user's orders from the current orders in the user document
+    await User.findByIdAndUpdate(
+      userId._id,
+      { $pull: { currOrders: { canteenName: canteen.name } } }
+    );
 
     return res.json(userOrders);
 

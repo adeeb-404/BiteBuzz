@@ -221,30 +221,28 @@ export async function canteenMenu(req,res){
 export async function displayHistory(req, res) {
   const canteenId = req.params.id; // Canteen ID from the request parameters
   const userId = req.body.userId; // User ID from the request body
-  console.log(canteenId)  
+
   try {
-    const user = await User.findById(userId); // Retrieve the user document
+    // Retrieve the user document
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log("User Data:", user); // Debug: Log the user data
-
-    // Initialize arrays to hold current orders and order history
-    let currentOrders = [];
-    let orderHistory = [];
-
-   
-
+    // Retrieve the canteen document to get the canteen name
+    const canteen = await Canteen.findById(canteenId);
     
-    // console.log("Current Orders Before Filtering:", user.currOrders); 
-    currentOrders=user.currOrders.filter(order=>order.canteenID == canteenId)
-    console.log("Current Orders After Filtering:", currentOrders); // Debug: Log current orders after filtering
+    if (!canteen) {
+      return res.status(404).json({ message: "Canteen not found" });
+    }
 
-    // Filter the order history for the specific canteen
-    console.log("Order History Before Filtering:", user.history); // Debug: Log order history before filtering
-    orderHistory=user.history.filter(history=>history.canteenID == canteenId)
+    const canteenName = canteen.name;
+
+    // Filter the user's current orders for the specific canteen
+    const currentOrders = user.currOrders.filter(order => order.canteenName===canteenName);
+    // Filter the user's order history for the specific canteen
+    const orderHistory = user.history.filter(history => history.canteenName === canteenName);
 
     return res.json({
       currentOrders,
@@ -256,4 +254,4 @@ export async function displayHistory(req, res) {
     res.status(500).json({ message: "Error retrieving order history" });
   }
 }
-
+  
