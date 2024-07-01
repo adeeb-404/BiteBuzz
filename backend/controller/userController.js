@@ -30,6 +30,7 @@ export async function userAuth(req, res) {
     res.status(500).send("Server error");
   }
 }
+
 export async function changePassword(req, res) {
   try {
     const { userId, currentPassword, newPassword } = req.body;
@@ -160,8 +161,6 @@ export async function submitOrder(req, res) {
   }
 }
 
-
-
 export async function dashboard(req, res) {
   try {
     const canteenDetails=await Canteen.aggregate([
@@ -199,7 +198,6 @@ export async function dashboard(req, res) {
     console.error("Error fetching canteen details:", err);
   }
 }
-
 
 export async function canteenMenu(req,res){
 

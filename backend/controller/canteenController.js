@@ -1,5 +1,6 @@
 import Canteen from "../model/canteenSchema.js";
 import User from "../model/userSchema.js";
+
 export async function canteenAuth(req, res) {
   const { phone, password } = req.body;
 
@@ -67,8 +68,8 @@ export async function changePassword(req, res) {
 
 export async function displayStorage(req,res){
   try{
-    const obj=req.body;
-    const canteenId=obj.canteenId;
+    // const obj=req.body;
+    const canteenId=req.params.id;
     console.log(canteenId);
     const storageArray=await Canteen.findById(canteenId,{storage:true,_id:false});
     console.log(storageArray);
@@ -79,7 +80,6 @@ export async function displayStorage(req,res){
     return res.json(500)
   }
 }
-
 
 export async function orderComplete(req, res) {
   try {
@@ -138,3 +138,22 @@ export async function orderComplete(req, res) {
     return res.status(500).send("Error completing order");
   }
 }
+
+export async function updateMenu(req,res){
+const obj=req.body;
+console.log(obj);
+const canteenId=req.params.id;
+try{
+  const update=await Canteen.findByIdAndUpdate(canteenId,{"$push":{menu:obj}});
+  if(!update){
+    return res.json({"message":"Failed to update the menu"}).sendStatus(401);
+  }
+  else{
+    return res.json({"message":"items updated successfully to your menu"});
+  }
+}catch(err){
+  return res.json(500);
+}
+
+}
+
