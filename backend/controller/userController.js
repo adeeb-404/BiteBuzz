@@ -35,22 +35,22 @@ export async function changePassword(req, res) {
     const { userId, currentPassword, newPassword } = req.body;
 
     // Find user by userId
-    const canteen = await User.findById(userId);
+    const user = await User.findById(userId);
 
-    if (!canteen) {
+    if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
     // Compare currentPassword with user's current password
-    if (currentPassword !== canteen.password.toString()) {
+    if (currentPassword !== user.password.toString()) {
       return res.status(400).json({ error: 'Current password is incorrect' });
     }
 
     // Update user's password to newPassword
-    const updatedPassword = await Canteen.findByIdAndUpdate(userId, { $set: { password: newPassword } }, { new: true });
-
+    const updatedPassword = await User.findByIdAndUpdate(userId, { $set: { password: newPassword } }, { new: true });
+    console.log(updatedPassword);
     if (!updatedPassword) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'password not changed' });
     }
 
     res.status(200).json({ message: 'Password updated successfully' });

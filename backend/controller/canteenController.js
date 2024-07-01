@@ -1,5 +1,5 @@
 import Canteen from "../model/canteenSchema.js";
-
+import User from "../model/userSchema.js";
 export async function canteenAuth(req, res) {
   const { phone, password } = req.body;
 
@@ -80,6 +80,51 @@ export async function displayStorage(req,res){
   }
 }
 
-export async function orderComplete(req,res){
+
+export async function orderComplete(req, res) {
+  try {
+    const obj = req.body;
+    const canteen = await Canteen.findById(obj.canteenId);
+    const canteenName = canteen.name; // Get the canteen name directly from the `canteen` object
+    let userOrders = [];
+
+    if (!canteen) {
+      return res.status(404).json({ message: "Canteen not found" });
+    }
+
+    userOrders = canteen.currOrders.filter(orderGroup => orderGroup.usn === obj.usn);
+
+    if (userOrders.length === 0) {
+      return res.status(404).json({ message: "No orders found for this user" });
+    }
+
+    // Convert userOrders to plain objects
+    await Canteen.findById(canteen._id,{"$push":{"history":userOrders}});
     
+    userOrders = userOrders.map(orderGroup => orderGroup.toObject());
+
+    // Add canteen name and remove unnecessary fields
+    userOrders.forEach(orderGroup => {
+      delete orderGroup.name;
+      delete orderGroup.usn;
+      orderGroup.orders.forEach(order => {
+        order.canteenName = canteenName; // Add canteen name
+        delete order.canteenID;
+      });
+    });
+
+    // Push the updated userOrders to the history
+    await Canteen.findByIdAndUpdate(
+      obj.canteenId,
+      { $push: { history: { $each: userOrders } } }
+    );
+
+    console.log(userOrders);
+
+    return res.json(userOrders);
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Error completing order");
+  }
 }
