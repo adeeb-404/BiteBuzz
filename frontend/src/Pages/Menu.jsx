@@ -1,25 +1,64 @@
-import { useState } from "react";
-import { FaStar } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa";
-import { FaMinus } from "react-icons/fa";
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+/* eslint-disable react/no-unknown-property */
+import { useEffect, useState } from "react";
+import { FaStar, FaPlus, FaMinus } from "react-icons/fa";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { initialize, addOrder, removeOrder } from "../store/Cart.js";
 
 function MenuPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const canteenId = useParams().canteenId;
 
   function handleClick() {
     navigate("..");
   }
 
-  function handleAdd(itemId) {
+  useEffect(() => {
+    dispatch(
+      initialize({
+        userID: localStorage.getItem("student"),
+        canteenID: canteenId,
+      })
+    );
+  }, [dispatch, canteenId]);
+
+  const initialMenuItems = useLoaderData().menu;
+  const [menuItems, setMenuItems] = useState(initialMenuItems);
+
+  function handleAdd(_item) {
+    if (_item.quantity == 0) {
+      alert("Out of stock");
+      return;
+    }
+    dispatch(addOrder(_item));
     setMenuItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === itemId ? { ...item, isAdded: true } : item
+        item.dishName === _item.dishName
+          ? {
+              ...item,
+              userQuantity: item.userQuantity ? item.userQuantity + 1 : 1,
+              quantity: item.quantity - 1,
+            }
+          : item
       )
     );
   }
-  const initialMenuItems = useLoaderData().menu;
-  const [menuItems, setMenuItems] = useState(initialMenuItems);
+
+  function handleRemove(_item) {
+    dispatch(removeOrder(_item));
+    setMenuItems((prevItems) =>
+      prevItems.map((item) =>
+        item.dishName === _item.dishName && item.userQuantity > 0
+          ? {
+              ...item,
+              userQuantity: item.userQuantity - 1,
+              quantity: item.quantity + 1,
+            }
+          : item
+      )
+    );
+  }
 
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
@@ -66,23 +105,27 @@ function MenuPage() {
               <p className="text-lg text-green-700 mb-4">₹{item.price}</p>
               <p className="text-green-600">{item.description}</p>
             </div>
-            {!item.isAdded ? (
+            {!item.userQuantity ? (
               <button
                 className="mt-4 w-full py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
-                onClick={() => handleAdd(item.id)}
+                onClick={() => handleAdd(item)}
               >
                 Add to Cart
               </button>
             ) : (
-              <div className="flex flex-row justify-center gap-8 m-5">
-                <button className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300">
-                  {" "}
-                  <FaPlus className="size-3 text-white " />{" "}
+              <div className="flex flex-row justify-center gap-8">
+                <button
+                  className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300"
+                  onClick={() => handleAdd(item)}
+                >
+                  <FaPlus className="size-3 text-white" />
                 </button>
-                <p> 0 </p>
-                <button className="bg-green-700 hover:bg-green-800 h-8 w-10  flex justify-center items-center rounded-sm transition duration-300">
-                  {" "}
-                  <FaMinus className="size-3 text-white group:hover:text-black" />{" "}
+                <p>{item.userQuantity}</p>
+                <button
+                  className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300"
+                  onClick={() => handleRemove(item)}
+                >
+                  <FaMinus className="size-3 text-white" />
                 </button>
               </div>
             )}

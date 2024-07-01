@@ -1,5 +1,4 @@
 import { IoSearch } from "react-icons/io5";
-import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -42,16 +41,6 @@ function HomeNav() {
       </div>
 
       <div className="flex space-x-6 text-white">
-        <Link to="cart">
-          <motion.div
-            whileHover={{ scale: 1.2 }}
-            transition={{ duration: 0.3 }}
-            className="cursor-pointer"
-          >
-            <MdOutlineShoppingCart className="text-3xl" />
-          </motion.div>
-        </Link>
-
         <motion.div
           whileHover={{ rotate: -45 }}
           transition={{ duration: 0.5 }}

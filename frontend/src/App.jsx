@@ -51,11 +51,11 @@ const router = createBrowserRouter([
             path: "food",
             element: <FoodConfiguration />,
           },
+          {
+            path: "cart",
+            element: <Cart />,
+          },
         ],
-      },
-      {
-        path: "cart",
-        element: <Cart />,
       },
     ],
   },
