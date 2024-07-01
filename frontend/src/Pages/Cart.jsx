@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import BackButton from '../Customs/BackButton';
+import { FaTrashAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import BackButton from "../Customs/BackButton";
 
 const orderedDetail = {
   userID: '665dd595c3c0655ec83935f1',
@@ -47,6 +49,9 @@ function Cart() {
   const [showModal, setShowModal] = useState(false);
   const [newArrivalTime, setNewArrivalTime] = useState('');
   const [newOrderDetail, setNewOrderDetail] = useState(orderedDetail);
+  // const [items, setItems] = useState(cartItems);
+  const navigator = useNavigate();
+
 
   function handleConfirmClick () {
     setShowModal(true);
@@ -88,7 +93,7 @@ function Cart() {
         {orderedDetail.orders.map((food, index) => (
           <div
             key={index}
-            className='bg-white dark:bg-[#181818] w-[16rem] flex items-center rounded-lg shadow-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl'
+            className='bg-white dark:bg-[#181818] flex items-center rounded-lg shadow-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl'
           >
             <img
               src={food.photo}

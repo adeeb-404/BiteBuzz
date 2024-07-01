@@ -2,13 +2,18 @@
 import { useEffect, useState } from "react";
 import { FaStar, FaPlus, FaMinus } from "react-icons/fa";
 import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initialize, addOrder, removeOrder } from "../store/Cart.js";
 
 function MenuPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  console.log();
   const canteenId = useParams().canteenId;
+  const canteenName = useSelector(
+    (state) => state.canteenInfo.data.find((ele) => ele._id === canteenId).name
+  );
 
   function handleClick() {
     navigate("..");
@@ -19,9 +24,10 @@ function MenuPage() {
       initialize({
         userID: localStorage.getItem("student"),
         canteenID: canteenId,
+        canteenName: canteenName,
       })
     );
-  }, [dispatch, canteenId]);
+  }, [dispatch, canteenId, canteenName]);
 
   const initialMenuItems = useLoaderData().menu;
   const [menuItems, setMenuItems] = useState(initialMenuItems);
