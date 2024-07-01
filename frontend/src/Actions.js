@@ -57,5 +57,5 @@ export async function changePasswordAction({ request }) {
       { message: "Server error" },
       { status: 500, statusText: "An error occurred" && response.message }
     );
-  return redirect("/home");
+  return redirect("/");
 }
