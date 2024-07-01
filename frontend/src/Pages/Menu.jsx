@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { FaStar, FaPlus, FaMinus } from "react-icons/fa";
 import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { initialize } from "../store/Cart.js";
+import { useDispatch } from "react-redux";
+import { initialize, addOrder, removeOrder } from "../store/Cart.js";
 
 function MenuPage() {
   const navigate = useNavigate();
@@ -26,17 +26,39 @@ function MenuPage() {
   const initialMenuItems = useLoaderData().menu;
   const [menuItems, setMenuItems] = useState(initialMenuItems);
 
-  function handleAdd(dishName) {
+  function handleAdd(_item) {
+    if (_item.quantity == 0) {
+      alert("Out of stock");
+      return;
+    }
+    dispatch(addOrder(_item));
     setMenuItems((prevItems) =>
       prevItems.map((item) =>
-        item.dishName === dishName
-          ? { ...item, quantity: item.quantity ? item.quantity + 1 : 1 }
+        item.dishName === _item.dishName
+          ? {
+              ...item,
+              userQuantity: item.userQuantity ? item.userQuantity + 1 : 1,
+              quantity: item.quantity - 1,
+            }
           : item
       )
     );
   }
 
-  console.log(menuItems[0]);
+  function handleRemove(_item) {
+    dispatch(removeOrder(_item));
+    setMenuItems((prevItems) =>
+      prevItems.map((item) =>
+        item.dishName === _item.dishName && item.userQuantity > 0
+          ? {
+              ...item,
+              userQuantity: item.userQuantity - 1,
+              quantity: item.quantity + 1,
+            }
+          : item
+      )
+    );
+  }
 
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4">
@@ -58,7 +80,7 @@ function MenuPage() {
         Menu
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
-        {menuItems.map((item, ind) => (
+        {menuItems.map((item) => (
           <div
             key={item._id}
             className="bg-white p-5 rounded-lg shadow-lg hover:shadow-2xl transition duration-300 flex flex-col justify-between"
@@ -83,23 +105,27 @@ function MenuPage() {
               <p className="text-lg text-green-700 mb-4">₹{item.price}</p>
               <p className="text-green-600">{item.description}</p>
             </div>
-            {!item.quantity ? (
+            {!item.userQuantity ? (
               <button
                 className="mt-4 w-full py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
-                onClick={() => handleAdd(item.dishName)}
+                onClick={() => handleAdd(item)}
               >
                 Add to Cart
               </button>
             ) : (
-              <div className="flex flex-row justify-center gap-8 m-5">
-                <button className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300">
-                  {" "}
-                  <FaPlus className="size-3 text-white " />{" "}
+              <div className="flex flex-row justify-center gap-8">
+                <button
+                  className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300"
+                  onClick={() => handleAdd(item)}
+                >
+                  <FaPlus className="size-3 text-white" />
                 </button>
-                <p> {item.quantity} </p>
-                <button className="bg-green-700 hover:bg-green-800 h-8 w-10  flex justify-center items-center rounded-sm transition duration-300">
-                  {" "}
-                  <FaMinus className="size-3 text-white group:hover:text-black" />{" "}
+                <p>{item.userQuantity}</p>
+                <button
+                  className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300"
+                  onClick={() => handleRemove(item)}
+                >
+                  <FaMinus className="size-3 text-white" />
                 </button>
               </div>
             )}

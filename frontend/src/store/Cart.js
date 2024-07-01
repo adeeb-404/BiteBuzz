@@ -52,36 +52,34 @@ const cartSlice = createSlice({
       state.orders = [];
     },
     addOrder: (state, action) => {
-      const index = state.orders.findIndex(
-        (ele) => ele.dishName === action.payload.dishName
-      );
-      if (index === -1) {
-        action.payload.quantity = 1;
-        state.orders.push(action.payload);
-        state.price += action.payload.price;
-      } else {
-        state.orders[index].quantity++;
-        state.price += action.payload.price;
+      let found = false;
+      for (let ele of state.orders) {
+        if (ele.dishName === action.payload.dishName) {
+          ele.quantity += 1;
+          found = true;
+          break;
+        }
       }
+      if (!found) {
+        state.orders.push({
+          ...action.payload,
+          quantity: 1,
+        });
+      }
+      state.price += action.payload.price;
     },
     removeOrder: (state, action) => {
-      const index = state.orders.findIndex(
-        (order) => order.dishName === action.payload.dishName
-      );
-      if (index !== -1) {
-        state.price -=
-          state.orders[index].price * (state.orders[index].quantity || 1);
-        state.orders.splice(index, 1);
-      }
-    },
-    updateOrderQuantity: (state, action) => {
-      const { dishName, quantity } = action.payload;
-      const order = state.orders.find((order) => order.dishName === dishName);
-      if (order) {
-        const difference = quantity - order.quantity;
-        order.quantity = quantity;
-        state.price += order.price * difference;
-      }
+      let updatedOrders = state.orders
+        .map((ele) => {
+          if (ele.dishName === action.payload.dishName) {
+            ele.quantity -= 1;
+          }
+          return ele;
+        })
+        .filter((ele) => ele.quantity > 0);
+
+      state.orders = updatedOrders;
+      state.price -= action.payload.price;
     },
     setArrivalTime: (state, action) => {
       state.arrivalTime = action.payload;
