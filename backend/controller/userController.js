@@ -2,6 +2,7 @@ import User from "../model/userSchema.js";
 import OrdersSchema from "../model/baseOrderSchema.js";
 import Canteen from "../model/canteenSchema.js";
 import { getStudentName, getStudentUSN } from "../utility/util.js";
+import mongoose from "mongoose";
 
 
 export async function userAuth(req, res) {
@@ -29,27 +30,26 @@ export async function userAuth(req, res) {
     res.status(500).send("Server error");
   }
 }
-
 export async function changePassword(req, res) {
   try {
     const { userId, currentPassword, newPassword } = req.body;
 
     // Find user by userId
-    const user = await User.findById(userId);
+    const canteen = await User.findById(userId);
 
-    if (!user) {
+    if (!canteen) {
       return res.status(404).json({ error: 'User not found' });
     }
 
     // Compare currentPassword with user's current password
-    if (currentPassword !== user.password.toString()) {
+    if (currentPassword !== canteen.password.toString()) {
       return res.status(400).json({ error: 'Current password is incorrect' });
     }
 
     // Update user's password to newPassword
-    const updatedUser = await User.findByIdAndUpdate(userId, { $set: { password: newPassword } }, { new: true });
+    const updatedPassword = await Canteen.findByIdAndUpdate(userId, { $set: { password: newPassword } }, { new: true });
 
-    if (!updatedUser) {
+    if (!updatedPassword) {
       return res.status(404).json({ error: 'User not found' });
     }
 
@@ -59,6 +59,7 @@ export async function changePassword(req, res) {
     res.status(500).json({ error: 'Server error' });
   }
 }
+
 export async function submitOrder(req, res) {
   let obj = req.body;
 
@@ -69,6 +70,7 @@ export async function submitOrder(req, res) {
 
     for (let i = 0; i < obj.length; i++) {
       try {
+        const quantity=obj[i].quantity;
         let findItem = await Canteen.findOne(
           {
             name: findCanteen.name,
@@ -86,9 +88,25 @@ export async function submitOrder(req, res) {
           const currTime = new Date().getTime();
           const time = findItem.menu[0].preparationTime * (60 * 1000);
           const finalTime = new Date(currTime + time).toLocaleTimeString();
+          const currentQuantity=findItem.menu[0].quantity;
+          if(currentQuantity-quantity<0){
+            res.status(400).send("Not enough stock for item: " + obj[i].dishName);
+            return;
+          }
           obj[i].expectedTime = finalTime;
           obj[i].photo = findItem.menu[0].photo; // Add photo from the menu item
           obj[i].rating = findItem.menu[0].rating;
+
+          await Canteen.updateOne({
+            _id:findCanteen._id,
+            "menu.dishName":obj[i].dishName,
+          },
+          {
+            "$set":{
+              "menu.$.quantity":currentQuantity-quantity
+            },
+          }
+          );
         }
       } catch (err) {
         console.error(err);
@@ -99,8 +117,9 @@ export async function submitOrder(req, res) {
 
     // const name = await getStudentName(user._id);
     // const usn = await getStudentUSN(user._id);
-
+    const id=new mongoose.Types.ObjectId();
     const ordersArray = obj.map((order) => ({
+      _id:id,
       userID: order.userID,
       canteenID: order.canteenID,
       photo:order.photo,
@@ -240,3 +259,4 @@ export async function displayHistory(req, res) {
     res.status(500).json({ message: "Error retrieving order history" });
   }
 }
+
