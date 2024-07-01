@@ -1,5 +1,6 @@
 import BackButton from "../Customs/BackButton";
 import { useNavigate } from "react-router-dom";
+
 const orderedDetail = [
   {
     studentName: "Adeeb",
@@ -59,19 +60,19 @@ const orderedDetail = [
 ];
 
 function CanteenHistory() {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
   function handleClick() {
-    navigator("..");
+    navigate("..");
   }
   return (
-    <div className="bg-green-50 min-h-screen py-10">
+    <div className="bg-green-50 dark:bg-[#121212] min-h-screen py-10">
       <BackButton
-        className="mb-5 py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
+        className="mb-5 py-2 px-4 bg-green-700 dark:bg-green-600 text-white rounded-lg hover:bg-green-800 dark:hover:bg-green-700 transition duration-300"
         onClick={handleClick}
       >
         Back
       </BackButton>
-      <h1 className="text-4xl font-bold text-green-900 mb-10 text-center">
+      <h1 className="text-4xl font-bold text-green-900 dark:text-green-200 mb-10 text-center">
         History
       </h1>
       <div className="flex flex-col items-center">
@@ -79,16 +80,16 @@ function CanteenHistory() {
           return (
             <div
               key={index}
-              className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-5 mb-5 border-2 border-green-300"
+              className="w-full max-w-4xl bg-white dark:bg-[#1e1e1e] shadow-lg rounded-lg p-5 mb-5 border-2 border-green-300 dark:border-green-700"
             >
-              <h2 className="text-2xl font-bold text-green-900 mb-4">
+              <h2 className="text-2xl font-bold text-green-900 dark:text-green-200 mb-4">
                 Ordered by: {student.studentName}
               </h2>
               {student.orderedFood.map((foods, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex items-center border-b border-green-200 p-4 hover:bg-green-50"
+                    className="flex items-center border-b border-green-200 dark:border-green-800 p-4 hover:bg-green-50 dark:hover:bg-[#2e2e2e]"
                   >
                     <img
                       src={foods.foodImg}
@@ -96,16 +97,16 @@ function CanteenHistory() {
                       className="w-20 h-20 rounded-lg"
                     />
                     <div className="ml-4">
-                      <h3 className="text-xl text-green-900">
+                      <h3 className="text-xl text-green-900 dark:text-green-200">
                         {foods.foodName}
                       </h3>
-                      <p className="text-lg text-green-700">
+                      <p className="text-lg text-green-700 dark:text-green-400">
                         Price: ₹{foods.price}
                       </p>
-                      <p className="text-lg text-green-700">
+                      <p className="text-lg text-green-700 dark:text-green-400">
                         Quantity: {foods.quantity}
                       </p>
-                      <p className="text-sm text-green-600">
+                      <p className="text-sm text-green-600 dark:text-green-500">
                         Ordered Time: {foods.orderedTime}
                       </p>
                     </div>
