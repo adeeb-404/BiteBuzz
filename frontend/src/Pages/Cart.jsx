@@ -1,7 +1,9 @@
 import { FaTrashAlt } from "react-icons/fa";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../Customs/BackButton";
+import { useDispatch } from "react-redux";
+import { initialize } from "../store/Cart.js";
 
 const cartItems = [
   {
@@ -42,6 +44,14 @@ const cartItems = [
 function Cart() {
   const [items, setItems] = useState(cartItems);
   const navigator = useNavigate();
+  const dispatch = useDispatch();
+  const params = useParams();
+
+  useEffect(() => {
+    dispatch(
+      initialize({ userID: localStorage.getItem("student"), canteenID: "" })
+    );
+  }, [dispatch]);
 
   const removeItem = (id) => {
     setItems(items.filter((item) => item.id !== id));
