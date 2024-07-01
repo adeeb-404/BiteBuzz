@@ -15,21 +15,41 @@ const userSchema = new Schema({
     },
     password: { type: String, required: true },
     currOrders: [
+      
         {
           userID: { type: Schema.Types.ObjectId },
           canteenID: { type: Schema.Types.ObjectId },
-          photo:String,
+          totalPrice: { type: Number, required: true },
+          orders:[
+            {
+            canteenName:{type:String},
+            photo:String,
           itemName: { type: String },
           quantity: { type: Number, required: true },
-          price: { type: Number, required: true },
           rating: {
             currRating: Number,
             noOfRating: Number,
-          },  
+          },    
           expectedTime: { type: String, required: true },
+            }      
+          ],
         },
     ],
-    history: [],
+    history: [
+      {
+        userID: { type: Schema.Types.ObjectId },
+        canteenID: { type: Schema.Types.ObjectId },
+        canteenName:{type:String},
+        photo:String,
+        itemName: { type: String },
+        quantity: { type: Number, required: true },
+        price: { type: Number, required: true },
+        rating: {
+          currRating: Number,
+          noOfRating: Number,
+        }
+      }
+    ],
   });
   
   const User = mongoose.model('User', userSchema);

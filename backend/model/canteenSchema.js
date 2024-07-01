@@ -45,6 +45,27 @@ const canteenSchema = new Schema({
       name: { type: String },
       usn: { type: String },
       arrivalTime:{type: String},
+      totalPrice: { type: Number, required: true },
+      orders:[
+        {
+        canteenName:{type:String},
+        photo:String,
+      itemName: { type: String },
+      quantity: { type: Number, required: true },
+      rating: {
+        currRating: Number,
+        noOfRating: Number,
+      },    
+      expectedTime: { type: String, required: true },
+        }      
+      ],
+    },
+  ],
+  history: [
+    {
+      name: { type: String },
+      usn: { type: String },
+      arrivalTime:{type: String},
       orders: [
         {
           userID: { type: Schema.Types.ObjectId },
@@ -62,7 +83,6 @@ const canteenSchema = new Schema({
       ],
     },
   ],
-  history: [baseOrderSchema],
 });
 
 const Canteen = mongoose.model("canteen", canteenSchema);
