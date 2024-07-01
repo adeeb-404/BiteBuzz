@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { userActions } from "../store/Studentuser";
 import { userActions as canteenActions } from "../store/CanteenUser";
 import "react-toastify/dist/ReactToastify.css";
+import { FaRegEyeSlash } from "react-icons/fa";
+import { IoEyeOutline } from "react-icons/io5";
 
 function Login() {
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const navigator = useNavigate();
 
@@ -114,6 +117,10 @@ function Login() {
     return navigator("/canteen");
   }
 
+  function makePasswordVisible(){
+    setPasswordVisible(!passwordVisible);
+  }
+
   return (
     <>
       <Header />
@@ -174,17 +181,29 @@ function Login() {
               required
               minLength={10}
             />
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              className="mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800 dark:bg-green-200 placeholder:text-gray-800"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              aria-label="Password"
-              required
-              minLength={6}
-            />
+            <div className="flex mb-4 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-800 focus:outline focus-within:border-[#36454F] h-[2.5rem] dark:bg-green-200 pr-2 ">
+              <input
+                name="password"
+                type={passwordVisible? "text" : "password"}
+                placeholder="Password"
+                className="p-2 h-full w-full dark:bg-green-200 placeholder:text-gray-800 focus:ring-0 focus:outline-none"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                aria-label="Password"
+                required
+                minLength={6}
+              />
+              <div
+                    className="flex items-center justify-center cursor-pointer"
+                    onClick={() => makePasswordVisible()}
+                  >
+                    {passwordVisible ? (
+                      <IoEyeOutline className="text-green-700 text-xl" />
+                    ) : (
+                      <FaRegEyeSlash className="text-green-700 text-xl" />
+                    )}
+                  </div>
+            </div>
             <input
               type="text"
               name="userType"

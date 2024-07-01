@@ -10,7 +10,6 @@ function MainPage() {
   const dispatch = useDispatch();
 
   const [clickedId, setClickedId] = useState(null);
-  let url;
 
   useEffect(() => {
     if (isinitial) return;
@@ -26,8 +25,7 @@ function MainPage() {
 
   return (
     <>
-      <div className="flex max-h-fit w-full">
-        <img src={url} />
+      <div className="flex max-h-fit w-full bg-white dark:bg-[#0A0A0A]">
         <CanteenList onclick={setClickedId} />
         <Dashboard index={clickedId} />
       </div>
