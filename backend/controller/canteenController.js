@@ -13,7 +13,7 @@ export async function canteenAuth(req, res) {
     console.log("User found:", user);
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "phone or password is invalid" });
     }
 
     // Compare the provided password with the stored password
@@ -80,6 +80,21 @@ export async function displayStorage(req,res){
     return res.json(500)
   }
 }
+
+export async function displayOrders(req,res){
+  const obj=req.params.id;
+  console.log(obj);
+  const currentOrders=await Canteen.findById(obj,{currOrders:true});
+  try{
+  if(!currentOrders){
+    return res.json({"message":"No Pending Orders"});
+  }
+  return res.json({currentOrders});
+}catch(err){
+  return res.json(500);
+}
+}
+
 
 export async function orderComplete(req, res) {
   try {
