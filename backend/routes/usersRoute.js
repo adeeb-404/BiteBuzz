@@ -15,7 +15,7 @@ router
   .post("/login", userAuth)
   .get("/dashboard", dashboard)
   .post("/orders", submitOrder)
-  .get("/:id", profile)
+  .get("/:id/profile", profile)
   .post("/settings", changePassword)
   .get("/:id", canteenMenu)
   .post("/:id/history", displayHistory);
