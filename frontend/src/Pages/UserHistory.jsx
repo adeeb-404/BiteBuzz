@@ -34,24 +34,24 @@ function UserHistory() {
   }
 
   return (
-    <div className="min-h-screen bg-green-50 py-10 px-4">
+    <div className="min-h-screen bg-green-50 dark:bg-[#121212] py-10 px-4">
       <button
-        className="mb-5 py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
+        className="mb-5 py-2 px-4 bg-green-700 dark:bg-green-600 text-white rounded-lg hover:bg-green-800 dark:hover:bg-green-700 transition duration-300"
         onClick={handleClick}
       >
         Menu
       </button>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
         <div>
-          <h2 className="text-3xl font-semibold text-green-900 mb-4">
+          <h2 className="text-3xl font-semibold text-green-900 dark:text-green-200 mb-4">
             Current Orders
           </h2>
-          <div className="bg-white p-5 rounded-lg shadow-lg">
+          <div className="bg-white dark:bg-[#181818] p-5 rounded-lg shadow-lg">
             {current.length > 0 ? (
               current.map((order) => (
                 <div
                   key={order._id}
-                  className="flex items-center border-b border-green-200 py-4"
+                  className="flex items-center border-b border-green-200 dark:border-green-700 py-4"
                 >
                   <img
                     src={order.photo}
@@ -59,37 +59,37 @@ function UserHistory() {
                     className="w-20 h-20 rounded-lg"
                   />
                   <div className="ml-4 flex-grow">
-                    <h3 className="text-2xl text-green-900">
+                    <h3 className="text-2xl text-green-900 dark:text-green-200">
                       {order.itemName}
                     </h3>
-                    <p className="text-lg text-green-700">
+                    <p className="text-lg text-green-700 dark:text-green-400">
                       ₹{order.price} x {order.quantity}
                     </p>
-                    <p className="text-sm text-green-600">
+                    <p className="text-sm text-green-600 dark:text-green-500">
                       Status: TO BE FIXED
                     </p>
                   </div>
                   <div className="flex items-center">
-                    <FaClock className="text-green-500 mr-2" />
-                    <span className="text-green-600">15 mins</span>
+                    <FaClock className="text-green-500 dark:text-green-400 mr-2" />
+                    <span className="text-green-600 dark:text-green-500">15 mins</span>
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-green-700">No current orders</p>
+              <p className="text-green-700 dark:text-slate-300">No current orders</p>
             )}
           </div>
         </div>
         <div>
-          <h2 className="text-3xl font-semibold text-green-900 mb-4">
+          <h2 className="text-3xl font-semibold text-green-900 dark:text-green-200 mb-4">
             Order History
           </h2>
-          <div className="bg-white p-5 rounded-lg shadow-lg">
+          <div className="bg-white dark:bg-[#181818] p-5 rounded-lg shadow-lg">
             {history.length > 0 ? (
               history.map((order) => (
                 <div
                   key={order.id}
-                  className="flex items-center border-b border-green-200 py-4"
+                  className="flex items-center border-b border-green-200 dark:border-green-700 py-4"
                 >
                   <img
                     src={order.img}
@@ -97,20 +97,20 @@ function UserHistory() {
                     className="w-20 h-20 rounded-lg"
                   />
                   <div className="ml-4 flex-grow">
-                    <h3 className="text-2xl text-green-900">
+                    <h3 className="text-2xl text-green-900 dark:text-green-200">
                       {order.itemName}
                     </h3>
-                    <p className="text-lg text-green-700">
+                    <p className="text-lg text-green-700 dark:text-slate-300">
                       ₹{order.price} x {order.quantity}
                     </p>
-                    <p className="text-sm text-green-600">
+                    <p className="text-sm text-green-600 dark:text-green-500">
                       Ordered on: {order.date}
                     </p>
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-green-700">No past orders</p>
+              <p className="text-green-700 dark:text-green-400">No past orders</p>
             )}
           </div>
         </div>

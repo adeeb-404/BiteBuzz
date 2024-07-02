@@ -12,7 +12,7 @@ function MenuPage() {
   console.log();
   const canteenId = useParams().canteenId;
   const canteenName = useSelector(
-    (state) => state.canteenInfo.data.find((ele) => ele._id === canteenId).name
+    (state) => state.canteenInfo.data.find((ele) => ele._id === canteenId)?.name
   );
 
   function handleClick() {
@@ -66,11 +66,13 @@ function MenuPage() {
     );
   }
 
+  function orderFood(){}
+
   return (
-    <div className="min-h-screen bg-green-50 py-10 px-4">
+    <div className="min-h-screen bg-green-50 py-10 px-4 dark:bg-[#121212]">
       <div className="flex justify-between mb-5">
         <button
-          className="py-2 px-4 bg-green-700 text-white rounded-lg hover:bg-green-800 transition duration-300"
+          className="py-2 px-4 bg-green-700  text-white rounded-lg hover:bg-green-800 transition duration-300"
           onClick={handleClick}
         >
           Back
@@ -82,14 +84,14 @@ function MenuPage() {
           History
         </Link>
       </div>
-      <h1 className="text-4xl font-bold text-green-900 mb-10 text-center">
+      <h1 className="text-4xl font-bold text-green-900 mb-10 text-center dark:text-green-200">
         Menu
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
         {menuItems.map((item) => (
           <div
             key={item._id}
-            className="bg-white p-5 rounded-lg shadow-lg hover:shadow-2xl transition duration-300 flex flex-col justify-between"
+            className="bg-white dark:bg-[#15292B] p-5 rounded-lg shadow-lg hover:shadow-2xl transition duration-300 flex flex-col justify-between"
           >
             <div>
               <img
@@ -98,18 +100,18 @@ function MenuPage() {
                 className="w-full h-40 object-cover rounded-lg mb-4"
               />
               <div className="flex justify-between items-center mb-2">
-                <h2 className="text-2xl font-semibold text-green-900">
+                <h2 className="text-2xl font-semibold text-green-900 dark:text-green-200">
                   {item.dishName}
                 </h2>
                 <div className="flex items-center">
                   <FaStar className="text-yellow-500 mr-1" />
-                  <span className="text-green-700">
+                  <span className="text-green-700 dark:text-green-400">
                     {item.rating.currRating}
                   </span>
                 </div>
               </div>
-              <p className="text-lg text-green-700 mb-4">₹{item.price}</p>
-              <p className="text-green-600">{item.description}</p>
+              <p className="text-lg text-green-700 dark:text-green-400 mb-4">₹{item.price}</p>
+              <p className="text-green-600 dark:text-slate-200">{item.description}</p>
             </div>
             {!item.userQuantity ? (
               <button
@@ -126,7 +128,7 @@ function MenuPage() {
                 >
                   <FaPlus className="size-3 text-white" />
                 </button>
-                <p>{item.userQuantity}</p>
+                <p className="text-black dark:text-white">{item.userQuantity}</p>
                 <button
                   className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300"
                   onClick={() => handleRemove(item)}
@@ -138,6 +140,9 @@ function MenuPage() {
           </div>
         ))}
       </div>
+        <button className="fixed bottom-5 right-4 bg-green-700 hover:bg-green-800 text-white px-5 py-2 mr-4 rounded-md " onClick={orderFood}>
+          Order Now
+        </button>
     </div>
   );
 }
