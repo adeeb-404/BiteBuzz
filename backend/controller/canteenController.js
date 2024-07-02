@@ -89,7 +89,7 @@ export async function displayOrders(req,res){
   if(!currentOrders){
     return res.json({"message":"No Pending Orders"});
   }
-  return res.json({currentOrders});
+  return res.json(currentOrders);
 }catch(err){
   return res.json(500);
 }
@@ -112,6 +112,10 @@ export async function orderComplete(req, res) {
     if (userOrders.length === 0) {
       return res.status(404).json({ message: "No orders found for this user" });
     }
+    await Canteen.findByIdAndUpdate(
+      canteen._id,
+      { $push: { history: { $each: userOrders } } }
+    );
 
     // Convert userOrders to plain objects and remove unnecessary fields
     userOrders = userOrders.map(orderGroup => {
@@ -123,10 +127,7 @@ export async function orderComplete(req, res) {
     });
 
     // Push the updated userOrders to the history in the canteen document
-    await Canteen.findByIdAndUpdate(
-      canteen._id,
-      { $push: { history: { $each: userOrders } } }
-    );
+   
 
     // Remove the user's orders from the current orders in the canteen document
     await Canteen.findByIdAndUpdate(
@@ -146,7 +147,7 @@ export async function orderComplete(req, res) {
       { $pull: { currOrders: { canteenName: canteen.name } } }
     );
 
-    return res.json(userOrders);
+    return res.json(canteen.currOrders);
 
   } catch (err) {
     console.error(err);

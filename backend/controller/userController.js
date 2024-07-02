@@ -119,7 +119,7 @@ export async function submitOrder(req, res) {
 
     const ordersArray = obj.orders.map((order) => ({
       _id: new mongoose.Types.ObjectId(),
-      
+      price:order.price,
       photo: order.photo,
       itemName: order.dishName, // Assuming dishName corresponds to itemName
       quantity: order.quantity,
