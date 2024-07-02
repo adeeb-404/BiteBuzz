@@ -31,6 +31,19 @@ export async function userAuth(req, res) {
   }
 }
 
+export async function profile(req,res){
+  const id=req.params.id;
+  // console.log(id);
+  let user=await User.findById(id);
+  user=user.toObject();
+  delete user.password;
+  delete user.history;
+  delete user.currOrders;
+
+  return res.json(user);
+
+}
+
 export async function changePassword(req, res) {
   try {
     const { userId, currentPassword, newPassword } = req.body;

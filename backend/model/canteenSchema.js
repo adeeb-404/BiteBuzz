@@ -50,6 +50,7 @@ const canteenSchema = new Schema({
         {
         // canteenName:{type:String},
         photo:String,
+        price:Number,
       itemName: { type: String },
       quantity: { type: Number, required: true },
       rating: {
@@ -69,9 +70,8 @@ const canteenSchema = new Schema({
       price: { type: Number},
       orders: [
         {
-          userID: { type: Schema.Types.ObjectId },
-          canteenID: { type: Schema.Types.ObjectId },
           photo:String,
+          price:Number,
           itemName: { type: String },
           quantity: { type: Number, required: true },
           rating: {
