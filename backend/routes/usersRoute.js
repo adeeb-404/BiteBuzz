@@ -13,9 +13,9 @@ const router = Router();
 
 router
   .post("/login", userAuth)
-  .post("/orders", submitOrder)
-  .get("/:id",profile)
   .get("/dashboard", dashboard)
+  .post("/orders", submitOrder)
+  .get("/:id", profile)
   .post("/settings", changePassword)
   .get("/:id", canteenMenu)
   .post("/:id/history", displayHistory);

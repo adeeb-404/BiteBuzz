@@ -22,7 +22,9 @@ function MenuPage() {
   useEffect(() => {
     async function getDashboard() {
       const userId = localStorage.getItem("student");
-      const response = await fetch(`http://localhost:5000/api/user/${userId}`);
+      const response = await fetch(
+        `http://localhost:5000/api/user/${userId}/profile`
+      );
       const data = await response.json();
       console.log(data);
       dispatch(userActions.setUser(data));
