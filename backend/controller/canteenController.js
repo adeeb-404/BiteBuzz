@@ -36,6 +36,19 @@ export async function canteenAuth(req, res) {
   }
 }
 
+export async function profile(req,res){
+  const canteenId=req.params.id;
+  try{
+  const canteen =await Canteen.findById(canteenId);
+  const body=canteen.toObject();
+  delete body.password;
+  delete body.history;
+  return res.json(body);
+  }catch(err){
+    return res.json(500);
+  }
+}
+
 export async function changePassword(req, res) {
   try {
     const { canteenId, currentPassword, newPassword } = req.body;
@@ -94,6 +107,19 @@ export async function displayOrders(req,res){
   return res.json(500);
 }
 }
+export async function displayHistory(req,res){
+  const obj=req.params.id;
+  console.log(obj);
+  const history=await Canteen.findById(obj,{History:true});
+  try{
+  if(!history){
+    return res.json({"message":"No History"});
+  }
+  return res.json(history);
+}catch(err){
+  return res.json(500);
+}
+}
 
 
 export async function orderComplete(req, res) {
@@ -146,8 +172,8 @@ export async function orderComplete(req, res) {
       userId._id,
       { $pull: { currOrders: { canteenName: canteen.name } } }
     );
-
-    return res.json(canteen.currOrders);
+      const updatedOrders=await Canteen.findById(canteen._id,{currOrders:true});
+    return res.json(updatedOrders);
 
   } catch (err) {
     console.error(err);
