@@ -36,15 +36,15 @@ export async function canteenAuth(req, res) {
   }
 }
 
-export async function profile(req,res){
-  const canteenId=req.params.id;
-  try{
-  const canteen =await Canteen.findById(canteenId);
-  const body=canteen.toObject();
-  delete body.password;
-  delete body.history;
-  return res.json(body);
-  }catch(err){
+export async function profile(req, res) {
+  const canteenId = req.params.id;
+  try {
+    const canteen = await Canteen.findById(canteenId);
+    const body = canteen.toObject();
+    delete body.password;
+    delete body.history;
+    return res.json(body);
+  } catch (err) {
     return res.json(500);
   }
 }
@@ -57,60 +57,66 @@ export async function changePassword(req, res) {
     const canteen = await Canteen.findById(canteenId);
 
     if (!canteen) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     // Compare currentPassword with user's current password
     if (currentPassword !== canteen.password.toString()) {
-      return res.status(400).json({ error: 'Current password is incorrect' });
+      return res.status(400).json({ error: "Current password is incorrect" });
     }
 
     // Update user's password to newPassword
-    const updatedPassword = await Canteen.findByIdAndUpdate(canteenId, { $set: { password: newPassword } }, { new: true });
+    const updatedPassword = await Canteen.findByIdAndUpdate(
+      canteenId,
+      { $set: { password: newPassword } },
+      { new: true }
+    );
 
     if (!updatedPassword) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
-    res.status(200).json({ message: 'Password updated successfully' });
+    res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
-    console.error('Error updating password:', error);
-    res.status(500).json({ error: 'Server error' });
+    console.error("Error updating password:", error);
+    res.status(500).json({ error: "Server error" });
   }
 }
 
-export async function displayStorage(req,res){
-  try{
+export async function displayStorage(req, res) {
+  try {
     // const obj=req.body;
-    const canteenId=req.params.id;
+    const canteenId = req.params.id;
     console.log(canteenId);
-    const storageArray=await Canteen.findById(canteenId,{storage:true,_id:false});
+    const storageArray = await Canteen.findById(canteenId, {
+      storage: true,
+      _id: false,
+    });
     console.log(storageArray);
     return res.json(storageArray);
-  }
-  catch(err){
+  } catch (err) {
     console.log(err);
-    return res.json(500)
+    return res.json(500);
   }
 }
 
-export async function displayOrders(req,res){
-  const obj=req.params.id;
+export async function displayOrders(req, res) {
+  const obj = req.params.id;
   console.log(obj);
-  const currentOrders=await Canteen.findById(obj,{currOrders:true});
-  try{
-  if(!currentOrders){
-    return res.json({"message":"No Pending Orders"});
+  const currentOrders = await Canteen.findById(obj, { currOrders: true });
+  try {
+    if (!currentOrders) {
+      return res.json({ message: "No Pending Orders" });
+    }
+    return res.json(currentOrders);
+  } catch (err) {
+    return res.json(500);
   }
-  return res.json(currentOrders);
-}catch(err){
-  return res.json(500);
 }
-}
-export async function displayHistory(req,res){
-  const obj=req.params.id;
+export async function displayHistory(req, res) {
+  const obj = req.params.id;
   console.log(obj);
-  const history=await Canteen.findById(obj,{history:true});
+  const history=await Canteen.findById(obj,{History:true});
   try{
   if(!history){
     return res.json({"message":"No History"});
@@ -121,11 +127,10 @@ export async function displayHistory(req,res){
 }
 }
 
-
 export async function orderComplete(req, res) {
   try {
     const obj = req.body;
-    const userId = await User.findOne({ usn: obj.usn }, '_id');
+    const userId = await User.findOne({ usn: obj.usn }, "_id");
     const canteen = await Canteen.findById(obj.canteenId);
 
     if (!canteen) {
@@ -133,18 +138,19 @@ export async function orderComplete(req, res) {
     }
 
     // Get the user's orders from the canteen's current orders
-    let userOrders = canteen.currOrders.filter(orderGroup => orderGroup.usn === obj.usn);
+    let userOrders = canteen.currOrders.filter(
+      (orderGroup) => orderGroup.usn === obj.usn
+    );
 
     if (userOrders.length === 0) {
       return res.status(404).json({ message: "No orders found for this user" });
     }
-    await Canteen.findByIdAndUpdate(
-      canteen._id,
-      { $push: { history: { $each: userOrders } } }
-    );
+    await Canteen.findByIdAndUpdate(canteen._id, {
+      $push: { history: { $each: userOrders } },
+    });
 
     // Convert userOrders to plain objects and remove unnecessary fields
-    userOrders = userOrders.map(orderGroup => {
+    userOrders = userOrders.map((orderGroup) => {
       orderGroup = orderGroup.toObject();
       delete orderGroup.name;
       delete orderGroup.usn;
@@ -153,49 +159,45 @@ export async function orderComplete(req, res) {
     });
 
     // Push the updated userOrders to the history in the canteen document
-   
 
     // Remove the user's orders from the current orders in the canteen document
-    await Canteen.findByIdAndUpdate(
-      canteen._id,
-      { $pull: { currOrders: { usn: obj.usn } } }
-    );
+    await Canteen.findByIdAndUpdate(canteen._id, {
+      $pull: { currOrders: { usn: obj.usn } },
+    });
 
     // Push the updated userOrders to the history in the user document
-    await User.findByIdAndUpdate(
-      userId._id,
-      { $push: { history: { $each: userOrders } } }
-    );
+    await User.findByIdAndUpdate(userId._id, {
+      $push: { history: { $each: userOrders } },
+    });
 
     // Remove the user's orders from the current orders in the user document
-    await User.findByIdAndUpdate(
-      userId._id,
-      { $pull: { currOrders: { canteenName: canteen.name } } }
-    );
-      const updatedOrders=await Canteen.findById(canteen._id,{currOrders:true});
+    await User.findByIdAndUpdate(userId._id, {
+      $pull: { currOrders: { canteenName: canteen.name } },
+    });
+    const updatedOrders = await Canteen.findById(canteen._id, {
+      currOrders: true,
+    });
     return res.json(updatedOrders);
-
   } catch (err) {
     console.error(err);
     return res.status(500).send("Error completing order");
   }
 }
 
-export async function updateMenu(req,res){
-const obj=req.body;
-console.log(obj);
-const canteenId=req.params.id;
-try{
-  const update=await Canteen.findByIdAndUpdate(canteenId,{"$push":{menu:obj}});
-  if(!update){
-    return res.json({"message":"Failed to update the menu"}).sendStatus(401);
+export async function updateMenu(req, res) {
+  const obj = req.body;
+  console.log(obj);
+  const canteenId = req.params.id;
+  try {
+    const update = await Canteen.findByIdAndUpdate(canteenId, {
+      $push: { menu: obj },
+    });
+    if (!update) {
+      return res.json({ message: "Failed to update the menu" }).sendStatus(401);
+    } else {
+      return res.json({ message: "items updated successfully to your menu" });
+    }
+  } catch (err) {
+    return res.json(500);
   }
-  else{
-    return res.json({"message":"items updated successfully to your menu"});
-  }
-}catch(err){
-  return res.json(500);
 }
-
-}
-

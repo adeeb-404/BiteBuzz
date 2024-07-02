@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
 import OrderBox from "./orderBox";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../store/CanteenUser";
 
 function CanteenDashboard({ index }) {
   const orderItems = useSelector((state) => state.canteen.currOrders);
+  const dispatch = useDispatch();
+
   if (index === null)
     return (
       <h1 className="py-5 text-green-900 dark:text-green-200 text-center w-[80%] h-full flex items-center justify-center text-[4rem]">
@@ -26,9 +29,9 @@ function CanteenDashboard({ index }) {
         body: JSON.stringify(obj),
       }
     );
-    console.log(response);
-    const data = response.json();
+    const data = await response.json();
     console.log(data);
+    dispatch(userActions.setCurrOrder(data));
   }
 
   return (

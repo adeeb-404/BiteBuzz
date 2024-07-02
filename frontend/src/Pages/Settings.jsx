@@ -2,13 +2,34 @@ import { useNavigate, useSubmit } from "react-router-dom";
 import { FaUser, FaBell, FaLock, FaRegEyeSlash } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import BackButton from "../Customs/BackButton";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { userActions } from "../store/CanteenUser.js";
+import { userActions as studentActions } from "../store/Studentuser.js";
 
 function SettingsPage() {
   const navigator = useNavigate();
   const submit = useSubmit();
+  const dispatch = useDispatch();
+  const doFetch = !useSelector((state) => state.canteen.name);
 
+  const isStudent = localStorage.getItem("student");
+
+  useEffect(() => {
+    async function getDashboard() {
+      let iD = localStorage.getItem("canteen");
+      if (isStudent) iD = localStorage.getItem("student");
+      const response = await fetch(
+        `http://localhost:5000/api/${
+          isStudent ? "user" : "canteen"
+        }/${iD}/profile`
+      );
+      const data = await response.json();
+      if (isStudent) dispatch(studentActions.setUser(data));
+      else dispatch(userActions.setUser(data));
+    }
+    if (doFetch) getDashboard();
+  });
   const [data, setData] = useState({
     currPassword: "",
     newPassword: "",
