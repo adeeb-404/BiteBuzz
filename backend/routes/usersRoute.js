@@ -13,11 +13,11 @@ const router = Router();
 
 router
   .post("/login", userAuth)
-  .post("/orders", submitOrder)
-  .get("/:id",profile)
   .get("/dashboard", dashboard)
-  .post("/settings", changePassword)
+  .get("/:id/profile",profile)
   .get("/:id", canteenMenu)
+  .post("/orders", submitOrder)
+  .post("/settings", changePassword)
   .post("/:id/history", displayHistory);
 
 export default router;

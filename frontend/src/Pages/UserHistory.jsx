@@ -130,35 +130,39 @@ function UserHistory() {
           </h2>
           <div className="bg-white dark:bg-[#181818] p-5 rounded-lg shadow-lg ">
             {totalOrders.currentOrders.length > 0 ? (
-              totalOrders.currentOrders[0].orders.map((order) => (
-                <div key={order._id}>
-                  <div
-                    key={order._id}
-                    className="flex items-center border-b border-green-200 dark:border-green-700 py-4"
-                  >
-                    <img
-                      src={order.photo}
-                      alt={order.itemName}
-                      className="w-20 h-20 rounded-lg"
-                    />
-                    <div className="ml-4 flex-grow">
-                      <h3 className="text-2xl text-green-900 dark:text-green-200">
-                        {order.itemName}
-                      </h3>
-                      <p className="text-lg text-green-700 dark:text-green-400">
-                        ₹{order.price} x {order.quantity}
-                      </p>
-                      <p className="text-sm text-green-600 dark:text-green-500">
-                        Expected Time: {order.expectedTime}
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      <FaClock className="text-green-500 dark:text-green-400 mr-2" />
-                      <span className="text-green-600 dark:text-green-500">
-                        15 mins
-                      </span>
-                    </div>
-                  </div>
+              totalOrders.currentOrders.map((orderGroup) => (
+                <div>
+                  {orderGroup.orders.map((order) => 
+                      <div key={order._id}>
+                        <div
+                          key={order._id}
+                          className="flex items-center border-b border-green-200 dark:border-green-700 py-4"
+                        >
+                          <img
+                            src={order.photo}
+                            alt={order.itemName}
+                            className="w-20 h-20 rounded-lg"
+                          />
+                          <div className="ml-4 flex-grow">
+                            <h3 className="text-2xl text-green-900 dark:text-green-200">
+                              {order.itemName}
+                            </h3>
+                            <p className="text-lg text-green-700 dark:text-green-400">
+                              ₹{order.price} x {order.quantity}
+                            </p>
+                            <p className="text-sm text-green-600 dark:text-green-500">
+                              Expected Time: {order.expectedTime}
+                            </p>
+                          </div>
+                          <div className="flex items-center">
+                            <FaClock className="text-green-500 dark:text-green-400 mr-2" />
+                            <span className="text-green-600 dark:text-green-500">
+                              15 mins
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                  )}
                 </div>
               ))
             ) : (

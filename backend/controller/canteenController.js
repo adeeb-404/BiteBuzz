@@ -110,7 +110,7 @@ export async function displayOrders(req,res){
 export async function displayHistory(req,res){
   const obj=req.params.id;
   console.log(obj);
-  const history=await Canteen.findById(obj,{History:true});
+  const history=await Canteen.findById(obj,{history:true});
   try{
   if(!history){
     return res.json({"message":"No History"});

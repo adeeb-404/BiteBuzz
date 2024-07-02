@@ -66,6 +66,8 @@ function CanteenHistory() {
   const history = useSelector((state) => state.canteen.history);
   const [orderedDetail] = useState(history);
 
+  console.log(orderedDetail);
+
   function handleClick() {
     navigate("..");
   }

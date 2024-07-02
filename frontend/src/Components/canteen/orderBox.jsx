@@ -4,7 +4,7 @@ function OrderBox({ foods }) {
   return (
     <div className="bg-green-200 dark:bg-[#282828] w-[12rem] h-[12rem] flex items-center flex-col rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg border-2 border-green-950 dark:border-green-900">
       <h1 className="pb-1 text-[1.5rem] font-semibold text-green-900 dark:text-green-200">
-        {foods.itemName}
+        {(foods.itemName.split(" ").length == 1)? foods.itemName :(foods.itemName.split(" ")[0] +" " + foods.itemName.split(" ")[1]) }
       </h1>
       <img
         src={foods.photo}
