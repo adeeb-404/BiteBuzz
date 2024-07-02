@@ -17,7 +17,7 @@ function MenuPage() {
     navigate("..");
   }
 
-  const doFetch = !useSelector((state) => state.canteen.name);
+  const doFetch = !useSelector((state) => state.user.name);
 
   useEffect(() => {
     async function getDashboard() {
@@ -25,10 +25,10 @@ function MenuPage() {
       const response = await fetch(`http://localhost:5000/api/user/${userId}`);
       const data = await response.json();
       console.log(data);
-      // dispatch(userActions.setUser(data));
+      dispatch(userActions.setUser(data));
     }
     if (doFetch) getDashboard();
-  });
+  }, [dispatch, doFetch]);
 
   useEffect(() => {
     dispatch(
@@ -155,11 +155,11 @@ function MenuPage() {
           </div>
         ))}
       </div>
-      <Link
-        className="fixed bottom-5 right-4 bg-green-700 hover:bg-green-800 text-white px-5 py-2 mr-4 rounded-md "
-        to="cart"
-      >
-        Order Now
+
+      <Link to="cart">
+        <button className="fixed bottom-5 right-4 bg-green-700 hover:bg-green-800 text-white px-5 py-2 mr-4 rounded-md ">
+          Order Now
+        </button>
       </Link>
     </div>
   );

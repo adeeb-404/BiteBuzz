@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { FaTrashAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../Customs/BackButton";
 import { useSelector } from "react-redux";
@@ -54,16 +53,16 @@ function Cart() {
   const [newOrderDetail, setNewOrderDetail] = useState(cart);
   const navigator = useNavigate();
 
+  function backButtonHandler() {
+    navigator("..");
+  }
+
   function handleConfirmClick() {
     setShowModal(true);
   }
 
   function handleCloseModal() {
     setShowModal(false);
-  }
-
-  function handleBackButton() {
-    navigator("..");
   }
 
   function handleConfirmOrder() {
@@ -89,7 +88,7 @@ function Cart() {
       <div className="flex items-center w-full">
         <BackButton
           className="mb-5 py-2 px-4 inline bg-green-700 dark:bg-green-600 text-white rounded-lg hover:bg-green-800 dark:hover:bg-green-700 transition duration-300 self-start"
-          onClick={handleBackButton}
+          onClick={backButtonHandler}
         >
           Back
         </BackButton>
