@@ -4,7 +4,8 @@ import { IoEyeOutline } from "react-icons/io5";
 import BackButton from "../Customs/BackButton";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { userActions } from "../store/CanteenUser";
+import { userActions } from "../store/CanteenUser.js";
+import { userActions as studentActions } from "../store/Studentuser.js";
 
 function SettingsPage() {
   const navigator = useNavigate();
@@ -12,14 +13,20 @@ function SettingsPage() {
   const dispatch = useDispatch();
   const doFetch = !useSelector((state) => state.canteen.name);
 
+  const isStudent = localStorage.getItem("student");
+
   useEffect(() => {
     async function getDashboard() {
-      const canteenId = localStorage.getItem("canteen");
+      let iD = localStorage.getItem("canteen");
+      if (isStudent) iD = localStorage.getItem("student");
       const response = await fetch(
-        `http://localhost:5000/api/canteen/${canteenId}/profile`
+        `http://localhost:5000/api/${
+          isStudent ? "user" : "canteen"
+        }/${iD}/profile`
       );
       const data = await response.json();
-      dispatch(userActions.setUser(data));
+      if (isStudent) dispatch(studentActions.setUser(data));
+      else dispatch(userActions.setUser(data));
     }
     if (doFetch) getDashboard();
   });

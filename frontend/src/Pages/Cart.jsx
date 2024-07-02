@@ -1,57 +1,16 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../Customs/BackButton";
 import { useSelector } from "react-redux";
 
-// const orderedDetail = {
-//   userID: "665dd595c3c0655ec83935f1",
-//   canteenID: "665e957182a6e5f22e0c3390",
-//   canteenName: "Red canteen",
-//   arrivalTime: "",
-//   price: 260,
-//   orders: [
-//     {
-//       rating: {
-//         currRating: 4.9,
-//         noOfRating: 10,
-//       },
-//       _id: "6682c0cb1f0737d5bde816d8",
-//       itemID: 0,
-//       quantity: 1,
-//       photo:
-//         "https://media.istockphoto.com/id/864607392/photo/image-of-a-glass-of-tea-in-street-market.webp?b=1&s=170667a&w=0&k=20&c=rOYheUoYiyQojSZidQLVcpQaWt9H8fnORYsWUMm8uZY=",
-//       description:
-//         "orem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, accusamus. Labore sequi nulla eum, atque tempora voluptate quo dignissimos rerum, itaque alias nam nisi reprehenderit odit aut eligendi dolor quisquam.",
-//       dishName: "Tea",
-//       price: 20,
-//       preparationTime: 5,
-//     },
-//     {
-//       rating: {
-//         currRating: 4.8,
-//         noOfRating: 40,
-//       },
-//       _id: "6682c0cb1f0737d5bde816d9",
-//       itemID: 4,
-//       dishName: "Paneer Butter Masala",
-//       quantity: 2,
-//       photo:
-//         "https://rakskitchen.net/wp-content/uploads/2012/07/paneer-butter-masala-recipe-500x500.jpg",
-//       description:
-//         "Paneer cubes cooked in a rich and creamy tomato-based gravy with butter and spices.",
-//       price: 120,
-//       preparationTime: 15,
-//     },
-//   ],
-// };
-
 function Cart() {
   const [showModal, setShowModal] = useState(false);
-  const [newArrivalTime, setNewArrivalTime] = useState("");
+  const [arrivalTime, setArrivalTime] = useState("");
   const cart = useSelector((state) => state.cart);
   const [orderedDetail] = useState(cart);
   const [newOrderDetail, setNewOrderDetail] = useState(cart);
   const navigator = useNavigate();
+  const canteenId = useParams().canteenId;
 
   function backButtonHandler() {
     navigator("..");
@@ -65,18 +24,22 @@ function Cart() {
     setShowModal(false);
   }
 
-  function handleConfirmOrder() {
-    // Update arrivalTime in newOrderDetail
-    const updatedOrderDetail = {
-      ...newOrderDetail,
-      arrivalTime: newArrivalTime,
-    };
+  async function handleConfirmOrder() {
+    setNewOrderDetail((prev) => {
+      return { ...prev, arrivalTime };
+    });
 
-    // Update newOrderDetail state
-    setNewOrderDetail(updatedOrderDetail);
+    setShowModal(() => false);
 
-    // Close the modal
-    setShowModal(false);
+    const response = await fetch("http://localhost:5000/api/user/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newOrderDetail),
+    });
+    console.log(response);
+    navigator(`/user/${canteenId}/history`);
   }
 
   useEffect(() => {
@@ -152,9 +115,9 @@ function Cart() {
               Arrival Time:
             </label>
             <input
-              type="text"
-              value={newArrivalTime}
-              onChange={(e) => setNewArrivalTime(e.target.value)}
+              type="time"
+              value={arrivalTime}
+              onChange={(e) => setArrivalTime(e.target.value)}
               className="w-full p-2 mb-4 border border-green-300 rounded"
             />
             <div className="flex justify-end gap-4">

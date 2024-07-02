@@ -29,8 +29,8 @@ function CanteenDashboard({ index }) {
         body: JSON.stringify(obj),
       }
     );
-    console.log(response);
     const data = await response.json();
+    console.log(data);
     dispatch(userActions.setCurrOrder(data));
   }
 
