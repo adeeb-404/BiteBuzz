@@ -67,7 +67,7 @@ function CanteenHistory() {
   return (
     <div className="bg-green-50 dark:bg-[#121212] min-h-screen py-10">
       <BackButton
-        className="mb-5 py-2 px-4 bg-green-700 dark:bg-green-600 text-white rounded-lg hover:bg-green-800 dark:hover:bg-green-700 transition duration-300"
+        className="mb-5 py-2 px-4 inline bg-green-700 dark:bg-green-600 text-white rounded-lg hover:bg-green-800 dark:hover:bg-green-700 transition duration-300"
         onClick={handleClick}
       >
         Back
