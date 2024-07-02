@@ -146,7 +146,7 @@ export async function orderComplete(req, res) {
       { $pull: { currOrders: { canteenName: canteen.name } } }
     );
 
-    return res.json(userOrders);
+    return res.json(canteen.currOrders);
 
   } catch (err) {
     console.error(err);
