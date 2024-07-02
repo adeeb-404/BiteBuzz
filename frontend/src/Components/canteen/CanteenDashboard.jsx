@@ -26,6 +26,7 @@ function CanteenDashboard({ index }) {
           return <OrderBox key={ind} foods={foods} />;
         })}
       </div>
+      <button className="bg-green-800 py-3 px-2 rounded-md text-white fixed bottom-5 right-5 hover:bg-green-900"  >Order Completed</button>
     </div>
   );
 }
