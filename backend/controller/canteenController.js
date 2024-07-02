@@ -89,7 +89,7 @@ export async function displayOrders(req,res){
   if(!currentOrders){
     return res.json({"message":"No Pending Orders"});
   }
-  return res.json({currentOrders});
+  return res.json(currentOrders);
 }catch(err){
   return res.json(500);
 }

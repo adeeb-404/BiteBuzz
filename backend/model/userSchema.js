@@ -23,6 +23,7 @@ const userSchema = new Schema({
           canteenName:{type:String},
           orders:[
             {
+              price:Number,
             photo:String,
           itemName: { type: String },
           quantity: { type: Number, required: true },
@@ -43,6 +44,7 @@ const userSchema = new Schema({
         orders:[
           {
           photo:String,
+          price:Number,
         itemName: { type: String },
         quantity: { type: Number, required: true },
         rating: {
