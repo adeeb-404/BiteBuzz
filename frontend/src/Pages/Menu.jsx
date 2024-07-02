@@ -4,12 +4,10 @@ import { FaStar, FaPlus, FaMinus } from "react-icons/fa";
 import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { initialize, addOrder, removeOrder } from "../store/Cart.js";
-
+import { userActions } from "../store/Studentuser.js";
 function MenuPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  console.log();
   const canteenId = useParams().canteenId;
   const canteenName = useSelector(
     (state) => state.canteenInfo.data.find((ele) => ele._id === canteenId)?.name
@@ -18,6 +16,19 @@ function MenuPage() {
   function handleClick() {
     navigate("..");
   }
+
+  const doFetch = !useSelector((state) => state.canteen.name);
+
+  useEffect(() => {
+    async function getDashboard() {
+      const userId = localStorage.getItem("student");
+      const response = await fetch(`http://localhost:5000/api/user/${userId}`);
+      const data = await response.json();
+      console.log(data);
+      // dispatch(userActions.setUser(data));
+    }
+    if (doFetch) getDashboard();
+  });
 
   useEffect(() => {
     dispatch(
@@ -66,8 +77,6 @@ function MenuPage() {
     );
   }
 
-  function orderFood(){}
-
   return (
     <div className="min-h-screen bg-green-50 py-10 px-4 dark:bg-[#121212]">
       <div className="flex justify-between mb-5">
@@ -110,8 +119,12 @@ function MenuPage() {
                   </span>
                 </div>
               </div>
-              <p className="text-lg text-green-700 dark:text-green-400 mb-4">₹{item.price}</p>
-              <p className="text-green-600 dark:text-slate-200">{item.description}</p>
+              <p className="text-lg text-green-700 dark:text-green-400 mb-4">
+                ₹{item.price}
+              </p>
+              <p className="text-green-600 dark:text-slate-200">
+                {item.description}
+              </p>
             </div>
             {!item.userQuantity ? (
               <button
@@ -128,7 +141,9 @@ function MenuPage() {
                 >
                   <FaPlus className="size-3 text-white" />
                 </button>
-                <p className="text-black dark:text-white">{item.userQuantity}</p>
+                <p className="text-black dark:text-white">
+                  {item.userQuantity}
+                </p>
                 <button
                   className="bg-green-700 hover:bg-green-800 h-8 w-10 flex justify-center items-center rounded-sm transition duration-300"
                   onClick={() => handleRemove(item)}
@@ -140,9 +155,12 @@ function MenuPage() {
           </div>
         ))}
       </div>
-        <button className="fixed bottom-5 right-4 bg-green-700 hover:bg-green-800 text-white px-5 py-2 mr-4 rounded-md " onClick={orderFood}>
-          Order Now
-        </button>
+      <Link
+        className="fixed bottom-5 right-4 bg-green-700 hover:bg-green-800 text-white px-5 py-2 mr-4 rounded-md "
+        to="cart"
+      >
+        Order Now
+      </Link>
     </div>
   );
 }
