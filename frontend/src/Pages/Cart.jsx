@@ -52,6 +52,9 @@ function Cart() {
   // const [items, setItems] = useState(cartItems);
   const navigator = useNavigate();
 
+  function backButtonHandler(){
+    navigator("..");
+  }
 
   function handleConfirmClick () {
     setShowModal(true);
@@ -82,7 +85,7 @@ function Cart() {
   return (
     <div className="relative min-h-screen w-screen flex flex-col items-center py-2 bg-green-50 dark:bg-[#121212]">
       <div className='flex items-center w-full'>
-        <BackButton className='mb-5 py-2 px-4 inline bg-green-700 dark:bg-green-600 text-white rounded-lg hover:bg-green-800 dark:hover:bg-green-700 transition duration-300 self-start'>
+        <BackButton className='mb-5 py-2 px-4 inline bg-green-700 dark:bg-green-600 text-white rounded-lg hover:bg-green-800 dark:hover:bg-green-700 transition duration-300 self-start' onClick={backButtonHandler}>
           Back
         </BackButton>
       </div>
