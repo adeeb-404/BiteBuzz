@@ -31,6 +31,9 @@ const canteenSlice = createSlice({
       state.rating = action.payload.rating;
       state._id = action.payload.id;
     },
+    setCurrOrder(state, action) {
+      state.currOrders = action.payload.currOrders;
+    },
     resetUser(state) {
       state.description = "";
       state.name = "";
