@@ -27,7 +27,9 @@ function HomeNav() {
     >
       <div className="logo flex items-center space-x-2 text-white">
         <div className="text-2xl font-bold">B</div>
-        <div className="hidden md:block text-xl font-semibold">BiteBuzz</div>
+        <Link to="/canteen">
+          <div className="hidden md:block text-xl font-semibold">BiteBuzz</div>
+        </Link>
       </div>
 
       <div className="flex flex-grow mx-4">

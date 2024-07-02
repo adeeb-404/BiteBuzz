@@ -128,7 +128,7 @@ function UserHistory() {
           <h2 className="text-3xl font-semibold text-green-900 dark:text-green-200 mb-4">
             Current Orders
           </h2>
-          <div className="bg-white dark:bg-[#181818] p-5 rounded-lg shadow-lg">
+          <div className="bg-white dark:bg-[#181818] p-5 rounded-lg shadow-lg ">
             {totalOrders.currentOrders.length > 0 ? (
               totalOrders.currentOrders[0].orders.map((order) => (
                 <div key={order._id}>

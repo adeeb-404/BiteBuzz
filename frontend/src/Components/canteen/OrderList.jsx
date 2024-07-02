@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 function OrderList({ setIndex }) {
   const orderItems = useSelector((state) => state.canteen.currOrders);
   return (
-    <div className="w-[20%] h-screen overflow-scroll border-2 border-green-950 bg-green-100 dark:bg-[#181818]">
+    <div className="w-[20%] h-screen overflow-scroll border-2 border-green-950 bg-green-100 dark:bg-[#181818] pb-20">
       <div className="h-fit flex gap-4 flex-col justify-center items-center">
         <h1 className="text-green-900 dark:text-green-200 font-bold text-2xl mt-4">
           Order List
