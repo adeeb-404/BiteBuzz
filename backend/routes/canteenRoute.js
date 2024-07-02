@@ -10,4 +10,5 @@ router.get("/:id/history",displayHistory)
 router.post("/:id/menu",updateMenu);
 router.post("/settings",changePassword);
 router.post("/orderComplete",orderComplete);    
+
 export default router;

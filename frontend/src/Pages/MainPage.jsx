@@ -14,7 +14,7 @@ function MainPage() {
   useEffect(() => {
     if (isinitial) return;
     async function f() {
-      const response = await fetch("http://localhost:5000/api/user/dashboard/");
+      const response = await fetch("http://localhost:5000/api/user/dashboard");
       const data = await response.json();
       console.log(data);
       dispatch(setCanteens(data));
