@@ -11,7 +11,9 @@ function OrderList({ setIndex }) {
         </h1>
 
         {orderItems.length == 0 ? (
-          <h1>No current Orders</h1>
+          <div className="flex justify-center items-center">
+            <h1 className="dark:text-green-100 text-xl">No current Orders</h1>
+          </div>
         ) : (
           orderItems.map((element, index) => {
             return (

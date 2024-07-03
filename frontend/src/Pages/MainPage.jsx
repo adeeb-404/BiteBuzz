@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { setCanteens } from "../store/Canteen.js";
 import { useDispatch } from "react-redux";
+import HomeNav from "../Components/homepage/HomeNav";
 
 let isinitial = false;
 function MainPage() {
@@ -25,6 +26,7 @@ function MainPage() {
 
   return (
     <>
+      <HomeNav />
       <div className="flex max-h-fit w-full bg-white dark:bg-[#0A0A0A]">
         <CanteenList onclick={setClickedId} />
         <Dashboard index={clickedId} />

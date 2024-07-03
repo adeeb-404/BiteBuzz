@@ -1,10 +1,18 @@
 import { useNavigate, useSubmit } from "react-router-dom";
-import { FaUser, FaBell, FaLock, FaRegEyeSlash } from "react-icons/fa";
+import {
+  FaUser,
+  FaBell,
+  FaLock,
+  FaRegEyeSlash,
+  FaMoon,
+  FaSun,
+} from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import BackButton from "../Customs/BackButton";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { userActions } from "../store/CanteenUser.js";
+import { useTheme } from "../darkmodecontext";
 import { userActions as studentActions } from "../store/Studentuser.js";
 
 function SettingsPage() {
@@ -14,7 +22,7 @@ function SettingsPage() {
   const doFetch = !useSelector((state) => state.canteen.name);
 
   const isStudent = localStorage.getItem("student");
-
+  const { darkMode, toggleDarkMode } = useTheme();
   useEffect(() => {
     async function getDashboard() {
       let iD = localStorage.getItem("canteen");
@@ -30,6 +38,7 @@ function SettingsPage() {
     }
     if (doFetch) getDashboard();
   });
+
   const [data, setData] = useState({
     currPassword: "",
     newPassword: "",
@@ -79,7 +88,7 @@ function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-green-50 dark:bg-[#121212] py-10 px-4">
+    <div className="min-h-screen bg-green-50 dark:bg-[#121212] py-10 px-4 transition duration-300">
       <BackButton
         className="mb-5 py-2 px-4 bg-green-700 dark:bg-green-600 text-white rounded-lg hover:bg-green-800 dark:hover:bg-green-700 transition duration-300"
         onClick={handleClick}
@@ -179,6 +188,31 @@ function SettingsPage() {
           </form>
         </div>
 
+        {/* Dark Mode Settings */}
+        <div className="bg-white dark:bg-[#181818] p-6 rounded-lg shadow-lg transition duration-300">
+          <div className="flex items-center mb-4">
+            <FaMoon className="text-green-700 dark:text-green-500 text-2xl mr-2" />
+            <h2 className="text-2xl font-semibold text-green-900 dark:text-green-200">
+              Dark Mode
+            </h2>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-green-700 dark:text-green-500">
+              Toggle Dark Mode
+            </span>
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 bg-green-700 dark:bg-green-600 text-white rounded-lg hover:bg-green-800 dark:hover:bg-green-700 transition duration-300"
+            >
+              {!darkMode ? (
+                <FaSun className="text-xl" />
+              ) : (
+                <FaMoon className="text-xl" />
+              )}
+            </button>
+          </div>
+        </div>
+
         {/* Account Security */}
         <div className="bg-white dark:bg-[#181818] p-6 rounded-lg shadow-lg">
           <div className="flex items-center mb-4">
@@ -195,8 +229,7 @@ function SettingsPage() {
               >
                 Current Password
               </label>
-
-              <div className="flex flex-row border border-green-300 dark:border-green-700 rounded-lg pr-2 focus-within:border-green-500 dark:focus-within:border-green-400">
+              <div className="flex flex-row border border-green-300 dark:border-green-700 rounded-lg pr-2 focus-within:border-green-500 dark:focus-within:border-green-400 transition duration-300">
                 <input
                   type={!passwordVisible.curr ? "password" : "text"}
                   id="currentPassword"
@@ -226,7 +259,7 @@ function SettingsPage() {
               >
                 New Password
               </label>
-              <div className="flex border border-green-300 dark:border-green-700 rounded-lg pr-2 focus-within:border-green-500 dark:focus-within:border-green-400">
+              <div className="flex flex-row border border-green-300 dark:border-green-700 rounded-lg pr-2 focus-within:border-green-500 dark:focus-within:border-green-400 transition duration-300">
                 <input
                   type={!passwordVisible.newPass ? "password" : "text"}
                   id="newPassword"
@@ -256,16 +289,16 @@ function SettingsPage() {
               >
                 Confirm New Password
               </label>
-              <div className="flex border border-green-300 dark:border-green-700 rounded-lg pr-2 focus-within:border-green-500 dark:focus-within:border-green-400">
+              <div className="flex flex-row border border-green-300 dark:border-green-700 rounded-lg pr-2 focus-within:border-green-500 dark:focus-within:border-green-400 transition duration-300">
                 <input
                   type={!passwordVisible.confirmPass ? "password" : "text"}
                   id="confirmPassword"
-                  className="w-full p-2 text-black dark:text-white focus:ring-0 focus:outline-none dark:bg-[#121212]"
                   name="confirmPassword"
                   value={data.confirmPassword}
                   onChange={handleChange}
                   minLength={6}
                   required
+                  className="w-full p-2 focus:ring-0 text-black dark:text-white focus:outline-none dark:bg-[#121212]"
                 />
                 <div
                   className="flex items-center justify-center cursor-pointer"

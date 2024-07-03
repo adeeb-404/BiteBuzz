@@ -12,6 +12,7 @@ function MenuPage() {
   const canteenName = useSelector(
     (state) => state.canteenInfo.data.find((ele) => ele._id === canteenId)?.name
   );
+  const showOrderNow = useSelector((state) => state.cart.orders).length > 0;
 
   function handleClick() {
     navigate("..");
@@ -158,11 +159,13 @@ function MenuPage() {
         ))}
       </div>
 
-      <Link to="cart">
-        <button className="fixed bottom-5 right-4 bg-green-700 hover:bg-green-800 text-white px-5 py-2 mr-4 rounded-md ">
-          Order Now
-        </button>
-      </Link>
+      {showOrderNow && (
+        <Link to="cart">
+          <button className="fixed bottom-5 right-4 bg-green-700 hover:bg-green-800 text-white px-5 py-2 mr-4 rounded-md ">
+            Order Now
+          </button>
+        </Link>
+      )}
     </div>
   );
 }

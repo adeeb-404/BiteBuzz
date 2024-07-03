@@ -4,7 +4,6 @@ import Canteen from "../model/canteenSchema.js";
 import { getStudentName, getStudentUSN } from "../utility/util.js";
 import mongoose from "mongoose";
 
-
 export async function userAuth(req, res) {
   console.log("In controller");
   const obj = req.body;
@@ -12,14 +11,14 @@ export async function userAuth(req, res) {
   // Implement your authentication logic here
   try {
     const user = await User.findOne(obj);
-    const listCanteens= await Canteen.find();
+    const listCanteens = await Canteen.find();
     console.log(user);
     if (!user) {
       return res
         .status(400)
         .json({ message: "Username or password is incorrect!" }); // Send 400 status response and return
     }
-    
+
     const userDoc = user.toObject();
     delete userDoc.password;
 
@@ -31,17 +30,16 @@ export async function userAuth(req, res) {
   }
 }
 
-export async function profile(req,res){
-  const id=req.params.id;
+export async function profile(req, res) {
+  const id = req.params.id;
   // console.log(id);
-  let user=await User.findById(id);
-  user=user.toObject();
+  let user = await User.findById(id);
+  user = user.toObject();
   delete user.password;
   delete user.history;
   delete user.currOrders;
 
   return res.json(user);
-
 }
 
 export async function changePassword(req, res) {
@@ -52,25 +50,29 @@ export async function changePassword(req, res) {
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     // Compare currentPassword with user's current password
     if (currentPassword !== user.password.toString()) {
-      return res.status(400).json({ error: 'Current password is incorrect' });
+      return res.status(400).json({ error: "Current password is incorrect" });
     }
 
     // Update user's password to newPassword
-    const updatedPassword = await User.findByIdAndUpdate(userId, { $set: { password: newPassword } }, { new: true });
+    const updatedPassword = await User.findByIdAndUpdate(
+      userId,
+      { $set: { password: newPassword } },
+      { new: true }
+    );
     console.log(updatedPassword);
     if (!updatedPassword) {
-      return res.status(404).json({ error: 'password not changed' });
+      return res.status(404).json({ error: "password not changed" });
     }
 
-    res.status(200).json({ message: 'Password updated successfully' });
+    res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
-    console.error('Error updating password:', error);
-    res.status(500).json({ error: 'Server error' });
+    console.error("Error updating password:", error);
+    res.status(500).json({ error: "Server error" });
   }
 }
 
@@ -104,7 +106,9 @@ export async function submitOrder(req, res) {
           const finalTime = new Date(currTime + time).toLocaleTimeString();
           const currentQuantity = findItem.menu[0].quantity;
           if (currentQuantity - quantity < 0) {
-            res.status(400).send("Not enough stock for item: " + obj.orders[i].dishName);
+            res
+              .status(400)
+              .send("Not enough stock for item: " + obj.orders[i].dishName);
             return;
           }
           obj.orders[i].expectedTime = finalTime;
@@ -117,8 +121,8 @@ export async function submitOrder(req, res) {
               "menu.dishName": obj.orders[i].dishName,
             },
             {
-              "$set": {
-                "menu.$.quantity": currentQuantity - quantity
+              $set: {
+                "menu.$.quantity": currentQuantity - quantity,
               },
             }
           );
@@ -132,7 +136,7 @@ export async function submitOrder(req, res) {
 
     const ordersArray = obj.orders.map((order) => ({
       _id: new mongoose.Types.ObjectId(),
-      price:order.price,
+      price: order.price,
       photo: order.photo,
       itemName: order.dishName, // Assuming dishName corresponds to itemName
       quantity: order.quantity,
@@ -146,7 +150,7 @@ export async function submitOrder(req, res) {
       name: user.name,
       usn: user.usn,
       arrivalTime: arrivalTime,
-      orders: ordersArray
+      orders: ordersArray,
     };
 
     res.json(responseBody);
@@ -154,7 +158,7 @@ export async function submitOrder(req, res) {
     try {
       await Canteen.findByIdAndUpdate(
         findCanteen._id,
-        { $push: { currOrders: responseBody } }  // Push responseBody to currOrders
+        { $push: { currOrders: responseBody } } // Push responseBody to currOrders
       );
 
       await User.findByIdAndUpdate(
@@ -176,12 +180,12 @@ export async function submitOrder(req, res) {
 
 export async function dashboard(req, res) {
   try {
-    const canteenDetails=await Canteen.aggregate([
+    const canteenDetails = await Canteen.aggregate([
       {
-        $unwind: "$menu"
+        $unwind: "$menu",
       },
       {
-        $sort: { "menu.rating": -1 }
+        $sort: { "menu.rating": -1 },
       },
       {
         $group: {
@@ -190,8 +194,8 @@ export async function dashboard(req, res) {
           photo: { $first: "$photo" },
           description: { $first: { $substrCP: ["$description", 0, 200] } },
           rating: { $first: "$rating" },
-          top5: { $push: "$menu" }
-        }
+          top5: { $push: "$menu" },
+        },
       },
       {
         $project: {
@@ -200,33 +204,29 @@ export async function dashboard(req, res) {
           photo: 1,
           description: 1,
           rating: 1,
-          top5: { $slice: ["$top5", 5] } // Limit to top 5 dishes per canteen
-        }
-      }
+          top5: { $slice: ["$top5", 5] }, // Limit to top 5 dishes per canteen
+        },
+      },
     ]);
 
     return res.json(canteenDetails);
-
   } catch (err) {
     console.error("Error fetching canteen details:", err);
   }
 }
 
-export async function canteenMenu(req,res){
-
-  try{
-    let id=req.params.id;
+export async function canteenMenu(req, res) {
+  try {
+    let id = req.params.id;
     // id=id.toString();
     // console.log(typeof(id));
-    const menuOfCanteen=await Canteen.findById(id,{menu:true,_id:false});
+    const menuOfCanteen = await Canteen.findById(id, {
+      menu: true,
+      _id: false,
+    });
 
     return res.json(menuOfCanteen);
-
-
-  }catch(err){
-
-  }
-
+  } catch (err) {}
 }
 
 export async function displayHistory(req, res) {
@@ -243,7 +243,7 @@ export async function displayHistory(req, res) {
 
     // Retrieve the canteen document to get the canteen name
     const canteen = await Canteen.findById(canteenId);
-    
+
     if (!canteen) {
       return res.status(404).json({ message: "Canteen not found" });
     }
@@ -251,18 +251,20 @@ export async function displayHistory(req, res) {
     const canteenName = canteen.name;
 
     // Filter the user's current orders for the specific canteen
-    const currentOrders = user.currOrders.filter(order => order.canteenName===canteenName);
+    const currentOrders = user.currOrders.filter(
+      (order) => order.canteenName === canteenName
+    );
     // Filter the user's order history for the specific canteen
-    const orderHistory = user.history.filter(history => history.canteenName === canteenName);
+    const orderHistory = user.history.filter(
+      (history) => history.canteenName === canteenName
+    );
 
     return res.json({
       currentOrders,
-      orderHistory
+      orderHistory,
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error retrieving order history" });
   }
 }
-  
