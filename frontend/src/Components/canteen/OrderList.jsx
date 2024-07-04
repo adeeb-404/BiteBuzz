@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 function OrderList({ setIndex }) {
   const orderItems = useSelector((state) => state.canteen.currOrders);
   return (
     <div className="w-[20%] h-screen overflow-scroll border-2 border-green-950 bg-green-100 dark:bg-[#181818] pb-20">
-      <div className="h-fit flex gap-4 flex-col justify-center items-center">
+      <motion.div
+        className="h-fit flex gap-4 flex-col justify-center items-center"
+        layout
+      >
         <h1 className="text-green-900 dark:text-green-200 font-bold text-2xl mt-4">
           Order List
         </h1>
@@ -17,9 +21,14 @@ function OrderList({ setIndex }) {
         ) : (
           orderItems.map((element, index) => {
             return (
-              <div
+              <motion.div
+                layout
                 key={index}
                 onClick={() => setIndex(index)}
+                initial={{ scale: [0, 1] }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ opacity: 0, y: 5 }}
+                transition={{ mass: 4, damping: 1 }}
                 className="h-fit w-[80%] flex flex-col justify-center items-center bg-green-200 dark:bg-[#282828] rounded-lg cursor-pointer transition duration-500 ease-in-out hover:bg-green-300 dark:hover:bg-[#3a3a3a] hover:text-green-900 hover:shadow-2xl group border-2 border-green-900 dark:border-green-700"
               >
                 <img
@@ -45,11 +54,11 @@ function OrderList({ setIndex }) {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }
