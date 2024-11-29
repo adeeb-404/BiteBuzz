@@ -5,7 +5,7 @@ https://bite-buzz-19a3.vercel.app/
 for logging in use,
 
 USN: 4ni21is004
-password: password4
+,password: password4
 
 BiteBuzz is a fresh and innovative full-stack web application built using the MERN stack (MongoDB, Express.js, React, and Node.js). It is designed to streamline the canteen ordering process, providing users with a seamless experience for browsing menus, placing orders, and tracking their order history.
 
